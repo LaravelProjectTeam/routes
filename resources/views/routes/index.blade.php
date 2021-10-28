@@ -4,29 +4,81 @@
 
 @section('content')
     <div class="container">
+        <h1>Всички директни пътища</h1>
+
         <table class="table">
             <thead>
                 <tr>
                     <th>Номер</th>
-                    <th>До град ИД</th>
-                    <th>От град ИД</th>
+                    <th>От град</th>
+                    <th>До град</th>
                     <th>Нужни минути</th>
+                    <th>Вид</th>
                     <th>Създаден на</th>
                     <th>Обновен на</th>
+                    <th>Редактирай</th>
+                    <th>Изтрий</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($routes as $route)
                     <tr>
-                        <th>{{ $route->id }}</th>
-                        <td>{{ $route->to_node_id }}</td>
-                        <td>{{ $route->from_node_id }}</td>
+                        <td><a href="{{ route('routes.show', $route->id) }}">{{ $route->id }}</a></td>
+                        <td>#{{ $route->from->id  }} - {{ $route->from->name }}</td>
+                        <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
                         <td>{{ $route->minutes_needed }}</td>
+                        <td>{{ $route->type->name }}</td>
                         <td>{{ $route->created_at }}</td>
                         <td>{{ $route->updated_at }}</td>
+                        <td><a class="button is-warning is-small" href="{{ route('routes.edit', $route->id) }}">Редактирай [ADMIN]</a></td>
+                        <td>
+                            <form action="{{ route('routes.destroy', $route->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="button is-danger is-small" type="submit">Изтрий [ADMIN]</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
+        <h1>Намери най-краткият път между два града</h1>
+        <form action="{{ route('routes.search') }}" method="post">
+            <div class="columns">
+                @csrf
+                @method('post')
+
+                <div class="column is-one-third">
+                    <h3>
+                        <label for="from">Начало</label>
+                    </h3>
+                    <div class="select is-small">
+                        <select id="from" name="from">
+                            @foreach($towns as $town)
+                                <option>{{ $town->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="column is-one-third">
+                    <h3>
+                        <label for="to">Край</label>
+                    </h3>
+                    <div class="select is-small">
+                        <select id="to" name="to">
+                            @foreach($towns as $town)
+                                <option>{{ $town->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="column is-one-third">
+                    <button class="button is-info is-small" type="submit">Търси</button>
+                </div>
+            </div>
+        </form>
     </div>
 @endsection

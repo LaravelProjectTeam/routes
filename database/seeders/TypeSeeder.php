@@ -16,17 +16,17 @@ class TypeSeeder extends Seeder
     public function run()
     {
         DB::table('types')->insert([
-            'name' => 'rural',
+            'name' => 'селски',
             'hardship_level' => 4,
             'created_at' => Carbon::now(),
         ]);
         DB::table('types')->insert([
-            'name' => 'highway',
+            'name' => 'магистрален',
             'hardship_level' => 2,
             'created_at' => Carbon::now(),
         ]);
         DB::table('types')->insert([
-            'name' => 'mountainous',
+            'name' => 'планински',
             'hardship_level' => 6,
             'created_at' => Carbon::now(),
         ]);

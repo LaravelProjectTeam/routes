@@ -12,18 +12,19 @@ class Edge extends Model
     protected $fillable = [
         'from_node_id',
         'to_node_id',
+        'minutes_needed',
         'type_id',
     ];
 
-    public function fromNodeId() {
-        return $this->hasOne(Node::class);
+    public function from() {
+        return $this->belongsTo(Node::class, 'from_node_id');
     }
 
-    public function toNodeId() {
-        return $this->hasOne(Node::class);
+    public function to() {
+        return $this->belongsTo(Node::class, 'to_node_id');
     }
 
-    public function typeId() {
-        return $this->hasOne(Type::class);
+    public function type() {
+        return $this->belongsTo(Type::class, 'type_id');
     }
 }

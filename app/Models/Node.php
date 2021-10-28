@@ -14,6 +14,6 @@ class Node extends Model
     ];
 
     public function edge() {
-        return $this->belongsTo(Edge::class);
+        return $this->hasOne(Edge::class, 'edge_id');
     }
 }
