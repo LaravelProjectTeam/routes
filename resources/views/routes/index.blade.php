@@ -85,14 +85,8 @@
             </div>
         </form>
 
-        @if ($message ?? '')
-            <table class="table mt-2">
-                <tbody>
-                <tr>
-                    <td>{{ $message }}</td>
-                </tr>
-                </tbody>
-            </table>
-        @endif
+        <div class="mt-2">
+            {{ $message ?? '' }}
+        </div>
     </div>
 @endsection
