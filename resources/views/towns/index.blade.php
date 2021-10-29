@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Всички градове</h1>
+        <h1 class="ml-2">Всички градове</h1>
 
         <table class="table">
             <thead>
@@ -38,7 +38,7 @@
         </table>
         {{--        todo: move in admin panel, users should not CRUD towns, only admins--}}
         <div class="buttons">
-            <a class="button is-primary is-small" href="{{ route('towns.create') }}">Създай [ADMIN]</a>
+            <a class="button is-primary is-small ml-2" href="{{ route('towns.create') }}">Създай [ADMIN]</a>
 {{--            <a class="button is-warning is-small">Редактирай [ADMIN]</a>--}}
 {{--            <a class="button is-danger is-small">Изтрий [ADMIN]</a>--}}
         </div>

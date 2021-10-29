@@ -5,14 +5,14 @@
 {{--            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">--}}
         </a>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <a role="button" class="navbar-burger" id="burger">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="nav-links" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="{{ route("home.index") }}">
                 Начало
@@ -49,11 +49,11 @@
                         </form>
                     @else
 {{--                        <a class="button is-outlined is-info" href="{{ route("register") }}">--}}
-                        <a class="button is-outlined is-info">
+                        <a class="button is-outlined is-info is-small">
                             Регистрация
                         </a>
 {{--                        <a class="button is-outlined is-primary" href="{{ route("login") }}">--}}
-                        <a class="button is-outlined is-primary">
+                        <a class="button is-outlined is-primary is-small">
                             Вход
                         </a>
                     @endauth

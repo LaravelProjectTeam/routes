@@ -34,7 +34,7 @@
         </table>
         {{--        todo: move in admin panel, users should not CRUD towns, only admins--}}
         <div class="buttons">
-            <a class="button is-link is-small" href="{{ route('towns.index') }}">Начало</a>
+            <a class="button is-link is-small ml-2" href="{{ route('towns.index') }}">Начало</a>
         </div>
     </div>
 @endsection

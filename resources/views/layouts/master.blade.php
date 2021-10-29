@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
+    <title>{{ config('app.name', 'Маршрути') }} | @yield('title')</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href=" {{ asset('css/styles.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
-{{--    <title>Маршрути | </title>--}}
 </head>
 <body class="body">
     <nav>
