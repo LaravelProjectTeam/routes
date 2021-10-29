@@ -38,17 +38,22 @@
             <div class="navbar-item">
                 <div class="buttons">
                     @auth
-                        <a class="button is-primary">
-                            <strong>My Profile</strong>
+                        <a class="button is-outlined is-primary" href="{{ route("dashboard") }}">
+                            Профил
                         </a>
-                        <a class="button is-primary">
-                            <strong>Log out</strong>
-                        </a>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            @method('post')
+
+                            <button class="button is-outlined is-danger" type="submit">Излез</button>
+                        </form>
                     @else
-                        <a class="button is-primary">
-                            <strong>Регистрация</strong>
+{{--                        <a class="button is-outlined is-info" href="{{ route("register") }}">--}}
+                        <a class="button is-outlined is-info">
+                            Регистрация
                         </a>
-                        <a class="button is-light">
+{{--                        <a class="button is-outlined is-primary" href="{{ route("login") }}">--}}
+                        <a class="button is-outlined is-primary">
                             Вход
                         </a>
                     @endauth

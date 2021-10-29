@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', $result)
+@section('title', $message)
 
 @section('content')
     <div class="container">
@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ $result ?? '' }}</td>
+                    <td>{{ $message }}</td>
                 </tr>
             </tbody>
         </table>

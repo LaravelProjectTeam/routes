@@ -43,33 +43,37 @@
             </tbody>
         </table>
 
-        <h1>Намери най-краткият път между два града</h1>
+        <h1>Намери най-краткият маршрут между два града</h1>
         <form action="{{ route('routes.search') }}" method="post">
             <div class="columns">
                 @csrf
                 @method('post')
 
                 <div class="column is-one-third">
-                    <h3>
+                    <h4>
                         <label for="from">Начало</label>
-                    </h3>
+                    </h4>
                     <div class="select is-small">
-                        <select id="from" name="from">
+                        <select id="from" name="from" >
                             @foreach($towns as $town)
-                                <option>{{ $town->name }}</option>
+                                <option value="{{ $town->name }}" {{ ($from ?? '') === $town->name ? 'selected' : '' }}>
+                                    {{ $town->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
                 <div class="column is-one-third">
-                    <h3>
+                    <h4>
                         <label for="to">Край</label>
-                    </h3>
+                    </h4>
                     <div class="select is-small">
                         <select id="to" name="to">
                             @foreach($towns as $town)
-                                <option>{{ $town->name }}</option>
+                                <option value="{{ $town->name }}"{{ ($to ?? '') === $town->name ? 'selected' : '' }}>
+                                    {{ $town->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -80,5 +84,15 @@
                 </div>
             </div>
         </form>
+
+        @if ($message ?? '')
+            <table class="table mt-2">
+                <tbody>
+                <tr>
+                    <td>{{ $message }}</td>
+                </tr>
+                </tbody>
+            </table>
+        @endif
     </div>
 @endsection
