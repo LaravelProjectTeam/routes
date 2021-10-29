@@ -5,7 +5,6 @@ https://csacademy.com/app/graph_editor/
 <Graph indexType="custom" height="400" width="400" nodes={[{options:{circleAttr:{radius:27}},label:"Vratsa",center:{x:199.9,y:121.1}},{options:{circleAttr:{radius:27}},label:"Sofia",center:{x:167.8,y:194.6}},{options:{circleAttr:{radius:27}},label:"Pekin",center:{x:248.9,y:182.6}},{options:{circleAttr:{radius:27}},label:"Pleven",center:{x:217.9,y:258.4}},{options:{circleAttr:{radius:27}},label:"Chirpan",center:{x:297.3,y:246.6}},{options:{circleAttr:{radius:27}},label:"Plovdiv",center:{x:139.9,y:268.2}}]} edges={[{label:"30",source:0,target:1},{label:"2",source:1,target:2},{label:"15",source:2,target:3},{label:"3",source:2,target:4},{label:"10",source:4,target:3}]} />
 
 ## Tests
-
 [Vratsa, Vratsa] | from [Vratsa] to [Vratsa] | Distance: 0 - [yes]
 [Vratsa, Sofia] | from: [Vratsa] to [Sofia] | Vratsa, Sofia | Distance: 30 - [yes]
 [Vratsa, Pekin] | from: [Vratsa] to [Pekin] | Vratsa, Sofia, Pekin | Distance: 32 - [yes]

@@ -10,13 +10,13 @@ const Chirpan = 'Chirpan';
 const Plovdiv = 'Plovdiv';
 
 $graph = Taniko\Dijkstra\Graph::create();
-$graph
-    ->add(Vratsa, Sofia, 30)
-    ->add(Sofia, Pekin, 2)
-    ->add(Pekin, Pleven, 15)
-    ->add(Pekin, Chirpan, 3)
-    ->add(Chirpan, Pleven, 10)
-    ->add(Plovdiv, Plovdiv, 0);
+
+$graph->add(Vratsa, Sofia, 30);
+$graph->add(Sofia, Pekin, 2);
+$graph->add(Pekin, Pleven, 15);
+$graph->add(Pekin, Chirpan, 3);
+$graph->add(Chirpan, Pleven, 10);
+$graph->add(Plovdiv, Plovdiv, 0);
 
 $from = Pleven;
 $to = Chirpan;
