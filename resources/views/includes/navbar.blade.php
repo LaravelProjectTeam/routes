@@ -23,7 +23,7 @@
             <a class="navbar-item" href="{{ route("routes.index") }}">
                 Маршрути (потребители)
             </a>
-            <a class="navbar-item">
+            <a class="navbar-item" href="{{ route("contacts.create") }}">
                 Контакти
             </a>
             <a class="navbar-item">
