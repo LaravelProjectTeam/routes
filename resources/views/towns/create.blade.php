@@ -23,7 +23,7 @@
 
                    <div class="form-group">
                        <label class="label" for="name">Име</label>
-                       <input class="input is-primary is-small" id="name" name="name" type="text" >
+                       <input class="input is-primary is-small" id="name" name="name" type="text" value="{{ old('name') }}" >
                    </div>
 
                    <div class="buttons mt-2">
