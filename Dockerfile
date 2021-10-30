@@ -20,7 +20,7 @@ COPY . /app
 RUN composer install
 
 CMD php artisan config:cache
-# CMD php artisan migrate:refresh
-# CMD php artisan db:seed --class=TypeSeeder
+#CMD php artisan migrate:refresh
+#CMD php artisan db:seed --class=TypeSeeder
 
 CMD php artisan serve --host=0.0.0.0 --port=$PORT
