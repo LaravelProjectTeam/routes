@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
 Route::resource('towns', TownController::class);
 Route::resource('routes', RouteController::class);
 Route::resource('contacts', ContactController::class);

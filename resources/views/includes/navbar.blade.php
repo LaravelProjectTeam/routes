@@ -33,7 +33,6 @@
                 Административен панел
             </a>
         </div>
-
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">

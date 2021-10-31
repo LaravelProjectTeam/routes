@@ -12,7 +12,7 @@ RUN docker-php-ext-install zip && docker-php-ext-configure intl && docker-php-ex
 
 # Add MySQL and Postgres/pgsql support
 # RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
-RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo_pgsql pgsql
+RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo_pgsql pgsql
 
 WORKDIR /app
 COPY . /app

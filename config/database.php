@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Str;
 
+// Use MySQL locally, and PostgreSQL everywhere else
 $db_connection = env('APP_ENV') === 'local' ? 'mysql' : 'pgsql';
 
 return [

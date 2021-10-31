@@ -12,6 +12,7 @@
 {{--    {{$_SERVER['SERVER_NAME']}}--}}
 {{--    -----}}
 {{--    {{$_SERVER['PHP_SELF']}}--}}
+
     <div class="container">
         <section class="hero is-primary">
             <div class="hero-body">
