@@ -13,5 +13,7 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-archive/notes.txt
+
 run/var
+/archive/
+archive/notes.txt

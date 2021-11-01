@@ -3,6 +3,7 @@
 @section('title', 'Начало')
 
 @section('content')
+
 {{--    {{$_SERVER['SERVER_SOFTWARE']}}--}}
 {{--    -----}}
 {{--    {{$_SERVER['SERVER_PROTOCOL']}}--}}

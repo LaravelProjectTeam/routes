@@ -1,42 +1,16 @@
-version: '3.7'
+version: '3.5'
 
 services:
-    app:
+    laravel-app:
         build:
-            context: .
-            dockerfile: Dockerfile
-        container_name: app
-        restart: unless-stopped
-        tty: true
-        working_dir: /var/www
+            context: '.'
+#            args:
+#                uid: ${UID}
+        container_name: laravel-app
+#        environment:
+#            - APACHE_RUN_USER=#${UID}
+#            - APACHE_RUN_GROUP=#${UID}
         volumes:
-            - ./:/var/www
-            - ./deploy/php/local.ini:/usr/local/etc/php/conf.d/local.ini
-#        ports:
-#            - '${APP_PORT:-80}:1999'
-        networks:
-            - app-network
-#        depends_on:
-#            - nginx
-
-    webserver:
-        image: nginx:alpine
-        container_name: webserver
-        restart: unless-stopped
-        tty: true
+            - .:/var/www/html
         ports:
-            - "8180:80"
-            - "8143:443"
-
-#            - "8080:80"
-#            - "80:80"
-#            - "443:443"
-        volumes:
-            - ./:/var/www
-            - ./deploy/nginx/conf.d/:/etc/nginx/conf.d/
-        networks:
-            - app-network
-
-networks:
-    app-network:
-        driver: bridge
+            - 8000:80

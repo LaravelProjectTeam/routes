@@ -1,82 +1,100 @@
-FROM php:8-fpm as build-stage
+FROM php:8-apache
 
-#ARG PORT
-
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/
-
-# Set working directory
-WORKDIR /var/www
-
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
+#install all the system dependencies and enable PHP modules
+RUN apt-get update -y && apt-get install -y \
+    g++ \
+    git \
+    zip \
+    curl \
+    nano \
+    vim \
+    sudo \
+    unzip \
+    libicu-dev \
+    libbz2-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libmcrypt-dev \
+    libreadline-dev \
+    libfreetype6-dev \
     libzip-dev \
     libpq-dev \
-    libpng-dev \
-    libonig-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    nginx \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl \
-    sudo
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Add MySQL and Postgres/pgsql support
+# RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
+#RUN docker-php-ext-install pdo
+#RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo_pgsql pgsql
 
-# Install extensions
-#RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-install mbstring zip exif pcntl
+#set our application folder as an environment variable
+#ENV APP_HOME /var/www/html
 
-# RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+# 2. apache configs + document root
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# temp disabled
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
-RUN docker-php-ext-install gd
+# 3. mod_rewrite for URL rewrite and mod_headers for .htaccess extra headers like Access-Control-Allow-Origin-
+RUN a2enmod rewrite headers
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# 4. start with base php config, then add extensions
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-# install pdo, pgsql
-RUN docker-php-ext-install pdo
-RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo_pgsql pgsql
+RUN docker-php-ext-install \
+    bz2 \
+    intl \
+    iconv \
+    bcmath \
+    opcache \
+    calendar \
+    zip
 
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+#mbstring \
+#pdo_mysql \
 
-# Copy existing application directory contents
-COPY . /var/www
+#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy existing application directory permissions
-COPY --chown=www:www . /var/www
-RUN chown -R www-data:www-data /var/www
+# permission stuff
+#ARG uid
+#RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
+#RUN mkdir -p /home/devuser/.composer && \
+#    chown -R devuser:devuser /home/devuser
 
-#RUN useradd -m www && echo "www:www" | chpasswd && adduser www sudo
-RUN adduser www sudo
+COPY . /var/www/html
+RUN cd /var/www/html && composer install && php artisan key:generate
 
-# Change current user to www
-USER www
+RUN echo "Heroku Port is: " + "$PORT";
 
-# Expose port 9000 and start php-fpm server
-#EXPOSE 9000
-ENV PORT=$PORT
+#COPY run-apache2.sh /var/www/html/run-apache2.sh
+#RUN chmod +x /var/www/html/run-apache2.sh
+CMD [ "/var/www/html/run-apache2.sh" ]
 
-#FROM nginx:alpine
-#COPY --from=build-stage /usr/src/app/_site/ /usr/share/nginx/html
+#ENTRYPOINT []
+#CMD sed -i "s/80/$PORT/g" /etc/apache2/sites-enabled/000-default.conf /etc/apache2/ports.conf && docker-php-entrypoint apache2-foreground
+#CMD sed -i "s/80/$PORT/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && docker-php-entrypoint apache2-foreground
+#RUN sed -i "s/Listen 80/Listen $PORT/g" /etc/apache2/ports.conf
 
-# 1
-COPY deploy/nginx/conf.d/app.conf /etc/nginx/conf.d/default.conf
-CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
+#CMD php artisan config:cache
+#CMD php artisan migrate:refresh --seed --force
+#CMD php artisan db:seed --class=TypeSeeder
 
-# 2
-#CMD ["php-fpm"]
+#CMD php artisan migrate:refresh
+#CMD php artisan db:seed --class=TypeSeeder
+#CMD php artisan serve --host=0.0.0.0 --port=$PORT
+#CMD vendor/bin/heroku-php-apache2 public/
 
-# 3
-#CMD ["nginx", "-g", "daemon off;"]
+# make port 5000 available to the world outside this container
+#EXPOSE 5000
+
+# update apache port at runtime for Heroku
+#ENTRYPOINT []
+
+#COPY ./apache-config/ports.conf /etc/apache2/ports.conf
+#COPY ./apache-config/000-default.conf /etc/apache2/sites-available/000-default.conf
+#CMD docker-php-entrypoint apache2-foreground
+
+#CMD sed -i "s/80/$PORT/g" /etc/apache2/sites-enabled/000-default.conf /etc/apache2/ports.conf && docker-php-entrypoint apache2-foreground
+#CMD sed -i "s/Listen 80/Listen $PORT/g" /etc/apache2/ports.conf
+#RUN sed -i "s/Listen 80/Listen $PORT/g" /etc/apache2/ports.conf
