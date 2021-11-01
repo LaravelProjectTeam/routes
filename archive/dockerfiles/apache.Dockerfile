@@ -47,7 +47,7 @@ RUN sed -i -e "s/html/html\/public/g" /etc/apache2/sites-enabled/000-default.con
 RUN a2enmod rewrite
 
 #copy source files and run composer
-COPY . $APP_HOME
+COPY ../.. $APP_HOME
 
 # install all PHP dependencies
 RUN composer install --no-interaction
