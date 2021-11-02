@@ -1,3 +1,5 @@
 archive/*
 deployment-script.sh
 .editorconfig
+/node_modules/
+/vendor/

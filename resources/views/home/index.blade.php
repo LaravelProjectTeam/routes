@@ -3,17 +3,6 @@
 @section('title', 'Начало')
 
 @section('content')
-
-{{--    {{$_SERVER['SERVER_SOFTWARE']}}--}}
-{{--    -----}}
-{{--    {{$_SERVER['SERVER_PROTOCOL']}}--}}
-{{--    -----}}
-{{--    {{$_SERVER['REMOTE_ADDR']}}--}}
-{{--    -----}}
-{{--    {{$_SERVER['SERVER_NAME']}}--}}
-{{--    -----}}
-{{--    {{$_SERVER['PHP_SELF']}}--}}
-
     <div class="container">
         <section class="hero is-primary">
             <div class="hero-body">
