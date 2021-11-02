@@ -1,17 +1,43 @@
-version: '3.5'
+version: "2"
 
-# todo: clean-up, use mysql
 services:
-    laravel-app:
-        build:
-            context: '.'
-#            args:
-#                uid: ${UID}
-        container_name: laravel-app
-#        environment:
-#            - APACHE_RUN_USER=#${UID}
-#            - APACHE_RUN_GROUP=#${UID}
-        volumes:
-            - .:/var/www/html
-        ports:
-            - 8000:80
+  laravel-app:
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_DATABASE=routes-db
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_PASSWORD=""
+#      - MYSQL_HOST=db
+    container_name: laravel-app
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8000:80"
+    networks:
+      - laravel-app-network
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=routes-db
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_PASSWORD=""
+#      - MYSQL_HOST=db
+    volumes:
+      - "./db:/var/lib/mysql"
+    networks:
+      - laravel-app-network
+
+networks:
+  laravel-app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

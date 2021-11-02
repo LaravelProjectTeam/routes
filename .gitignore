@@ -14,6 +14,7 @@ yarn-error.log
 /.idea
 /.vscode
 
-run/var
-/archive/
-archive/notes.txt
+server/archive/
+server/confs/
+server/php/
+db/

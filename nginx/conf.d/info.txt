@@ -1,1 +1,0 @@
-template configuration file for use with nginx
