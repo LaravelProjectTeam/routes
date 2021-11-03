@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\TownController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +24,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::resource('towns', TownController::class);
 Route::resource('routes', RouteController::class);
 Route::resource('contacts', ContactController::class);
+Route::resource('users', UserController::class);
+
 
 Route::post('routes/search', [RouteController::class, 'search'])->name('routes.search');
