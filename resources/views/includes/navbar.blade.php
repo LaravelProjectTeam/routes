@@ -47,8 +47,8 @@
                             <button class="button is-outlined is-danger" type="submit">Излез</button>
                         </form>
                     @else
-{{--                        <a class="button is-outlined is-info" href="{{ route("register") }}">--}}
-                        <a class="button is-outlined is-info is-small">
+{{--                        <a class="button is-outlined is-info" href="{{ route("register") }}>--}}
+                        <a href="{{route('users.create')}}" class="button is-outlined is-info is-small">
                             Регистрация
                         </a>
 {{--                        <a class="button is-outlined is-primary" href="{{ route("login") }}">--}}
