@@ -61,11 +61,6 @@ RUN chown -R www-data:www-data /var/www
 
 RUN cd /var/www/html && npm instal && composer install
 
-# Optimizing Configuration, Route loading
-#RUN php artisan config:clear
-#RUN php artisan cache:clear
-#RUN php artisan view:cache
-
 #RUN cd /var/www/html && php artisan migrate:fresh --seed
 
 #RUN chown -R www-data:www-data /var/www/html
