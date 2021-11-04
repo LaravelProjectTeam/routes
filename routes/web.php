@@ -28,3 +28,7 @@ Route::resource('users', UserController::class);
 
 
 Route::post('routes/search', [RouteController::class, 'search'])->name('routes.search');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
