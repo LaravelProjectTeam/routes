@@ -9,7 +9,6 @@ services:
       - MYSQL_DATABASE=routes-db
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
       - MYSQL_PASSWORD=""
-#      - MYSQL_HOST=db
     container_name: laravel-app
     volumes:
       - ./:/var/www/html
@@ -28,7 +27,6 @@ services:
       - MYSQL_DATABASE=routes-db
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
       - MYSQL_PASSWORD=""
-#      - MYSQL_HOST=db
     volumes:
       - "./db:/var/lib/mysql"
     networks:

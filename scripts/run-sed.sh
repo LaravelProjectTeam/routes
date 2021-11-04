@@ -5,6 +5,7 @@ echo "$APACHE_DOCUMENT_ROOT"
 
 #: ${APACHE_DOCUMENT_ROOT}=/var/www/html/public}
 
+
 echo "2 - "
 echo "$APACHE_DOCUMENT_ROOT"
 
