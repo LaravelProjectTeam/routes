@@ -37,7 +37,7 @@
             <div class="navbar-item">
                 <div class="buttons">
                     @auth
-                        <a class="button is-outlined is-primary" href="{{ route("dashboard") }}">
+                        <a class="button is-outlined is-primary" >
                             Профил
                         </a>
                         <form action="{{ route('logout') }}" method="post">
@@ -47,12 +47,17 @@
                             <button class="button is-outlined is-danger" type="submit">Излез</button>
                         </form>
                     @else
+<<<<<<< Updated upstream
 {{--                        <a class="button is-outlined is-info" href="{{ route("register") }}>--}}
                         <a href="{{route('users.create')}}" class="button is-outlined is-info is-small">
+=======
+{{--                        <a class="button is-outlined is-info"  >--}}
+                        <a class="button is-outlined is-info is-small" href="{{ route('register') }}" >
+>>>>>>> Stashed changes
                             Регистрация
                         </a>
-{{--                        <a class="button is-outlined is-primary" href="{{ route("login") }}">--}}
-                        <a class="button is-outlined is-primary is-small">
+{{--                        <a class="button is-outlined is-primary" >--}}
+                        <a class="button is-outlined is-primary is-small" href="{{ route('login') }}">
                             Вход
                         </a>
                     @endauth
