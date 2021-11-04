@@ -46,29 +46,21 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validated = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|max:255',
+            'email' => 'required|email|max:255',
             'subject' => 'required|max:255',
             'message' => 'required|max:1000',
         ]);
 
 //        todo: translate errors in bulgarian
-        if ($validator->fails()) {
-            return redirect('contacts/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-
-        $validated = $validator->validated();
         $sendgrid_name = getenv('SENDGRID_NAME');
         $sendgrid_email = getenv('SENDGRID_EMAIL');
 
         $email = new Mail();
         $email->setFrom($sendgrid_email, $sendgrid_name);
         $email->setSubject($validated['subject']);
-        $email->addTo($sendgrid_email, $sendgrid_name);
+        $email->addTo($sendgrid_email);
 
         $msg = "От: " . $validated['name'] . "\n" . 'Имейл: ' . $validated['email'] . "\n" . "Тема: " . $validated['subject'] . "\n";
         $msg .= "Съобщение: " . $validated['message'];
