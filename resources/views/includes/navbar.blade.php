@@ -29,7 +29,7 @@
             <a class="navbar-item">
                 Обратна връзка
             </a>
-            <a class="navbar-item has-text-success">
+            <a class="navbar-item has-text-success" href="admins.index" >
                 Административен панел
             </a>
         </div>
@@ -47,13 +47,9 @@
                             <button class="button is-outlined is-danger" type="submit">Излез</button>
                         </form>
                     @else
-<<<<<<< Updated upstream
 {{--                        <a class="button is-outlined is-info" href="{{ route("register") }}>--}}
-                        <a href="{{route('users.create')}}" class="button is-outlined is-info is-small">
-=======
 {{--                        <a class="button is-outlined is-info"  >--}}
                         <a class="button is-outlined is-info is-small" href="{{ route('register') }}" >
->>>>>>> Stashed changes
                             Регистрация
                         </a>
 {{--                        <a class="button is-outlined is-primary" >--}}
