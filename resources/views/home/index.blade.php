@@ -1,18 +1,16 @@
 @extends('layouts.master')
 
-@section('title', 'Начало')
+@section('title', 'Routes')
 
 @section('content')
     <div class="container">
         <section class="hero is-primary">
             <div class="hero-body">
                 <p class="title">
-                    Маршрути
+                    {{ __('Routes') }}
                 </p>
                 <p class="subtitle">
-                    Това е проект за маршрути, най-кратки пътища и т.н.
-                    Още информация за проекта...
-                    🚧
+                    {{ __('This is a project about routes. shortest path and etc... More project info... WIP.') }} 🚧
                 </p>
             </div>
         </section>

@@ -14,7 +14,13 @@ yarn-error.log
 /.idea
 /.vscode
 
+bootstrap/cache/
 server/archive/
 server/confs/
 server/php/
 db/
+
+composer.lock
+package-lock.json
+
+.directory

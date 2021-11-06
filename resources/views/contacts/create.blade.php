@@ -7,7 +7,7 @@
         <div class="columns is-mobile is-centered">
             <div class="column is-half">
                 <h1 class="mt-3">Контакти</h1>
-                <p>Тук може да ни пишете при проблеми, препоръки и обратна връзка.</p>
+                <p>{{ __('You could use this form to write us an email. Use it if you have any problems, concerns, feedback or recommendations!') }}</p>
 
 {{--                todo: improve error displaying --}}
                 <form action="{{ route('contacts.store') }}" method="post">
