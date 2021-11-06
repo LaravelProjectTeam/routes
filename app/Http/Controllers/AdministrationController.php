@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AdministrationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +13,9 @@ class UserController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
-        // return view('authentication.register');
-=======
-        $users = User::all();
-        return view('administration.index', compact('users'));
->>>>>>> Stashed changes
+    //    $users = User::all();
+    //    return view('admins.index', compact('users'));
+    //За сега го оставяме и работим в user controller
     }
 
     /**
@@ -29,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('authentication.register');   
+        //
     }
 
     /**
@@ -40,18 +36,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User;
-        $user->create(['name' => $request->username, 'email' => $request->email, 'password'=>$request->password]);
-        return redirect()->route('home.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
         //
     }
@@ -59,10 +53,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
         //
     }
@@ -71,10 +65,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -82,10 +76,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //
     }
