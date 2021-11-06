@@ -11,6 +11,11 @@ class FillingStation extends Model
 
     protected $fillable = ['name'];
 
+    public function edge()
+    {
+        return $this->belongsTo(Edge::class, 'edge_id');
+    }
+
     public function fuels()
     {
         return $this->belongsToMany(

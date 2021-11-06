@@ -17,10 +17,10 @@ class Edge extends Model
         'max_speed',
     ];
 
-//    public function fillingStations()
-//    {
-//        return $this->hasMany(FillingStation::class, '')
-//    }
+    public function fillingStations()
+    {
+        return $this->hasMany(FillingStation::class, 'filling_station_id');
+    }
 
     public function from() {
         return $this->belongsTo(Node::class, 'from_node_id');
