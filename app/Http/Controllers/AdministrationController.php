@@ -15,7 +15,7 @@ class AdministrationController extends Controller
     {
     //    $users = User::all();
     //    return view('admins.index', compact('users'));
-    //За сега го оставяме и работим в user controller
+    //За сега го оставяме и работим в user controller....
     }
 
     /**
