@@ -14,7 +14,13 @@ class Edge extends Model
         'to_node_id',
         'minutes_needed',
         'type_id',
+        'max_speed',
     ];
+
+//    public function fillingStations()
+//    {
+//        return $this->hasMany(FillingStation::class, '')
+//    }
 
     public function from() {
         return $this->belongsTo(Node::class, 'from_node_id');

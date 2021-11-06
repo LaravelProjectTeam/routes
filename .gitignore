@@ -19,6 +19,7 @@ server/archive/
 server/confs/
 server/php/
 db/
+notes.txt
 
 composer.lock
 package-lock.json
