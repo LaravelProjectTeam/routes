@@ -14,7 +14,9 @@ yarn-error.log
 /.idea
 /.vscode
 notes.txt
+
 run/var
 /db/
 /storage/debugbar/
 /server/archive/
+

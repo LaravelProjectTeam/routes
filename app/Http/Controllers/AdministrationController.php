@@ -13,9 +13,11 @@ class AdministrationController extends Controller
      */
     public function index()
     {
+
     //    $users = User::all();
     //    return view('admins.index', compact('users'));
     //За сега го оставяме и работим в user controller....
+
     }
 
     /**

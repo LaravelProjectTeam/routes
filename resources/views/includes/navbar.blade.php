@@ -29,7 +29,9 @@
             <a class="navbar-item">
                 Обратна връзка
             </a>
+
             <a class="navbar-item has-text-success" href="{{ route("users.index") }}" >
+
                 Административен панел
             </a>
         </div>

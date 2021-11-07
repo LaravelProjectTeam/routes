@@ -14,12 +14,10 @@ class UserController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
         // return view('authentication.register');
-=======
+
         $users = User::all();
         return view('administration.index', compact('users'));
->>>>>>> Stashed changes
     }
 
     /**
