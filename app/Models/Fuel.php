@@ -9,6 +9,8 @@ class Fuel extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
+
     protected $fillable = ['name'];
 
     public function fillingStations()

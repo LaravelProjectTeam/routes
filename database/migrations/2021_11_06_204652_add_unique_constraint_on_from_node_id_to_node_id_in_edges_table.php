@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMaxSpeedToEdgesTable extends Migration
+class AddUniqueConstraintOnFromNodeIdToNodeIdInEdgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddMaxSpeedToEdgesTable extends Migration
     public function up()
     {
         Schema::table('edges', function (Blueprint $table) {
-            $table->bigInteger("max_speed");
+            $table->unique(array('from_node_id', 'to_node_id'));
         });
     }
 
@@ -26,7 +26,7 @@ class AddMaxSpeedToEdgesTable extends Migration
     public function down()
     {
         Schema::table('edges', function (Blueprint $table) {
-            $table->dropColumn('max_speed');
+            $table->dropUnique(array('from_node_id', 'to_node_id'));
         });
     }
 }

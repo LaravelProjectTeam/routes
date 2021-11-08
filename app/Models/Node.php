@@ -9,11 +9,14 @@ class Node extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
+
     protected $fillable = [
         'name',
     ];
 
-    public function edge() {
+    public function edge()
+    {
         return $this->hasOne(Edge::class, 'edge_id');
     }
 }
