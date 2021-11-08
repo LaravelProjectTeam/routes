@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="ml-2">Всички градове</h1>
+        <h1 class="ml-2">Всички потребители</h1>
 
         <table class="table">
             <thead>
@@ -29,10 +29,33 @@
                         <td>{{ $user->created_at }}</td>
 
 
-                        <th>{{ $user->id }}</th>
                         
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
+                        <td>
+                            <div class="dropdown is-hoverable">
+                              <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                                  <span><?= $user->admin == 1 ? 'admin' : 'user' ?></span>
+                                  <span class="icon is-small">
+                                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                  </span>
+                                </button>
+                              </div>
+                              <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                                <div class="dropdown-content">
+                                  <div class="dropdown-item">
+                                    <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </td>
+                        <td>
+                            <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                                @csrf
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="button is-danger"> Delete </button>
+                            </form>
+                        </td>
                         
 
                     </tr>
