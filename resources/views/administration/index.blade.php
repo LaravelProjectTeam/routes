@@ -26,7 +26,7 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->created_at }}</td>
+                        <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
 
 
                         
@@ -43,7 +43,7 @@
                               <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                                 <div class="dropdown-content">
                                   <div class="dropdown-item">
-                                    <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
+                                    <p><a href="{{route('users.edit',$user->id)}}">Make this user admin/user</a></strong></p>
                                   </div>
                                 </div>
                               </div>
