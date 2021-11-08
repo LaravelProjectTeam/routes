@@ -17,63 +17,6 @@ use function GuzzleHttp\Promise\all;
 
 class RouteController extends Controller
 {
-    function sampling($chars, $size, $combinations = array())
-    {
-        # if it's the first iteration, the first set
-        # of combinations is the same as the set of characters
-        if (empty($combinations)) {
-            $combinations = $chars;
-        }
-
-        # we're done if we're at size 1
-        if ($size == 1) {
-            return $combinations;
-        }
-
-        # initialise array to put new values in
-        $new_combinations = array();
-
-        # loop through existing combinations and character set to create strings
-        foreach ($combinations as $combination) {
-            foreach ($chars as $char) {
-                $new_combinations[] = $combination . $char;
-            }
-        }
-
-        # call same function again for the next iteration
-        return $this->sampling($chars, $size - 1, $new_combinations);
-    }
-
-//// example
-//$chars = array('a', 'b', 'c');
-//$output = sampling($chars, 2);
-
-// $chars = array('a', 'b', 'c');
-// $output = sampling($chars, 2);
-//var_dump($output);
-    /*
-    array(9) {
-      [0]=>
-      string(2) "aa"
-      [1]=>
-      string(2) "ab"
-      [2]=>
-      string(2) "ac"
-      [3]=>
-      string(2) "ba"
-      [4]=>
-      string(2) "bb"
-      [5]=>
-      string(2) "bc"
-      [6]=>
-      string(2) "ca"
-      [7]=>
-      string(2) "cb"
-      [8]=>
-      string(2) "cc"
-    }
-    */
-
     /**
      * Display a listing of the resource.
      *
@@ -81,8 +24,11 @@ class RouteController extends Controller
      */
     public function index()
     {
-        // todo: optimize
-        $routes = Edge::all();
+//        $routes = Edge::all();
+//        $towns = Node::all();
+
+        // eager loading data models using less queries
+        $routes = Edge::with('to', 'from', 'type')->get();
         $towns = Node::all();
 
         return view('routes.index', compact('routes', 'towns'));
@@ -99,7 +45,8 @@ class RouteController extends Controller
         $to = $request->get('to');
 
 //       load all paths / edges with the needed data
-        $allEdges = Edge::with(['fillingStations', 'fillingStations.fuels'])->get();
+        $allEdges = Edge::with(['from', 'to', 'type', 'fillingStations', 'fillingStations.fuels'])->get();
+//        $allEdges = Edge::with(['fillingStations', 'fillingStations.fuels'])->get();
 
 //    Бензиностация Shell предлага горивата: дизел, пропан.
 //    Бензиностация Eco предлага горивата: пропан.
@@ -107,10 +54,7 @@ class RouteController extends Controller
 //    Бензиностация Petrol предлага горивата: биодизел, пропан.
 //    Бензиностация Lukoil предлага горивата: бензин, дизел, пропан.
 
-        // create the graph, used for finding the shortest path later
-
-
-//        [3] => Бензиностация Shell предлага горивата: дизел, пропан.
+//    Бензиностация Shell предлага горивата: дизел, пропан.
 //    Бензиностация Eco предлага горивата: пропан.
 //    Бензиностация OMV предлага горивата: бензин, биодизел, електрически.
 //    Бензиностация Petrol предлага горивата: биодизел, пропан.
@@ -120,6 +64,7 @@ class RouteController extends Controller
         $fullRouteInformation = null;
         $allStationsOnAllEdges = [];
 
+        // only do this when needed
         if ($from !== $to) {
             // go over all the edges in the database
             foreach ($allEdges as $edge) {
@@ -131,7 +76,7 @@ class RouteController extends Controller
                     $fuels = $fillingStation->fuels;
 
                     foreach ($fuels as $fuel) {
-                        $fillingStationFuels[] =  $fuel->name;
+                        $fillingStationFuels[] = $fuel->name;
                     }
 
                     $fillingStationInfo =
@@ -142,6 +87,8 @@ class RouteController extends Controller
 //                echo "<br>1 >> <br>".  $fillingStationInfo . " | " . $edge->from->name . " => ". $edge->to->name . " | <br><br>" ;
                     $key = ($edge->from->name . $edge->to->name);
 //                echo $key . '<br><br>';
+//                     todo: check the following concern
+//                     this may be a problem with multiple filling stations on this edge
                     $allStationsOnAllEdges[$key] = $fillingStationInfo;
                 }
 
@@ -154,10 +101,7 @@ class RouteController extends Controller
             }
         }
 
-
-
 //        dd($allStationsOnAllEdges);
-
         $message = 'За да стигнете от ' . $from . ' до ' . $to;
         if ($from === $to) {
             $message .= ' са нужни ' . '0 минути.';
@@ -167,29 +111,29 @@ class RouteController extends Controller
                 // get the shortest path from and to
                 $route = $graph->search($from, $to);
 
-                // generate possible paths in the formats:
+                // generate valid paths in the formats:
                 // fromto
                 // tofrom
-                $possibleValidPaths = [];
+                $validPaths = [];
                 for ($index = 0; $index < count($route) - 1; $index++) {
                     $pathBothWays1 = $route[$index] .  $route[$index + 1];
-                    $possibleValidPaths[] = $pathBothWays1;
+                    $validPaths[] = $pathBothWays1;
                 }
 
                 for ($idx = count($route) - 2; $idx >= 0; $idx--) {
                     $pathBothWays2 = $route[$idx + 1] .  $route[$idx];
-                    $possibleValidPaths[] = $pathBothWays2;
+                    $validPaths[] = $pathBothWays2;
                 }
 
                 // transform to the format
                 // [ "fromto" => "fromto", "tofrom" => "tofrom" ]
                 $paths = [];
-                foreach($possibleValidPaths as $val){
-                    $paths[$val] = $val;
+                foreach($validPaths as $validPath){
+                    $paths[$validPath] = $validPath;
                 }
 
                 $fullRouteInformation = array_intersect_key($allStationsOnAllEdges,$paths);
-//                dd(array_fill_keys($possibleValidPaths,1), $route, $allStationsOnAllEdges);
+//                dd(array_fill_keys($validPaths,1), $route, $allStationsOnAllEdges);
 //                dd($paths,$route,$allStationsOnAllEdges,array_intersect_key($allStationsOnAllEdges,$paths));
 
                 $cost = $graph->cost($route);
@@ -206,7 +150,7 @@ class RouteController extends Controller
             }
         }
 
-        $routes = Edge::all();
+        $routes = Edge::with('to', 'from', 'type')->get();
         $towns = Node::all();
 
 //        return redirect('routes.index')->with(compact('routes', 'from', 'to', 'towns', 'message', 'fullRouteInformation'));
@@ -237,10 +181,10 @@ class RouteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id)
     {
         // todo: improve
         $route = Edge::findOrFail($id);
