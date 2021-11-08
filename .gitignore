@@ -13,6 +13,12 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+
+bootstrap/cache/
+server/archive/
+server/confs/
+server/php/
+db/
 notes.txt
 
 run/var
