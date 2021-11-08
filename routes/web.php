@@ -25,8 +25,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::resource('towns', TownController::class);
 Route::resource('routes', RouteController::class);
 Route::resource('contacts', ContactController::class);
-Route::resource('users', UserController::class);
-Route::resource('admins', AdministrationController::class);
+
+//Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::prefix('admin')->group(function () {
+    Route::resource('users', UserController::class);
+//Route::resource('admins', AdministrationController::class);
+});
 
 Route::post('routes/search', [RouteController::class, 'search'])->name('routes.search');
 

@@ -14,7 +14,6 @@ yarn-error.log
 /.idea
 /.vscode
 
-bootstrap/cache/
 server/archive/
 server/confs/
 server/php/
