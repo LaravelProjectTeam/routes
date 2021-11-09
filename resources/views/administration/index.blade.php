@@ -11,18 +11,17 @@
             <tr>
                 <th>Номер</th>
                 <th>Име</th>
-
                 <th>Емайл</th>
+                <th>Админ</th>
                 <th>Създаден на</th>
-
                 <th>Редактирай</th>
                 <th>Изтрий</th>
+{{--                <th>Запази</th>--}}
             </tr>
             </thead>
             <tbody>
                 @foreach($users as $user)
                     <tr>
-
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
@@ -46,8 +45,8 @@
                                     <p><a href="{{route('users.edit',$user->id)}}">Make this user admin/user</a></strong></p>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
+                                <button type="submit" class="button is-success">Save</button>
+                            </form>
                         </td>
                         <td>
                             <form action="{{ route('users.destroy', $user->id) }}" method="post">
@@ -56,8 +55,6 @@
                                 <button type="submit" class="button is-danger"> Delete </button>
                             </form>
                         </td>
-                        
-
                     </tr>
                 @endforeach
             </tbody>

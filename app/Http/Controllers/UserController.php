@@ -74,7 +74,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        User::where('id', '=', $user['id'])->update(['admin' => $request->get('admin')]);
+
+        $users = User::all();
+        return view('administration.index', compact('users'));
     }
 
     /**
