@@ -25,25 +25,19 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
-
-
-                        
+                        <td>{{ $user->admin == 0 ? 'Потребител' : 'Админ' }}</td>
+                        <td>{{ $user->created_at }}</td>
                         <td>
-                            <div class="dropdown is-hoverable">
-                              <div class="dropdown-trigger">
-                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-                                  <span><?= $user->admin == 1 ? 'admin' : 'user' ?></span>
-                                  <span class="icon is-small">
-                                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                                  </span>
-                                </button>
-                              </div>
-                              <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-                                <div class="dropdown-content">
-                                  <div class="dropdown-item">
-                                    <p><a href="{{route('users.edit',$user->id)}}">Make this user admin/user</a></strong></p>
-                                  </div>
+                            <form action="{{ route('users.update', $user->id) }}" method="post">
+                                @csrf
+                                @method('put')
+                                <div class="select">
+                                    <label for="admin">
+                                        <select id="admin" name="admin">
+                                            <option value="1" {{ $user->admin ? 'selected' : '' }}>Admin</option>
+                                            <option value="0" {{ !$user->admin ? 'selected' : '' }}>User</option>
+                                        </select>
+                                    </label>
                                 </div>
                                 <button type="submit" class="button is-success">Save</button>
                             </form>
