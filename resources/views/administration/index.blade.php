@@ -11,43 +11,44 @@
             <tr>
                 <th>Номер</th>
                 <th>Име</th>
-
                 <th>Емайл</th>
+                <th>Админ</th>
+                <th>Добави вид гориво</th>
                 <th>Създаден на</th>
-
                 <th>Редактирай</th>
                 <th>Изтрий</th>
+{{--                <th>Запази</th>--}}
             </tr>
             </thead>
             <tbody>
                 @foreach($users as $user)
                     <tr>
-
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->created_at }}</td>
-
-
-                        
+                        <td>{{ $user->admin == 0 ? 'Потребител' : 'Админ' }}</td>
                         <td>
-                            <div class="dropdown is-hoverable">
-                              <div class="dropdown-trigger">
-                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-                                  <span><?= $user->admin == 1 ? 'admin' : 'user' ?></span>
-                                  <span class="icon is-small">
-                                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                                  </span>
-                                </button>
-                              </div>
-                              <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-                                <div class="dropdown-content">
-                                  <div class="dropdown-item">
-                                    <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
-                                  </div>
+                          <div class="buttons">
+                            <a href="{{route('fuels.create')}}"><button type="submit" class="button is-info">Добави</button></a>
+                            <a href="{{route('fuels.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
+                          </div>
+                        </td>
+                        </td>
+                        <td> {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
+                        <td>
+                            <form action="{{ route('users.update', $user->id) }}" method="post">
+                                @csrf
+                                @method('put')
+                                <div class="select">
+                                    <label for="admin">
+                                        <select id="admin" name="admin">
+                                            <option value="1" {{ $user->admin ? 'selected' : '' }}>Admin</option>
+                                            <option value="0" {{ !$user->admin ? 'selected' : '' }}>User</option>
+                                        </select>
+                                    </label>
                                 </div>
-                              </div>
-                            </div>
+                                <button type="submit" class="button is-success">Save</button>
+                            </form>
                         </td>
                         <td>
                             <form action="{{ route('users.destroy', $user->id) }}" method="post">
@@ -56,8 +57,6 @@
                                 <button type="submit" class="button is-danger"> Delete </button>
                             </form>
                         </td>
-                        
-
                     </tr>
                 @endforeach
             </tbody>

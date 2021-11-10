@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Routes')
+@section('title', 'Начало')
 
 @section('content')
     <div class="container">

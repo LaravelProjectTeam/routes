@@ -26,10 +26,9 @@
             <a class="navbar-item" href="{{ route("contacts.create") }}">
                 Контакти
             </a>
-            <a class="navbar-item">
-                Обратна връзка
-            </a>
-
+{{--            <a class="navbar-item">--}}
+{{--                Обратна връзка--}}
+{{--            </a>--}}
             <a class="navbar-item has-text-success" href="{{ route("users.index") }}" >
 
                 Административен панел

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Fuel;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class FuelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // return view('authentication.register');
-
-        $users = User::all();
-        return view('administration.index', compact('users'));
+        $fuels = Fuel::all();
+        return view('fuels.index',compact('fuels'));
     }
 
     /**
@@ -27,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('authentication.register');
+        return view('fuels.create');
     }
 
     /**
@@ -38,18 +36,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User;
-        $user->create(['name' => $request->username, 'email' => $request->email, 'password'=>$request->password]);
-        return redirect()->route('home.index');
+        $fuel = new Fuel;
+        $fuel->create(['name'=>$request->fuel_name]);
+        return redirect()->route('fuels.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Fuel  $fuel
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Fuel $fuel)
     {
         //
     }
@@ -57,38 +55,37 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Fuel  $fuel
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Fuel $fuel)
     {
-        return view('administration.edit');
+        return view('fuels.edit',compact('fuel'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Fuel  $fuel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Fuel $fuel)
     {
-        User::where('id', '=', $user['id'])->update(['admin' => $request->get('admin')]);
-
-        $users = User::all();
-        return view('administration.index', compact('users'));
+        $fuel->name=$request->fuel_name;
+        $fuel->save();
+        return redirect()->route('fuels.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Fuel  $fuel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Fuel $fuel)
     {
-        $user->delete();
-        return redirect()->route('users.index');
+        $fuel->delete();
+        return redirect()->route('fuels.index');
     }
 }

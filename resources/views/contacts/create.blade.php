@@ -7,8 +7,13 @@
         <div class="columns is-mobile is-centered">
             <div class="column is-half">
                 <h1 class="mt-3">Контакти</h1>
-                <p>{{ __('You could use this form to write us an email. Use it if you have any problems, concerns, feedback or recommendations!') }}</p>
-
+                <p>
+                    {{
+                        'Можете да използвате тази форма, за да ни изпратите имейл съобщение.
+                         Не се колебайте да ни пишете при проблеми със сайта или ако искате да дадете обратна връзка /
+                         да направите предложение!'
+                    }}
+                </p>
 {{--                todo: improve error displaying --}}
                 <form action="{{ route('contacts.store') }}" method="post">
                     @csrf
