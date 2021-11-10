@@ -14,6 +14,7 @@
                 <th>Емайл</th>
                 <th>Админ</th>
                 <th>Добави вид гориво</th>
+                <th>Добави тип път</th>
                 <th>Създаден на</th>
                 <th>Редактирай</th>
                 <th>Изтрий</th>
@@ -31,6 +32,12 @@
                           <div class="buttons">
                             <a href="{{route('fuels.create')}}"><button type="submit" class="button is-info">Добави</button></a>
                             <a href="{{route('fuels.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="buttons">
+                            <a href="{{route('types.create')}}"><button type="submit" class="button is-info">Добави</button></a>
+                            <a href="{{route('types.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
                           </div>
                         </td>
                         </td>
