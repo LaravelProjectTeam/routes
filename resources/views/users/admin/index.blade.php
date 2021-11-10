@@ -13,6 +13,8 @@
                 <th>Име</th>
                 <th>Емайл</th>
                 <th>Админ</th>
+                <th>Добави вид гориво</th>
+                <th>Добави тип път</th>
                 <th>Създаден на</th>
                 <th>Редактирай</th>
                 <th>Изтрий</th>
@@ -26,7 +28,20 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->admin == 0 ? 'Потребител' : 'Админ' }}</td>
-                        <td>{{ $user->created_at }}</td>
+                        <td>
+                          <div class="buttons">
+                            <a href="{{route('fuels.create')}}"><button type="submit" class="button is-info">Добави</button></a>
+                            <a href="{{route('fuels.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="buttons">
+                            <a href="{{route('types.create')}}"><button type="submit" class="button is-info">Добави</button></a>
+                            <a href="{{route('types.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
+                          </div>
+                        </td>
+                        </td>
+                        <td> {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                         <td>
                             <form action="{{ route('users.update', $user->id) }}" method="post">
                                 @csrf

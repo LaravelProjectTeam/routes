@@ -1,15 +1,18 @@
 <?php return array (
-  'barryvdh/laravel-debugbar' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Barryvdh\\Debugbar\\ServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Debugbar' => 'Barryvdh\\Debugbar\\Facade',
-    ),
-  ),
+// <<<<<<< Updated upstream
+//   'barryvdh/laravel-debugbar' => 
+//   array (
+//     'providers' => 
+//     array (
+//       0 => 'Barryvdh\\Debugbar\\ServiceProvider',
+//     ),
+//     'aliases' => 
+//     array (
+//       'Debugbar' => 'Barryvdh\\Debugbar\\Facade',
+//     ),
+//   ),
+// =======
+// >>>>>>> Stashed changes
   'facade/ignition' => 
   array (
     'providers' => 

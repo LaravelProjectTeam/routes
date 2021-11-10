@@ -7,6 +7,8 @@ use App\Http\Controllers\TownController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\FuelController;
+use App\Http\Controllers\TypeController;
 
 
 
@@ -25,6 +27,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::resource('towns', TownController::class);
 Route::resource('routes', RouteController::class);
 Route::resource('contacts', ContactController::class);
+Route::resource('fuels', FuelController::class);
+Route::resource('types', TypeController::class);
 
 //Route::middleware(['auth'])->prefix('admin')->group(function () {
 Route::prefix('admin')->group(function () {
