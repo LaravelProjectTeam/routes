@@ -1,5 +1,4 @@
 <?php return array (
-<<<<<<< Updated upstream
   'barryvdh/laravel-debugbar' => 
   array (
     'providers' => 
@@ -11,8 +10,6 @@
       'Debugbar' => 'Barryvdh\\Debugbar\\Facade',
     ),
   ),
-=======
->>>>>>> Stashed changes
   'facade/ignition' => 
   array (
     'providers' => 

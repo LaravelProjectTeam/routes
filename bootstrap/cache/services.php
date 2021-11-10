@@ -23,7 +23,6 @@
     19 => 'Illuminate\\Translation\\TranslationServiceProvider',
     20 => 'Illuminate\\Validation\\ValidationServiceProvider',
     21 => 'Illuminate\\View\\ViewServiceProvider',
-<<<<<<< Updated upstream
     22 => 'Barryvdh\\Debugbar\\ServiceProvider',
     23 => 'Facade\\Ignition\\IgnitionServiceProvider',
     24 => 'Fruitcake\\Cors\\CorsServiceProvider',
@@ -38,21 +37,6 @@
     33 => 'App\\Providers\\EventServiceProvider',
     34 => 'App\\Providers\\RouteServiceProvider',
     35 => 'App\\Providers\\ContactServiceProvider',
-=======
-    22 => 'Facade\\Ignition\\IgnitionServiceProvider',
-    23 => 'Fruitcake\\Cors\\CorsServiceProvider',
-    24 => 'Laravel\\Sail\\SailServiceProvider',
-    25 => 'Laravel\\Sanctum\\SanctumServiceProvider',
-    26 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    27 => 'Laravel\\Ui\\UiServiceProvider',
-    28 => 'Carbon\\Laravel\\ServiceProvider',
-    29 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    30 => 'App\\Providers\\AppServiceProvider',
-    31 => 'App\\Providers\\AuthServiceProvider',
-    32 => 'App\\Providers\\EventServiceProvider',
-    33 => 'App\\Providers\\RouteServiceProvider',
-    34 => 'App\\Providers\\ContactServiceProvider',
->>>>>>> Stashed changes
   ),
   'eager' => 
   array (
@@ -66,7 +50,6 @@
     7 => 'Illuminate\\Pagination\\PaginationServiceProvider',
     8 => 'Illuminate\\Session\\SessionServiceProvider',
     9 => 'Illuminate\\View\\ViewServiceProvider',
-<<<<<<< Updated upstream
     10 => 'Barryvdh\\Debugbar\\ServiceProvider',
     11 => 'Facade\\Ignition\\IgnitionServiceProvider',
     12 => 'Fruitcake\\Cors\\CorsServiceProvider',
@@ -79,19 +62,6 @@
     19 => 'App\\Providers\\EventServiceProvider',
     20 => 'App\\Providers\\RouteServiceProvider',
     21 => 'App\\Providers\\ContactServiceProvider',
-=======
-    10 => 'Facade\\Ignition\\IgnitionServiceProvider',
-    11 => 'Fruitcake\\Cors\\CorsServiceProvider',
-    12 => 'Laravel\\Sanctum\\SanctumServiceProvider',
-    13 => 'Laravel\\Ui\\UiServiceProvider',
-    14 => 'Carbon\\Laravel\\ServiceProvider',
-    15 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    16 => 'App\\Providers\\AppServiceProvider',
-    17 => 'App\\Providers\\AuthServiceProvider',
-    18 => 'App\\Providers\\EventServiceProvider',
-    19 => 'App\\Providers\\RouteServiceProvider',
-    20 => 'App\\Providers\\ContactServiceProvider',
->>>>>>> Stashed changes
   ),
   'deferred' => 
   array (
