@@ -73,5 +73,5 @@ RUN cd /var/www/html && npm instal && composer install
 # sudo chmod o+w ./storage/ -R
 #RUN echo "Application Port is: " + "$PORT";
 
-CMD ["/var/www/html/scripts/start-apache.sh"]
 #CMD [ "/var/www/html/scripts/run-apache2.sh" ]
+CMD ["/var/www/html/scripts/start-apache.sh"]
