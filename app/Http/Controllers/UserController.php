@@ -17,7 +17,7 @@ class UserController extends Controller
         // return view('authentication.register');
 
         $users = User::all();
-        return view('administration.index', compact('users'));
+        return view('users.admin.index', compact('users'));
     }
 
     /**
@@ -77,7 +77,7 @@ class UserController extends Controller
         User::where('id', '=', $user['id'])->update(['admin' => $request->get('admin')]);
 
         $users = User::all();
-        return view('administration.index', compact('users'));
+        return view('users.admin.index', compact('users'));
     }
 
     /**
