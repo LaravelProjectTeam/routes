@@ -5,6 +5,7 @@
 @section('content')
     <div class="container">
         <h1 class="ml-2">Администрация - Начало</h1>
+
         <a class="button is-primary is-small ml-2" href="{{ route('admin.towns.index') }}">Градове</a>
         <a class="button is-info is-small ml-2" href="{{ route('admin.filling_stations.index') }}">Бензиностанции</a>
 {{--        <a class="button is-primary is-small ml-2" href="{{ route('users.admin.index') }}">Градове</a>--}}
@@ -17,7 +18,6 @@
             <li>link to /admin/fuels/index</li>
             <li>link to /admin/types/index</li>
             <li>link to /admin/routes/index</li>
-            <li>link to /admin/filling_stations</li>
         </ul>
     </div>
 @endsection

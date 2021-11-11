@@ -1,17 +1,19 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminFillingStationController;
 use App\Http\Controllers\Admin\AdminTownController;
+
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\TownController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\TypeController;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,12 +36,11 @@ Route::post('/routes/search', [RouteController::class, 'search'])->name('routes.
 
 Route::resource('/contacts', ContactController::class);
 
-//Route::middleware(['auth'])->prefix('admin')->group(function () {
-
 // admin panel, todo: protect with middleware
+//Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdministrationController::class, 'index'])->name('index');
-    Route::get('/index', [AdministrationController::class, 'index'])->name('index');
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
+    Route::get('/index', [AdminDashboardController::class, 'index'])->name('index');
     Route::resource('/towns', AdminTownController::class);
     Route::resource('/fuels', FuelController::class);
     Route::resource('/types', TypeController::class);
