@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
-class TypeController extends Controller
+class AdminTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::all();
-        return view('roads.index', compact('types'));
+        return view('admin.road_types.index', compact('types'));
     }
 
     /**
@@ -25,7 +25,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('roads.create');
+        return view('admin.road_types.create');
     }
 
     /**
@@ -38,20 +38,21 @@ class TypeController extends Controller
     // protected function validator(array $data)
     // {
     //     return Validator::make($data, [
-    //         'hardship' => ['required', 'integer|min:0|max:10', 'unique:types'],
+    //         'hardship' => ['required', 'integer|min:0|max:10', 'unique:road_types'],
     //     ]);
     // }
 
     public function store(Request $request)
     {
         $type = new Type;
-        $type->create(['name' => $request->type_name, 'hardship_level' => $request->hardship]);
-        return redirect()->route('types.index');
 
-        $this->validate($request, [
-        'type_name' => 'required|string',
-        'hardship' => 'required|integer'
-    ]);
+//        $this->validate($request, [
+//            'type_name' => 'required|string',
+//            'hardship_level' => 'required|integer'
+//        ]);
+
+        $type->create(['name' => $request->type_name, 'hardship_level' => $request->hardship]);
+        return redirect()->route('admin.road_types.index');
 
     }
 
@@ -72,9 +73,10 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function edit(Type $type)
+    public function edit(int $id)
     {
-        return view('roads.edit', compact('type'));
+        $type = Type::findOrFail($id);
+        return view('admin.road_types.edit', compact('type'));
     }
 
     /**
@@ -84,23 +86,25 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(Request $request, $id)
     {
+        $type = Type::findOrFail($id);
         $type->name=$request->type_name;
         $type->hardship_level=$request->hardship;
         $type->save();
-        return redirect()->route('types.index');
+
+        return redirect()->route('admin.road_types.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Type  $type
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Type $type)
+    public function destroy(int $id)
     {
-        $type->delete();
-        return redirect()->route('types.index');
+        Type::destroy($id);
+        return redirect()->route('admin.road_types.index');
     }
 }

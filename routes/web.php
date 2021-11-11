@@ -8,9 +8,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\TownController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\FuelController;
-use App\Http\Controllers\TypeController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminFuelController;
+use App\Http\Controllers\AdminTypeController;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,12 +40,12 @@ Route::resource('/contacts', ContactController::class);
 //Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
-    Route::get('/index', [AdminDashboardController::class, 'index'])->name('index');
-    Route::resource('/towns', AdminTownController::class);
-    Route::resource('/fuels', FuelController::class);
-    Route::resource('/types', TypeController::class);
-    Route::resource('/users', UserController::class);
-    Route::resource('/filling_stations', AdminFillingStationController::class);
+    Route::get('/index', [AdminDashboardController::class, 'index']);//->name('index');
+    Route::resource('/towns', AdminTownController::class);//->name('admin.towns');
+    Route::resource('/fuels', AdminFuelController::class);//->name('admin.fuels');
+    Route::resource('/road_types', AdminTypeController::class); //->name('admin.road_types');
+    Route::resource('/users', AdminUserController::class);//->name('users');
+    Route::resource('/filling_stations', AdminFillingStationController::class);//->name('admin.filling_stations');
 });
 
 Auth::routes();

@@ -20,7 +20,7 @@ class AddOndeleteToEdgesTable extends Migration
 
             $table->foreign('from_node_id')->references('id')->on('nodes')->onDelete('cascade');
             $table->foreign('to_node_id')->references('id')->on('nodes')->onDelete('cascade');
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('road_types')->onDelete('cascade');
         });
     }
 

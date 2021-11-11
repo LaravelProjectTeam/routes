@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AdminUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class UserController extends Controller
         // return view('authentication.register');
 
         $users = User::all();
-        return view('users.admin.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -77,7 +77,7 @@ class UserController extends Controller
         User::where('id', '=', $user['id'])->update(['admin' => $request->get('admin')]);
 
         $users = User::all();
-        return view('users.admin.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -89,6 +89,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index');
+        return redirect()->route('admin.users.index');
     }
 }

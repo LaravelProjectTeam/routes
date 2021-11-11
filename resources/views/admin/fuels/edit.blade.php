@@ -3,7 +3,7 @@
 @section('title', 'Добави гориво')
 
 @section('content')
-<form action="{{ route('fuels.update', $fuel->id) }}" method="post">
+<form action="{{ route('admin.fuels.update', $fuel->id) }}" method="post">
                    @csrf
                    @method('put')
 
@@ -19,7 +19,7 @@
                    <div class="buttons mt-2">
                        <button class="button is-small is-success" type="submit">Запиши</button>
 {{--                               todo: move in admin panel, users should not CRUD towns, only admins--}}
-                       <a class="button is-link is-small" href="{{ route('fuels.index') }}">Откажи</a>
+                       <a class="button is-link is-small" href="{{ route('admin.fuels.index') }}">Откажи</a>
                    </div>
                </form>
 @endsection
