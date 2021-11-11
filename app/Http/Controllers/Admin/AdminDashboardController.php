@@ -19,6 +19,22 @@ class AdminDashboardController extends Controller
         return view('admin.index');
     }
 
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+
+    public function adminView()
+    {
+        return view('admin-view');
+    }
+
 //    /**
 //     * Show the form for creating a new resource.
 //     *

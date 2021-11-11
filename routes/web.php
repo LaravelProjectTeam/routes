@@ -37,8 +37,12 @@ Route::post('/routes/search', [RouteController::class, 'search'])->name('routes.
 Route::resource('/contacts', ContactController::class);
 
 // admin panel, todo: protect with middleware
-//Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
-Route::prefix('admin')->name('admin.')->group(function () {
+// Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+//     Route::get('admin.index', 'AdminDashboardController')->name('admin.view')});
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('admin.index', 'AdminDashboardController@adminView')->name('admin.view');
+});
+ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
     Route::get('/index', [AdminDashboardController::class, 'index']);//->name('index');
     Route::resource('/towns', AdminTownController::class);//->name('admin.towns');
