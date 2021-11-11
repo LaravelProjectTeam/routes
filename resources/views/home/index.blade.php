@@ -19,7 +19,8 @@
             </div>
         </section>
 
-        <img src="https://i.redd.it/uoprbjfqqyp31.png" alt="splash-screen">
+{{--        <img src="https://i.redd.it/uoprbjfqqyp31.png" alt="splash-screen">--}}
+        <img src="{{ asset('storage/images/splash-screen.png') }}" alt="splash-screen">
     </div>
 
 {{--    <img src="https://www.mapsinternational.co.uk/pub/media/catalog/product/x/w/o/world-wall-map-political-without-flags_wm00001_h.jpg" alt="">--}}
