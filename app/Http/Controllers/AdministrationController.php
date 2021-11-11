@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class AdministrationController extends Controller
@@ -9,15 +12,11 @@ class AdministrationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
-
-    //    $users = User::all();
-    //    return view('admins.index', compact('users'));
-    //За сега го оставяме и работим в user controller....
-
+        return view('admin.index');
     }
 
     /**

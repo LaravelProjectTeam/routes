@@ -19,8 +19,8 @@
                 <tr>
                     <th>{{ $town->id }}</th>
                     <td>{{ $town->name }}</td>
-                    <td>{{ isset($town->created_at) ? $town->created_at->format('d.m.Y, H:i') : 'Няма информация.' }}</td>
-                    <td>{{ isset($town->updated_at) ? $town->updated_at->format('d.m.Y, H:i') : 'Няма информация.' }}</td>
+                    <td>{{ $town->created_at->format('d.m.Y, H:i') }}</td>
+                    <td>{{ $town->updated_at->format('d.m.Y, H:i') }}</td>
                     <td><a class="button is-warning is-small" href="{{ route('admin.towns.edit', $town->id) }}">Редактирай [ADMIN]</a></td>
                     <td>
                         <form action="{{ route('admin.towns.destroy', $town->id) }}" method="post">
@@ -33,7 +33,7 @@
             </tbody>
         </table>
         <div class="buttons">
-            <a class="button is-link is-small ml-2" href="{{ route('towns.index') }}">Начало</a>
+            <a class="button is-link is-small ml-2" href="{{ route('admin.towns.index') }}">Начало</a>
         </div>
     </div>
 @endsection

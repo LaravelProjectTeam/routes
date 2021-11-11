@@ -18,19 +18,16 @@
                 Начало
             </a>
             <a class="navbar-item" href="{{ route("towns.index") }}">
-                Градове (потребители)
+                Градове
             </a>
             <a class="navbar-item" href="{{ route("routes.index") }}">
-                Маршрути (потребители)
+                Маршрути
             </a>
             <a class="navbar-item" href="{{ route("contacts.create") }}">
                 Контакти
             </a>
-{{--            <a class="navbar-item">--}}
-{{--                Обратна връзка--}}
-{{--            </a>--}}
-            <a class="navbar-item has-text-success" href="{{ route("users.index") }}" >
-
+{{--            todo: only show if user is authenticated and is admin --}}
+            <a class="navbar-item has-text-success" href="{{ route("admin.index") }}" >
                 Административен панел
             </a>
         </div>

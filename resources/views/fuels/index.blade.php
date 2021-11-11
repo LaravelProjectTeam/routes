@@ -2,6 +2,7 @@
 
 @section('title', 'Горива')
 
+{{--todo: add admin. prefix to route--}}
 @section('content')
 <h1 class="ml-2">Всички горива</h1>
 <table class="table">
@@ -26,7 +27,7 @@
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
                                 <button type="submit" class="button is-danger">Изтрий
-                            </form>    
+                            </form>
                         </td>
                     </tr>
                 @endforeach

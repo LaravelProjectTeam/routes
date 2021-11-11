@@ -69,6 +69,9 @@ The resources, frameworks and platforms used for creating/distributing/testing t
 - Heroku - https://heroku.com/
 - MySQL, PostgreSQL
 
+##### Art
+- Splash Screen - https://www.reddit.com/r/mapmaking/comments/dbwlsi/region_map_oc_free_high_res_generic_region_map/
+
 #####  Blog Posts
 
 https://dev.to/veevidify/docker-compose-up-your-entire-laravel-apache-mysql-development-environment-45ea
