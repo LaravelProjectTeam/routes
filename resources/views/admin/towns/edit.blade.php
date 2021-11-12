@@ -6,7 +6,8 @@
     <div class="container">
        <div class="columns is-mobile is-centered">
            <div class="column is-half">
-               <h1>Редактирай град</h1>
+               <h1>@yield('title')</h1>
+
                <form action="{{ route('admin.towns.update', $town->id) }}" method="post">
                    @csrf
                    @method('put')

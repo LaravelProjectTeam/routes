@@ -6,7 +6,7 @@
     <div class="container">
        <div class="columns is-mobile is-centered">
            <div class="column is-half">
-               <h1>Добави бензиностанция</h1>
+               <h1>@yield('title')</h1>
 
                <form action="{{ route('admin.filling_stations.store') }}" method="post">
                    @csrf
@@ -33,7 +33,9 @@
                                @foreach($direct_routes as $route)
 {{--                                   <option value="{{ $route->id }}"{{ ($to ?? '') === $route->id ? 'selected' : '' }}>--}}
                                    <option value="{{ $route->id }}">
-                                       {{ $route->from->name }} -
+                                       между
+                                       {{ $route->from->name }}
+                                       и
                                        {{ $route->to->name }} -
                                        {{ $route->minutes_needed }} минути -
                                        {{ $route->type->name }} път
@@ -57,7 +59,6 @@
                    <div class="select is-multiple">
                        <select name="fuels[]" id="fuels" multiple size="8">
                            @foreach($fuels as $fuel)
-                               {{-- for edit: <option value="{{ $route->id }}"{{ ($to ?? '') === $route->id ? 'selected' : '' }}>--}}
                                <option value="{{ $fuel->id }}">
                                    {{ $fuel->name }}
                                </option>

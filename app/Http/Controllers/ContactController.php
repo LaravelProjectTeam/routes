@@ -52,9 +52,9 @@ class ContactController extends Controller
         ]);
 
 //        todo: translate errors in bulgarian
-//        todo: change receiver email
         $from_name = getenv('SENDGRID_NAME');
         $from_email = getenv('SENDGRID_EMAIL');
+        $to_email = getenv('SENDGRID_EMAIL_RECEIVER');
 
         $modified_message = $this->contactService->buildMessageContactUs(
             $validated['name'],
@@ -66,7 +66,7 @@ class ContactController extends Controller
         $status_code = $this->contactService->sendEmail(
             $from_email,
             $from_name,
-            $from_email,
+            $to_email,
             $from_name,
             $validated['subject'],
             $modified_message

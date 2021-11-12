@@ -6,8 +6,7 @@
     <div class="container">
        <div class="columns is-mobile is-centered">
            <div class="column is-half">
-               <h1>Добави тип път</h1>
-
+               <h1>@yield('title')</h1>
 
                <form action="{{ route('admin.road_types.store') }}" method="post">
                    @csrf
@@ -16,10 +15,10 @@
                    <div class="form-group">
                        <label class="label" for="name">Име</label>
                        <input class="input is-primary is-small @error('name') is-danger @enderror"
-                              id="name" name="type_name" type="text"  >
-                        <label class="label" for="name">Трудност</label>
+                              id="name" name="type_name" type="text">
+                       <label class="label" for="hardship">Трудност</label>
                        <input class="input is-primary is-small @error('name') is-danger @enderror"
-                              id="hardship" name="hardship" type="number"  >
+                              id="hardship" name="hardship" type="number">
                        @error('name')
                             <p class="help is-danger">{{ $message }}</p>
                        @enderror

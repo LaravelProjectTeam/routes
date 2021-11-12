@@ -6,7 +6,7 @@
     <div class="container">
        <div class="columns is-mobile is-centered">
            <div class="column is-half">
-               <h1>Добави град</h1>
+               <h1>@yield('title')</h1>
 
                <form action="{{ route('admin.towns.store') }}" method="post">
                    @csrf

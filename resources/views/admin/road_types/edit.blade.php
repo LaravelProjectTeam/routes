@@ -1,14 +1,13 @@
 @extends('layouts.master')
 
-@section('title', 'Добави тип път')
+@section('title', 'Редактирай тип път')
 
 @section('content')
     <div class="container">
        <div class="columns is-mobile is-centered">
            <div class="column is-half">
-               <h1>Добави тип път</h1>
+               <h1>@yield('title')</h1>
 
-{{--                   todo: add update page--}}
                <form action="{{ route('admin.road_types.update', $type->id) }}" method="post">
                    @csrf
                    @method('put')
@@ -17,7 +16,7 @@
                        <label class="label" for="name">Име</label>
                        <input class="input is-primary is-small @error('name') is-danger @enderror"
                               id="name" name="type_name" type="text" value="{{$type->name}}" >
-                        <label class="label" for="name">Трудност</label>
+                       <label class="label" for="hardship">Трудност</label>
                        <input class="input is-primary is-small @error('name') is-danger @enderror"
                               id="hardship" name="hardship" type="number" value="{{$type->hardship_level}}" >
                        @error('hardship')

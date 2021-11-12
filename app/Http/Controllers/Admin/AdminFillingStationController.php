@@ -23,7 +23,7 @@ class AdminFillingStationController extends Controller
     public function index()
     {
         // todo: Rename Node to Town
-        $filling_stations = FillingStation::all();
+        $filling_stations = FillingStation::with('edge')->get();
         return view('admin.filling_stations.index', compact('filling_stations'));
     }
 
@@ -47,13 +47,11 @@ class AdminFillingStationController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->fuels);
-
         // todo: check shortest path algo when fuels null
         $validated = $request->validate([
             'name' => 'required|unique:nodes|max:255',
             'edge_id' => 'required|numeric',
-//            'fuels' => 'required?'
+            'fuels' => 'array'
         ]);
 
         $filling_station = FillingStation::create([
@@ -61,12 +59,10 @@ class AdminFillingStationController extends Controller
             'edge_id' => $validated['edge_id'],
         ]);
 
-        if (!empty($validated['fuels'])) {
-            foreach ($validated['fuels'] as $fuel) {
-                $filling_station->fuels->attach([
-                    $fuel->id,
-                ]);
-            }
+        if ($validated['fuels'] ?? false) {
+            $filling_station->fuels()->sync(
+                $validated['fuels']
+            );
         }
 
         $filling_stations = FillingStation::all();
@@ -76,10 +72,10 @@ class AdminFillingStationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id)
     {
         $filling_station = FillingStation::findOrFail($id);
         return view('admin.filling_stations.view', compact('filling_station'));
@@ -88,33 +84,53 @@ class AdminFillingStationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        $filling_station = FillingStation::findOrFail($id);
+        $fuels = Fuel::all();
+        return view('admin.filling_stations.edit', compact('filling_station', 'fuels'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return Application|Factory|View
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        //
+        // todo: check shortest path algo when fuels null
+        $validated = $request->validate([
+            'name' => 'required|unique:nodes|max:255',
+            'fuels' => 'array'
+        ]);
+
+        $filling_station = FillingStation::findOrFail($id);
+        $filling_station->update([
+            'name' => $validated['name'],
+        ]);
+
+        if ($validated['fuels'] ?? false) {
+            $filling_station->fuels()->sync(
+                $validated['fuels']
+            );
+        }
+
+        $filling_stations = FillingStation::all();
+        return view('admin.filling_stations.index', compact('filling_stations'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Application|Factory|View
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         FillingStation::destroy($id);
         $filling_stations = FillingStation::all();

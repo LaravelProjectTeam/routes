@@ -4,17 +4,17 @@
 
 @section('content')
     <div class="container">
-        <h1 class="ml-2">Всички горива</h1>
+        <h1 class="ml-2">@yield('title')</h1>
 
         <table class="table">
             <thead>
-            <tr>
-                <th>Номер</th>
-                <th>Вид гориво</th>
-                <th>Създаден на</th>
-                <th>Редактирай</th>
-                <th>Изтрий</th>
-            </tr>
+                <tr>
+                    <th>Номер</th>
+                    <th>Вид гориво</th>
+                    <th>Създаден на</th>
+                    <th>Редактирай</th>
+                    <th>Изтрий</th>
+                </tr>
             </thead>
             <tbody>
             @foreach($fuels as $fuel)

@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Администрация | Всички директни пътища')
+@section('title', 'Всички директни пътища')
 
 @section('content')
     <div class="container">
-        <h1 class="ml-2">Всички директни пътища</h1>
+        <h1 class="ml-2">@yield('title')</h1>
 
         <table class="table">
             <thead>
@@ -36,7 +36,7 @@
                             <form action="{{ route('admin.routes.destroy', $route->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button class="button is-danger is-small" type="submit">Изтрий [ADMIN]</button>
+                                <button class="button is-danger is-small" type="submit">Изтрий</button>
                             </form>
                         </td>
                     </tr>

@@ -4,13 +4,15 @@
 
 @section('content')
     <div class="container">
-        <h1 class="ml-2">Всички бензиностанции</h1>
+        <h1 class="ml-2">@yield('title')</h1>
 
         <table class="table">
             <thead>
             <tr>
                 <th>Номер</th>
                 <th>Име</th>
+                <th>Горива</th>
+                <th>Път</th>
                 <th>Създаден на</th>
                 <th>Обновен на</th>
                 <th>Редактирай</th>
@@ -22,6 +24,14 @@
                     <tr>
                         <th>{{ $filling_station->id }}</th>
                         <td><a href="{{ route('admin.filling_stations.show', $filling_station->id) }}">{{ $filling_station->name }}</a></td>
+                        <td>
+                            {{
+                                $filling_station->fuels->count() ?
+                                join(', ', $filling_station->fuels->pluck('name')->toArray()) :
+                                'няма'
+                            }}
+                        </td>
+                        <td>{{ $filling_station->edge->from->name }} - {{ $filling_station->edge->to->name }} </td>
                         <td>{{ isset($filling_station->created_at) ? $filling_station->created_at->format('d.m.Y, H:i') : "Няма информация." }}</td>
                         <td>{{ isset($filling_station->updated_at) ? $filling_station->updated_at->format('d.m.Y, H:i') : "Няма информация." }}</td>
                         <td><a class="button is-warning is-small" href="{{ route('admin.filling_stations.edit', $filling_station->id) }}">Редактирай</a></td>

@@ -29,12 +29,12 @@
                     <td>{{ $route->type->name }}</td>
                     <td>{{ $route->created_at->format('d.m.Y, H:i') }}</td>
                     <td>{{ $route->updated_at->format('d.m.Y, H:i') }}</td>
-                    <td><a class="button is-warning is-small" href="{{ route('routes.edit', $route->id) }}">Редактирай [ADMIN]</a></td>
+                    <td><a class="button is-warning is-small" href="{{ route('routes.edit', $route->id) }}">Редактирай</a></td>
                     <td>
                         <form action="{{ route('routes.destroy', $route->id) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class="button is-danger is-small" type="submit">Изтрий [ADMIN]</button>
+                            <button class="button is-danger is-small" type="submit">Изтрий</button>
                         </form>
                     </td>
                 </tr>

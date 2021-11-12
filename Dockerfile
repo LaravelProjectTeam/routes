@@ -2,7 +2,6 @@ FROM php:8-apache
 
 WORKDIR /var/www/html
 
-# install the necessary packages
 RUN apt-get update -y && apt-get install -y \
     curl \
     nano \
@@ -37,18 +36,10 @@ RUN docker-php-ext-install \
     opcache \
     calendar
 
-# copy the config file over
-#COPY /server/apache/ports.conf /etc/apache2/ports.conf
 COPY /server/apache/vhost.conf /etc/apache2/sites-available/laravel.conf
 
-#COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
-#COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-
-# install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# use custom configuration and disable built-in one
-#RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 RUN a2enmod rewrite
 RUN a2ensite laravel.conf
 RUN a2dissite 000-default.conf
@@ -69,7 +60,6 @@ RUN cd /var/www/html && npm instal && composer install
 #RUN useradd apache-www-volume -u 1000 -g 1000
 
 # sudo chmod o+w ./storage/ -R
-#RUN echo "Application Port is: " + "$PORT";
 
 #CMD [ "/var/www/html/scripts/run-apache2.sh" ]
 CMD ["/var/www/html/scripts/start-apache.sh"]

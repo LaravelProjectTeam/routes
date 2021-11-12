@@ -1,8 +1,11 @@
 # Routes Project
 
-Some information about the project, who did it, with what. WIP. 🚧.
+Web application, which by usi
 
 See the Laravel Readme in docs/README.md
+
+## Requirements
+- XAMPP or PHP version 8, MariaDB - 10.4.21, Apache - 2.4.x, composer 2.1.x
 
 ## Docker
 Quickly run the application using Docker.
@@ -67,7 +70,8 @@ The resources, frameworks and platforms used for creating/distributing/testing t
 - Bulma - https://bulma.io/
 - Docker - https://docker.com/
 - Heroku - https://heroku.com/
-- MySQL, PostgreSQL
+- MySQL/MariaDB - local, PostgreSQL - production
+- Taniko/Dijkstra - https://github.com/taniko/dijkstra
 
 ##### Art
 - Splash Screen - https://www.reddit.com/r/mapmaking/comments/dbwlsi/region_map_oc_free_high_res_generic_region_map/
@@ -80,3 +84,5 @@ https://www.cloudsigma.com/deploying-laravel-nginx-and-mysql-with-docker-compose
 https://maruan.medium.com/how-to-install-and-set-up-laravel-8-with-docker-compose-on-ubuntu-20-04-58149fed3e2e
 https://shouts.dev/dockerize-a-laravel-app-with-apache-mariadb
 https://webomnizz.com/containerize-your-laravel-application-with-docker-compose/
+
+... and many others

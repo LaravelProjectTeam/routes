@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
-@section('title', 'Администрация | Създай директен път')
+@section('title', 'Създай директен път')
 
 @section('content')
     <div class="container">
         <div class="columns is-mobile is-centered">
             <div class="column is-half">
-                <h1 class="ml-2">Създай директен път</h1>
+                <h1 class="ml-2">@yield('title')</h1>
 
                 <form action="{{ route('admin.towns.store') }}" method="post">
                     @csrf

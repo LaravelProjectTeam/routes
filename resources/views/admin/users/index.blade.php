@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Административен панел')
+@section('title', 'Всички потребители')
 
 @section('content')
     <div class="container">
-        <h1 class="ml-2">Всички потребители</h1>
+        <h1 class="ml-2">@yield('title')</h1>
 
         <table class="table">
             <thead>

@@ -1,24 +1,32 @@
 @extends('layouts.master')
 
-@section('title', 'Добави гориво')
+@section('title', 'Редактирай гориво')
 
 @section('content')
-<form action="{{ route('admin.fuels.update', $fuel->id) }}" method="post">
+    <div class="container">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-half">
+                <h1>@yield('title')</h1>
+
+                <form action="{{ route('admin.fuels.update', $fuel->id) }}" method="post">
                    @csrf
                    @method('put')
 
-                   <div class="form-group">
-                       <label class="label" for="name">Име</label>
-                       <input class="input is-primary is-small @error('name') is-danger @enderror"
+                    <div class="form-group">
+                        <label class="label" for="name">Име</label>
+                        <input class="input is-primary is-small @error('name') is-danger @enderror"
                               id="name" name="fuel_name" type="text" value="{{ $fuel->name }}">
-                       @error('name')
+                        @error('name')
                             <p class="help is-danger">{{ $message }}</p>
-                       @enderror
-                   </div>
+                        @enderror
+                    </div>
 
-                   <div class="buttons mt-2">
-                       <button class="button is-small is-success" type="submit">Запиши</button>
-                       <a class="button is-link is-small" href="{{ route('admin.fuels.index') }}">Откажи</a>
-                   </div>
-               </form>
+                    <div class="buttons mt-2">
+                        <button class="button is-small is-success" type="submit">Запиши</button>
+                        <a class="button is-link is-small" href="{{ route('admin.fuels.index') }}">Откажи</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

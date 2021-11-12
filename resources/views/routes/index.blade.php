@@ -72,7 +72,7 @@
                     <div class="select is-small ml-2">
                         <select id="to" name="to">
                             @foreach($towns as $town)
-                                <option value="{{ $town->name }}"{{ ($to ?? '') === $town->name ? 'selected' : '' }}>
+                                <option value="{{ $town->name }}" {{ ($to ?? '') === $town->name ? 'selected' : '' }}>
                                     {{ $town->name }}
                                 </option>
                             @endforeach
