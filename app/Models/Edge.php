@@ -14,11 +14,17 @@ class Edge extends Model
     protected $fillable = [
         'from_node_id',
         'to_node_id',
-        'minutes_needed',
         'type_id',
         'max_speed',
         'distance_in_km'
     ];
+
+    public function getMinutesNeededAttribute() {
+        // 1# s = v.t => 2# t = s/v
+        // formula: #2 + 2 * hardship_level
+        $road_type = Type::findOrFail($this->type_id);
+        return ($this->distance_in_km / $this->max_speed ) + 2 * $road_type->hardship_level;
+    }
 
     public function fillingStations()
     {

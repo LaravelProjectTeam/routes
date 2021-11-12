@@ -39,6 +39,7 @@
 
         <div class="buttons">
             <a class="button is-primary is-small ml-2" href="{{ route('admin.filling_stations.create') }}">Създай</a>
+            <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
         </div>
     </div>
 @endsection

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Fuel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -61,7 +62,7 @@ class AdminFuelController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Fuel $fuel
-     * @return Response
+     * @return Application|Factory|View
      */
     public function edit(Fuel $fuel)
     {
@@ -73,7 +74,7 @@ class AdminFuelController extends Controller
      *
      * @param Request $request
      * @param Fuel $fuel
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(Request $request, Fuel $fuel)
     {
@@ -86,7 +87,7 @@ class AdminFuelController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Fuel $fuel
-     * @return Response
+     * @return RedirectResponse
      */
     public function destroy(Fuel $fuel)
     {

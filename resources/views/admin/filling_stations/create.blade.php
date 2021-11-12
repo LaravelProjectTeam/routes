@@ -52,13 +52,23 @@
                        @enderror
                    </div>
 {{--todo: fuels--}}
-                   <h4 class="mt-2 mb-3">Горива..</h4>
+                   <h4 class="mt-2 mb-3">
+                       <label for="fuels">Горива</label>
+                   </h4>
                    <div class="select is-multiple">
                        <select name="fuels[]" id="fuels" multiple size="8">
-                           <option value="Argentina">Argentina</option>
-                           <option value="Bolivia">Bolivia</option>
-                           <option value="Brazil">Brazil</option>
-                           <option value="Chile">Chile</option>
+                           @foreach($fuels as $fuel)
+                               {{-- for edit: <option value="{{ $route->id }}"{{ ($to ?? '') === $route->id ? 'selected' : '' }}>--}}
+                               <option value="{{ $fuel->id }}">
+                                   {{ $fuel->name }}
+                               </option>
+                           @endforeach
+
+                           @if ($fuels->isEmpty())
+                               <option>
+                                   Нямаме нито едно налично гориво!
+                               </option>
+                           @endif
                        </select>
                    </div>
 

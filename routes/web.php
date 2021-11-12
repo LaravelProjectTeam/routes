@@ -2,15 +2,16 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminFillingStationController;
+use App\Http\Controllers\Admin\AdminFuelController;
+use App\Http\Controllers\Admin\AdminRouteController;
 use App\Http\Controllers\Admin\AdminTownController;
 
+use App\Http\Controllers\Admin\AdminTypeController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\TownController;
-use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\AdminFuelController;
-use App\Http\Controllers\AdminTypeController;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,24 +29,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
+Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
+Route::post('/contacts/create', [ContactController::class, 'store'])->name('contacts.store');
+
 Route::get('/towns', [TownController::class, 'index'])->name('towns.index');
 Route::get('/towns/{id}/show', [TownController::class, 'show'])->name('towns.show');
 
-Route::resource('/routes', RouteController::class);
+Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
+Route::get('/routes/{id}/show', [RouteController::class, 'show'])->name('routes.show');
 Route::post('/routes/search', [RouteController::class, 'search'])->name('routes.search');
 
-Route::resource('/contacts', ContactController::class);
-
-// admin panel, todo: protect with middleware
 //Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
-    Route::get('/index', [AdminDashboardController::class, 'index']);//->name('index');
-    Route::resource('/towns', AdminTownController::class);//->name('admin.towns');
-    Route::resource('/fuels', AdminFuelController::class);//->name('admin.fuels');
-    Route::resource('/road_types', AdminTypeController::class); //->name('admin.road_types');
-    Route::resource('/users', AdminUserController::class);//->name('users');
-    Route::resource('/filling_stations', AdminFillingStationController::class);//->name('admin.filling_stations');
+    Route::get('/index', [AdminDashboardController::class, 'index']);
+    Route::resource('/towns', AdminTownController::class);
+    Route::resource('/fuels', AdminFuelController::class);
+    Route::resource('/road_types', AdminTypeController::class);
+    Route::resource('/routes', AdminRouteController::class);
+    Route::resource('/filling_stations', AdminFillingStationController::class);
+    Route::resource('/users', AdminUserController::class);
 });
 
 Auth::routes();

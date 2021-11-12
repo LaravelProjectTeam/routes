@@ -27,16 +27,6 @@ class ContactController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
-    public function index()
-    {
-        return view('contacts.create');
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View

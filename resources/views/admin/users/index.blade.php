@@ -68,9 +68,10 @@
                 @endforeach
             </tbody>
         </table>
-        {{--        todo: move in admin panel, users should not CRUD towns, only admins--}}
         <div class="buttons">
-            <!-- <a class="button is-primary is-small ml-2" href="{{ route('admin.towns.create') }}">Създай [ADMIN]</a> -->
+            <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
+
+        <!-- <a class="button is-primary is-small ml-2" href="{{ route('admin.towns.create') }}">Създай [ADMIN]</a> -->
 {{--            <a class="button is-warning is-small">Редактирай [ADMIN]</a>--}}
 {{--            <a class="button is-danger is-small">Изтрий [ADMIN]</a>--}}
         </div>

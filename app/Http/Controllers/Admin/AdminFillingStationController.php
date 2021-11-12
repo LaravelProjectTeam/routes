@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Edge;
 use App\Models\FillingStation;
+use App\Models\Fuel;
 use App\Models\Node;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -34,7 +35,8 @@ class AdminFillingStationController extends Controller
     public function create()
     {
         $direct_routes = Edge::with('to', 'from', 'type', 'fillingStations.fuels')->get();
-        return view('admin.filling_stations.create', compact('direct_routes'));
+        $fuels = Fuel::all();
+        return view('admin.filling_stations.create', compact('direct_routes', 'fuels'));
     }
 
     /**
@@ -45,17 +47,27 @@ class AdminFillingStationController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request);
+//        dd($request->fuels);
 
+        // todo: check shortest path algo when fuels null
         $validated = $request->validate([
             'name' => 'required|unique:nodes|max:255',
-            'edge_id' => 'required|numeric|',
+            'edge_id' => 'required|numeric',
+//            'fuels' => 'required?'
         ]);
 
-        FillingStation::create([
+        $filling_station = FillingStation::create([
             'name' => $validated['name'],
             'edge_id' => $validated['edge_id'],
         ]);
+
+        if (!empty($validated['fuels'])) {
+            foreach ($validated['fuels'] as $fuel) {
+                $filling_station->fuels->attach([
+                    $fuel->id,
+                ]);
+            }
+        }
 
         $filling_stations = FillingStation::all();
         return view('admin.filling_stations.index', compact('filling_stations'));

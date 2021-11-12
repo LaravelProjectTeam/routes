@@ -45,7 +45,6 @@ class AdminTownController extends Controller
      *
      * @param Request $request
      * @return Application|Factory|View
-     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -92,7 +91,7 @@ class AdminTownController extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return Application|Factory|RedirectResponse|Redirector|View
+     * @return Application|Factory|View
      */
     public function update(Request $request, $id)
     {

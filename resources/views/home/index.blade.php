@@ -28,8 +28,10 @@
 {{-- todo --}}
 {{-- hero with image --}}
 {{--<div class="hero is-fullheight is-primary has-background">--}}
-{{--    <img alt="Fill Murray" class="hero-background is-transparent"--}}
-{{--         src="https://www.mapsinternational.co.uk/pub/media/catalog/product/x/w/o/world-wall-map-political-without-flags_wm00001_h.jpg" />--}}
+{{--    <img alt="splash-screen"--}}
+{{--         class="hero-background is-transparent"--}}
+{{--         src="{{ asset('storage/images/splash-screen.png') }}"--}}
+{{--    />--}}
 {{--    <div class="hero-body">--}}
 {{--        <div class="container">--}}
 {{--            <h1 class="title">--}}

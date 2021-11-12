@@ -23,14 +23,14 @@
                         <td>{{date('d-m-Y', strtotime($fuel->created_at))}}</td>
                         <td>
                             <a href="{{ route('admin.fuels.edit', $fuel->id) }}">
-                                <button type="submit" class="button is-warning">Редактирай</button>
+                                <button type="submit" class="button is-small is-warning">Редактирай</button>
                             </a>
                         </td>
                         <td>
                             <form action="{{ route('admin.fuels.destroy', $fuel->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
-                                <button type="submit" class="button is-danger">Изтрий
+                                <button type="submit" class="button is-small is-danger">Изтрий
                             </form>
                         </td>
                     </tr>
