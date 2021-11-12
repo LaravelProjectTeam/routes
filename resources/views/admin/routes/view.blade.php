@@ -40,7 +40,6 @@
                 </tr>
             </tbody>
         </table>
-        {{--        todo: move in admin panel, users should not CRUD towns, only admins--}}
         <div class="buttons">
             <a class="button is-link is-small" href="{{ route('routes.index') }}">Начало</a>
         </div>

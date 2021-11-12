@@ -51,7 +51,6 @@
                             <p class="help is-danger">{{ $message }}</p>
                        @enderror
                    </div>
-{{--todo: fuels--}}
                    <h4 class="mt-2 mb-3">
                        <label for="fuels">Горива</label>
                    </h4>

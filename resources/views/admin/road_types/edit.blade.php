@@ -27,7 +27,6 @@
 
                    <div class="buttons mt-2">
                        <button class="button is-small is-success" type="submit" >Запиши</button>
-                       {{--        todo: move in admin panel, users should not CRUD towns, only admins--}}
                        <a class="button is-link is-small" href="{{ route('admin.road_types.index') }}">Откажи</a>
                    </div>
                </form>

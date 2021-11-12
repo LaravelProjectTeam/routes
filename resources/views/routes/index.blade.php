@@ -26,7 +26,8 @@
                         <td><a href="{{ route('routes.show', $route->id) }}">{{ $route->id }}</a></td>
                         <td>#{{ $route->from->id  }} - {{ $route->from->name }}</td>
                         <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
-                        <td>{{ $route->minutes_needed }}</td>
+                        <td>{{ round($route->minutes_needed) }}</td>
+{{--                        <td>{{ $route->minutes_needed }}</td>--}}
                         <td>{{ $route->type->name }}</td>
                         <td>{{ isset($route->created_at) ? $route->created_at->format('d.m.Y, H:i') : 'Няма информация.' }}</td>
                         <td>{{ isset($route->updated_at) ? $route->updated_at->format('d.m.Y, H:i') : 'Няма информация.' }}</td>

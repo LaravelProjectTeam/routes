@@ -52,6 +52,7 @@ class ContactController extends Controller
         ]);
 
 //        todo: translate errors in bulgarian
+//        todo: change receiver email
         $from_name = getenv('SENDGRID_NAME');
         $from_email = getenv('SENDGRID_EMAIL');
 
