@@ -1,8 +1,8 @@
 # Routes Project
 
-Some information about the project, who did it, with what. WIP. 🚧.
+Project, which by given two endpoints, A and B, returns the shortest path between them (composed of multiple direct roads), the minutes needed to travel that road, and the information about the filling stations, fuels along the way.
 
-See the Laravel Readme in docs/README.md
+See the Laravel Readme in /docs/README.md
 
 ## Docker
 Quickly run the application using Docker.
