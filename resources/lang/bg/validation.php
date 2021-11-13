@@ -130,4 +130,13 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'attributes' => [
+        'name' => 'име',
+        'email' => 'имейл',
+        'subject' => 'тема',
+        'message' => 'съобщение',
+        'fuel_name' => 'име на горивото',
+        'hardship' => 'трудност',
+        'type_name' => 'име на типа',
+    ]
 ];

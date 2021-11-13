@@ -13,13 +13,16 @@
                    @method('post')
 
                    <div class="form-group">
-                       <label class="label" for="name">Име</label>
-                       <input class="input is-primary is-small @error('name') is-danger @enderror"
-                              id="name" name="type_name" type="text">
+                       <label class="label" for="type_name">Име</label>
+                       <input class="input is-primary is-small @error('type_name') is-danger @enderror"
+                              id="type_name" name="type_name" type="text">
+                       @error('type_name')
+                           <p class="help is-danger">{{ $message }}</p>
+                       @enderror
                        <label class="label" for="hardship">Трудност</label>
-                       <input class="input is-primary is-small @error('name') is-danger @enderror"
+                       <input class="input is-primary is-small @error('hardship') is-danger @enderror"
                               id="hardship" name="hardship" type="number">
-                       @error('name')
+                       @error('hardship')
                             <p class="help is-danger">{{ $message }}</p>
                        @enderror
                    </div>

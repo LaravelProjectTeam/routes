@@ -42,6 +42,10 @@ class AdminFuelController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'fuel_name' => 'required|max:255',
+        ]);
+
         $fuel = new Fuel;
         $fuel->create(['name' => $request->fuel_name]);
         return redirect()->route('admin.fuels.index');
@@ -78,6 +82,10 @@ class AdminFuelController extends Controller
      */
     public function update(Request $request, Fuel $fuel)
     {
+        $request->validate([
+            'fuel_name' => 'required|max:255',
+        ]);
+
         $fuel->name=$request->fuel_name;
         $fuel->save();
         return redirect()->route('admin.fuels.index');

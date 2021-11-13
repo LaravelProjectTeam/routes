@@ -50,6 +50,11 @@ class AdminTypeController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'type_name' => 'required|max:255',
+            'hardship' => 'required',
+        ]);
+
         $type = new Type;
 
 //        $this->validate($request, [
@@ -94,6 +99,11 @@ class AdminTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'type_name' => 'required|max:255',
+            'hardship' => 'required',
+        ]);
+
         $type = Type::findOrFail($id);
         $type->name=$request->type_name;
         $type->hardship_level=$request->hardship;

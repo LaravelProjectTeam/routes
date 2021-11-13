@@ -13,10 +13,10 @@
                     @method('post')
 
                     <div class="form-group">
-                        <label class="label" for="name">Име</label>
-                        <input class="input is-primary is-small @error('name') is-danger @enderror"
-                               id="name" name="fuel_name" type="text"  >
-                        @error('name')
+                        <label class="label" for="fuel_name">Име</label>
+                        <input class="input is-primary is-small @error('fuel_name') is-danger @enderror"
+                               id="fuel_name" name="fuel_name" type="text" value="{{ old('fuel_name') }}" >
+                        @error('fuel_name')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>

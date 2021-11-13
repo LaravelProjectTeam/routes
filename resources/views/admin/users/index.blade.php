@@ -13,9 +13,10 @@
                 <th>Име</th>
                 <th>Емайл</th>
                 <th>Админ</th>
-                <th>Добави вид гориво</th>
-                <th>Добави тип път</th>
-                <th>Създаден на</th>
+{{--                <th>Добави вид гориво</th>--}}
+{{--                <th>Добави тип път</th>--}}
+                <th>Създаден</th>
+                <th>Обновен</th>
                 <th>Редактирай</th>
                 <th>Изтрий</th>
 {{--                <th>Запази</th>--}}
@@ -28,19 +29,20 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->admin == 0 ? 'Потребител' : 'Администратор' }}</td>
-                        <td>
-                          <div class="buttons">
-                            <a href="{{route('admin.fuels.create')}}"><button type="submit" class="button is-info">Добави</button></a>
-                            <a href="{{route('admin.fuels.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="buttons">
-                            <a href="{{route('admin.road_types.create')}}"><button type="submit" class="button is-info">Добави</button></a>
-                            <a href="{{route('admin.road_types.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
-                          </div>
-                        </td>
+{{--                        <td>--}}
+{{--                          <div class="buttons">--}}
+{{--                            <a href="{{route('admin.fuels.create')}}"><button type="submit" class="button is-info is-small">Добави</button></a>--}}
+{{--                            <a href="{{route('admin.fuels.index')}}"><button type="submit" class="button is-warning is-small">Прегледай</button></a>--}}
+{{--                          </div>--}}
+{{--                        </td>--}}
+{{--                        <td>--}}
+{{--                          <div class="buttons">--}}
+{{--                            <a href="{{route('admin.road_types.create')}}"><button type="submit" class="button is-info is-small">Добави</button></a>--}}
+{{--                            <a href="{{route('admin.road_types.index')}}"><button type="submit" class="button is-warning is-small">Прегледай</button></a>--}}
+{{--                          </div>--}}
+{{--                        </td>--}}
                         <td> {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
+                        <td> {{ \Carbon\Carbon::parse($user->updated_at)->diffForHumans() }}</td>
                         <td>
                             <form action="{{ route('admin.users.update', $user->id) }}" method="post">
                                 @csrf
@@ -54,14 +56,14 @@
                                     </label>
                                 </div>
 
-                                <button type="submit" class="button is-success mt-2">Запази</button>
+                                <button type="submit" class="button is-success is-small mt-2 mb-2">Запази</button>
                             </form>
                         </td>
                         <td>
                             <form action="{{ route('admin.users.destroy', $user->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
-                                <button type="submit" class="button is-danger">Изтрий</button>
+                                <button type="submit" class="button is-danger is-small mt-2 mb-2">Изтрий</button>
                             </form>
                         </td>
                     </tr>
