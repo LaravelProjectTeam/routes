@@ -1,8 +1,8 @@
 # Routes Project
 
-Web application, which by usi
+Project, which by given two endpoints, A and B, returns the shortest path between them (composed of multiple direct roads), the minutes needed to travel that road, and the information about the filling stations, fuels along the way.
 
-See the Laravel Readme in docs/README.md
+See the Laravel Readme in /docs/README.md
 
 ## Requirements
 - XAMPP or PHP version 8, MariaDB - 10.4.21, Apache - 2.4.x, composer 2.1.x
