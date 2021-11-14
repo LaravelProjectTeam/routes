@@ -50,7 +50,7 @@ COPY . /var/www/html
 # change ownership of the files
 RUN chown -R www-data:www-data /var/www
 
-RUN cd /var/www/html && npm instal && composer install
+RUN cd /var/www/html && npm instal && composer install #&& php artisan storage:link
 
 #RUN chown -R www-data:www-data /var/www/html
 #RUN chgrp -R www-data storage bootstrap/cache
