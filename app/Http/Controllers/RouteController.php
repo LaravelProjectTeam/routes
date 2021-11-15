@@ -13,6 +13,7 @@ use Illuminate\Http\Response;
 
 use Taniko\Dijkstra\Graph;
 use UnexpectedValueException;
+use function GuzzleHttp\Promise\all;
 
 class RouteController extends Controller
 {
@@ -23,8 +24,11 @@ class RouteController extends Controller
      */
     public function index()
     {
-        // todo: optimize
-        $routes = Edge::all();
+//        $routes = Edge::all();
+//        $towns = Node::all();
+
+        // eager loading data models using less queries
+        $routes = Edge::with('to', 'from', 'type')->get();
         $towns = Node::all();
 
         return view('routes.index', compact('routes', 'towns'));
@@ -40,34 +44,117 @@ class RouteController extends Controller
         $from = $request->get('from');
         $to = $request->get('to');
 
-        $allEdges = Edge::all();
-        $graph = Graph::create();
+//       load all paths / edges with the needed data
+        $allEdges = Edge::with(['from', 'to', 'type', 'fillingStations', 'fillingStations.fuels'])->get();
+//        $allEdges = Edge::with(['fillingStations', 'fillingStations.fuels'])->get();
 
-        foreach ($allEdges as $dbEdge) {
-//            todo: calculate the minutes needed based on road, fuel, distance etc.
-            $minutes_needed = $dbEdge->minutes_needed;
-            $graph->add($dbEdge->from->name, $dbEdge->to->name, $minutes_needed);
+//    Бензиностация Shell предлага горивата: дизел, пропан.
+//    Бензиностация Eco предлага горивата: пропан.
+//    Бензиностация OMV предлага горивата: бензин, биодизел, електрически.
+//    Бензиностация Petrol предлага горивата: биодизел, пропан.
+//    Бензиностация Lukoil предлага горивата: бензин, дизел, пропан.
+
+//    Бензиностация Shell предлага горивата: дизел, пропан.
+//    Бензиностация Eco предлага горивата: пропан.
+//    Бензиностация OMV предлага горивата: бензин, биодизел, електрически.
+//    Бензиностация Petrol предлага горивата: биодизел, пропан.
+//    Бензиностация Lukoil предлага горивата: бензин, дизел, пропан.
+
+        $graph = Graph::create();
+        $fullRouteInformation = null;
+        $allStationsOnAllEdges = [];
+
+        // only do this when needed
+        if ($from !== $to) {
+            // go over all the edges in the database
+            foreach ($allEdges as $edge) {
+                // get all filling stations and cycle them
+                foreach ($edge->fillingStations as $fillingStation) {
+                    $fillingStationName = $fillingStation->name;
+                    $fillingStationFuels = [];
+
+                    $fuels = $fillingStation->fuels;
+
+                    foreach ($fuels as $fuel) {
+                        $fillingStationFuels[] = $fuel->name;
+                    }
+
+                    $fillingStationInfo =
+                        "Бензиностация " . $fillingStationName .
+                        " (между " . $edge->from->name . " и " . $edge->to->name . ")" . " предлага горивата: " .
+                        join(', ', $fillingStationFuels) . ".";
+
+//                echo "<br>1 >> <br>".  $fillingStationInfo . " | " . $edge->from->name . " => ". $edge->to->name . " | <br><br>" ;
+                    $key = ($edge->from->name . $edge->to->name);
+//                echo $key . '<br><br>';
+//                     todo: check the following concern
+//                     this may be a problem with multiple filling stations on this edge
+                    $allStationsOnAllEdges[$key] = $fillingStationInfo;
+                }
+
+//            $allFillingStationsOnAnEdgeInfo = join(PHP_EOL, $allStationsOnAllEdges ?? []);
+//            echo "<br><br>2 >> <br>" . $allFillingStationsOnAnEdgeInfo . "<br>";
+
+//            dd($allStationsOnAllEdges);
+//            var_dump($allStationsOnAllEdges);
+                $graph->add($edge->from->name, $edge->to->name, $edge->minutes_needed, true, null);
+            }
         }
 
+//        dd($allStationsOnAllEdges);
         $message = 'За да стигнете от ' . $from . ' до ' . $to;
         if ($from === $to) {
             $message .= ' са нужни ' . '0 минути.';
         }
         else {
             try {
+                // get the shortest path from and to
                 $route = $graph->search($from, $to);
-                $cost  = $graph->cost($route);
-                $message .= ' са нужни '. $cost . ' минути.' . PHP_EOL . 'Най-краткият маршрут е ' . join(', ', $route) . '.';
+
+                // generate valid paths in the formats:
+                // fromto
+                // tofrom
+                $validPaths = [];
+                for ($index = 0; $index < count($route) - 1; $index++) {
+                    $pathBothWays1 = $route[$index] .  $route[$index + 1];
+                    $validPaths[] = $pathBothWays1;
+                }
+
+                for ($idx = count($route) - 2; $idx >= 0; $idx--) {
+                    $pathBothWays2 = $route[$idx + 1] .  $route[$idx];
+                    $validPaths[] = $pathBothWays2;
+                }
+
+                // transform to the format
+                // [ "fromto" => "fromto", "tofrom" => "tofrom" ]
+                $paths = [];
+                foreach($validPaths as $validPath){
+                    $paths[$validPath] = $validPath;
+                }
+
+                $fullRouteInformation = array_intersect_key($allStationsOnAllEdges,$paths);
+//                dd(array_fill_keys($validPaths,1), $route, $allStationsOnAllEdges);
+//                dd($paths,$route,$allStationsOnAllEdges,array_intersect_key($allStationsOnAllEdges,$paths));
+
+                $cost = $graph->cost($route);
+//                $data = $graph->getPathData($route);
+//                dd($data, $fullRouteInformation);
+//                echo "<pre>" . join(PHP_EOL, $data)  . "</pre>";
+//                echo '<pre>' . var_dump($data) . '</pre>;
+                $message .= ' са нужни '. $cost . ' минути.' . PHP_EOL . 'Най-краткият маршрут е ' . join(', ', $route) . '.'
+//                    . " " . join(" ", $data)
+                ;
             } catch (UnexpectedValueException $e) {
 //                $message = $e->getMessage();
                 $message = 'Няма наличен път между ' . $from . ' и ' . $to . '.';
             }
         }
 
-        $routes = Edge::all();
+        $routes = Edge::with('to', 'from', 'type')->get();
         $towns = Node::all();
 
-        return view('routes.index', compact('routes', 'from', 'to', 'towns', 'message'));
+//        return redirect('routes.index')->with(compact('routes', 'from', 'to', 'towns', 'message', 'fullRouteInformation'));
+        return view('routes.index', compact('routes', 'from', 'to', 'towns', 'message', 'fullRouteInformation'));
     }
 
     /**
@@ -94,10 +181,10 @@ class RouteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id)
     {
         // todo: improve
         $route = Edge::findOrFail($id);

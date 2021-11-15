@@ -4,33 +4,58 @@
 
 @section('content')
     <div class="container">
-        <h1 class="ml-2">Всички градове</h1>
+        <h1 class="ml-2">Всички потребители</h1>
 
         <table class="table">
             <thead>
             <tr>
                 <th>Номер</th>
                 <th>Име</th>
+                <th>Емайл</th>
+                <th>Админ</th>
+                <th>Добави вид гориво</th>
                 <th>Създаден на</th>
-                <th>Обновен на</th>
                 <th>Редактирай</th>
                 <th>Изтрий</th>
+{{--                <th>Запази</th>--}}
             </tr>
             </thead>
             <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <th>{{ $user->id }}</th>
-                        <!-- <td><a href="{{ route('towns.show', $town->id) }}">{{ $town->name }}</a></td> -->
+                        <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <!-- <td><a class="button is-warning is-small" href="{{ route('towns.edit', $town->id) }}">Редактирай [ADMIN]</a></td> -->
+                        <td>{{ $user->admin == 0 ? 'Потребител' : 'Админ' }}</td>
                         <td>
-                            <!-- <form action="{{ route('towns.destroy', $town->id) }}" method="post">
+                          <div class="buttons">
+                            <a href="{{route('fuels.create')}}"><button type="submit" class="button is-info">Добави</button></a>
+                            <a href="{{route('fuels.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
+                          </div>
+                        </td>
+                        </td>
+                        <td> {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
+                        <td>
+                            <form action="{{ route('users.update', $user->id) }}" method="post">
                                 @csrf
-                                @method('DELETE')
-                                <button class="button is-danger is-small" type="submit">Изтрий [ADMIN]</button>
-                            </form> -->
+                                @method('put')
+                                <div class="select">
+                                    <label for="admin">
+                                        <select id="admin" name="admin">
+                                            <option value="1" {{ $user->admin ? 'selected' : '' }}>Admin</option>
+                                            <option value="0" {{ !$user->admin ? 'selected' : '' }}>User</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <button type="submit" class="button is-success">Save</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                                @csrf
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="button is-danger"> Delete </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

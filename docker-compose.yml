@@ -1,0 +1,41 @@
+version: "2"
+
+services:
+  laravel-app:
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_DATABASE=routes-db
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_PASSWORD=""
+    container_name: laravel-app
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8000:80"
+    networks:
+      - laravel-app-network
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=routes-db
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_PASSWORD=""
+    volumes:
+      - "./db:/var/lib/mysql"
+    networks:
+      - laravel-app-network
+
+networks:
+  laravel-app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

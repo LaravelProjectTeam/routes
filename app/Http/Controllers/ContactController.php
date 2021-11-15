@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ContactService;
 use Exception;
 
 use Illuminate\Contracts\Foundation\Application;
@@ -18,6 +19,13 @@ use SendGrid\Mail\Mail;
 
 class ContactController extends Controller
 {
+    private $contactService;
+
+    public function __construct(ContactService $contactService)
+    {
+        $this->contactService = $contactService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,47 +54,32 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validated = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|max:255',
+            'email' => 'required|email|max:255',
             'subject' => 'required|max:255',
             'message' => 'required|max:1000',
         ]);
 
 //        todo: translate errors in bulgarian
-        if ($validator->fails()) {
-            return redirect('contacts/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
+        $from_name = getenv('SENDGRID_NAME');
+        $from_email = getenv('SENDGRID_EMAIL');
 
+        $modified_message = $this->contactService->buildMessageContactUs(
+            $validated['name'],
+            $validated['email'],
+            $validated['subject'],
+            $validated['message']
+        );
 
-        $validated = $validator->validated();
-        $sendgrid_name = getenv('SENDGRID_NAME');
-        $sendgrid_email = getenv('SENDGRID_EMAIL');
-
-        $email = new Mail();
-        $email->setFrom($sendgrid_email, $sendgrid_name);
-        $email->setSubject($validated['subject']);
-        $email->addTo($sendgrid_email, $sendgrid_name);
-
-        $msg = "От: " . $validated['name'] . "\n" . 'Имейл: ' . $validated['email'] . "\n" . "Тема: " . $validated['subject'] . "\n";
-        $msg .= "Съобщение: " . $validated['message'];
-
-        $email->addContent("text/plain", $msg);
-
-        $sendgrid = new SendGrid(getenv('SENDGRID_API_KEY'));
-        $response = $sendgrid->send($email);
-
-//        print $response->statusCode() . "\n";
-//        Code - Meaning
-//        --------------
-//        401 - Error
-//        202 - Success
-//        print_r($response->headers());
-//        print $response->body() . "\n";
-
-        $status_code = $response->statusCode();
+        $status_code = $this->contactService->sendEmail(
+            $from_email,
+            $from_name,
+            $from_email,
+            $from_name,
+            $validated['subject'],
+            $modified_message
+        );
 
         return view('contacts.result', compact('status_code'));
     }
