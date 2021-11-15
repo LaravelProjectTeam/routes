@@ -27,9 +27,12 @@
                 Контакти
             </a>
 {{--            todo: only show if user is authenticated and is admin --}}
-            <a class="navbar-item has-text-success" href="{{ route("admin.index") }}" >
-                Административен панел
-            </a>
+
+            @if (Auth::user() && Auth::user()->admin == 1)
+                <a class="navbar-item has-text-success" href="{{ route("admin.index") }}" >
+                    Административен панел
+                </a>
+            @endif
         </div>
         <div class="navbar-end">
             <div class="navbar-item">
