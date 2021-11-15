@@ -39,8 +39,7 @@ Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 Route::get('/routes/{id}/show', [RouteController::class, 'show'])->name('routes.show');
 Route::post('/routes/search', [RouteController::class, 'search'])->name('routes.search');
 
-//Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
     Route::get('/index', [AdminDashboardController::class, 'index']);
     Route::resource('/towns', AdminTownController::class);
