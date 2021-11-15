@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTypeRequest;
+use App\Http\Requests\UpdateTypeRequest;
 
 class AdminTypeController extends Controller
 {
@@ -42,7 +44,7 @@ class AdminTypeController extends Controller
     //     ]);
     // }
 
-    public function store(Request $request)
+    public function store(StoreTypeRequest $request)
     {
         $type = new Type;
 
@@ -86,7 +88,7 @@ class AdminTypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTypeRequest $request, $id)
     {
         $type = Type::findOrFail($id);
         $type->name=$request->type_name;

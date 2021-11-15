@@ -36,6 +36,14 @@
                 @endforeach
             </tbody>
         </table>
+        <span>
+            {{$towns->links()}}   
+        </span>
+        <style type="text/css">
+            .w-5{
+                display: none;
+            }
+        </style>
 
 {{--                        todo: should not be possible, test out later--}}
 {{--        <div class="buttons">--}}

@@ -17,10 +17,13 @@
                        <label class="label" for="name">Име</label>
                        <input class="input is-primary is-small @error('name') is-danger @enderror"
                               id="name" name="type_name" type="text"  >
+                       @error('type_name')
+                            <p class="help is-danger">{{ $message }}</p>
+                       @enderror
                         <label class="label" for="name">Трудност</label>
                        <input class="input is-primary is-small @error('name') is-danger @enderror"
                               id="hardship" name="hardship" type="number"  >
-                       @error('name')
+                       @error('hardship')
                             <p class="help is-danger">{{ $message }}</p>
                        @enderror
                    </div>
