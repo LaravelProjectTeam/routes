@@ -65,28 +65,26 @@ class RouteController extends Controller
                         $fillingStationFuels[] = $fuel->name;
                     }
 
+                    $fuelsInfo = $fillingStationFuels ?
+                        " предлага горивата: " . join(', ', $fillingStationFuels) . "." :
+                        " няма нито едно налично гориво.";
+
                     $fillingStationInfo =
                         "Бензиностация " . $fillingStationName .
-                        " (между " . $edge->from->name . " и " . $edge->to->name . ")" . " предлага горивата: " .
-                        join(', ', $fillingStationFuels) . ".";
+                        " (между " . $edge->from->name . " и " . $edge->to->name . ")" . $fuelsInfo;
 
-//                echo "<br>1 >> <br>".  $fillingStationInfo . " | " . $edge->from->name . " => ". $edge->to->name . " | <br><br>" ;
                     $key = ($edge->from->name . $edge->to->name);
-//                echo $key . '<br><br>';
-//                     todo: this is a problem with multiple filling stations on this edge
-                    $allStationsOnAllEdges[$key] = $fillingStationInfo;
+                    $allStationsOnAllEdges[$key][] = $fillingStationInfo;
                 }
 
 //            $allFillingStationsOnAnEdgeInfo = join(PHP_EOL, $allStationsOnAllEdges ?? []);
 //            echo "<br><br>2 >> <br>" . $allFillingStationsOnAnEdgeInfo . "<br>";
-
 //            dd($allStationsOnAllEdges);
-//            var_dump($allStationsOnAllEdges);
+
                 $graph->add($edge->from->name, $edge->to->name, $edge->minutes_needed, true, null);
             }
         }
 
-//        dd($allStationsOnAllEdges);
         $message = 'За да стигнете от ' . $from . ' до ' . $to;
         if ($from === $to) {
             $message .= ' са нужни ' . '0 минути.';
@@ -118,17 +116,9 @@ class RouteController extends Controller
                 }
 
                 $fullRouteInformation = array_intersect_key($allStationsOnAllEdges,$paths);
-//                dd(array_fill_keys($validPaths,1), $route, $allStationsOnAllEdges);
-//                dd($paths,$route,$allStationsOnAllEdges,array_intersect_key($allStationsOnAllEdges,$paths));
 
                 $cost = $graph->cost($route);
-//                $data = $graph->getPathData($route);
-//                dd($data, $fullRouteInformation);
-//                echo "<pre>" . join(PHP_EOL, $data)  . "</pre>";
-//                echo '<pre>' . var_dump($data) . '</pre>;
-                $message .= ' са нужни '. $cost . ' минути.' . PHP_EOL . 'Най-краткият маршрут е ' . join(', ', $route) . '.'
-//                    . " " . join(" ", $data)
-                ;
+                $message .= ' са нужни '. $cost . ' минути.' . PHP_EOL . 'Най-краткият маршрут е ' . join(', ', $route) . '.';
             } catch (UnexpectedValueException $e) {
 //                $message = $e->getMessage();
                 $message = 'Няма наличен път между ' . $from . ' и ' . $to . '.';

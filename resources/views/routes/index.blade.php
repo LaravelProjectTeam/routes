@@ -101,9 +101,12 @@
         <div class="mt-3 ml-2">
             {{ $message ?? '' }}
         </div>
+
         <div class="mt-3 ml-2">
-            @foreach($fullRouteInformation ?? [] as $fullDirectRouteInfo)
-                <div class="mt-0">{{ $fullDirectRouteInfo ?? '' }}</div>
+            @foreach($fullRouteInformation ?? [] as $directRouteGasStations)
+                @foreach($directRouteGasStations ?? [] as $gasStation)
+                    <div class="mt-0">{{ $gasStation ?? '' }}</div>
+                @endforeach
             @endforeach
         </div>
     </div>
