@@ -130,6 +130,7 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'unique_with' => 'Тази комбинация вече съществува.',
     'attributes' => [
         'name' => 'име',
         'email' => 'имейл',
@@ -138,5 +139,7 @@ return [
         'fuel_name' => 'име на горивото',
         'hardship' => 'трудност',
         'type_name' => 'име на типа',
+//        'to_node_id' => 'дестинация',
+//        'from_node_id' => 'начална точка',
     ]
 ];

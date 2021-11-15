@@ -12,6 +12,7 @@
                     <th>Номер</th>
                     <th>Вид гориво</th>
                     <th>Създаден на</th>
+                    <th>Обновен на</th>
                     <th>Редактирай</th>
                     <th>Изтрий</th>
                 </tr>
@@ -22,6 +23,7 @@
                     <td>{{ $fuel->id }}</td>
                     <td>{{ $fuel->name }}</td>
                     <td>{{date('d-m-Y', strtotime($fuel->created_at))}}</td>
+                    <td>{{date('d-m-Y', strtotime($fuel->updated_at))}}</td>
                     <td>
                         <a href="{{ route('admin.fuels.edit', $fuel->id) }}">
                             <button type="submit" class="button is-small is-warning">Редактирай</button>

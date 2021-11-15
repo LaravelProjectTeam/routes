@@ -38,7 +38,7 @@
                                        и
                                        {{ $route->to->name }} -
                                        {{ $route->minutes_needed }} минути -
-                                       {{ $route->type->name }} път
+                                       {{ $route->roadType->name }} път
                                    </option>
                                @endforeach
 

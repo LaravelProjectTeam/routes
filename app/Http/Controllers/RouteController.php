@@ -28,7 +28,7 @@ class RouteController extends Controller
 //        $towns = Node::all();
 
         // eager loading data models using less queries
-        $routes = Edge::with('to', 'from', 'type')->get();
+        $routes = Edge::with('to', 'from', 'roadType')->get();
         $towns = Node::all();
 
         return view('routes.index', compact('routes', 'towns'));
@@ -44,21 +44,7 @@ class RouteController extends Controller
         $from = $request->get('from');
         $to = $request->get('to');
 
-//       load all paths / edges with the needed data
-        $allEdges = Edge::with(['from', 'to', 'type', 'fillingStations', 'fillingStations.fuels'])->get();
-//        $allEdges = Edge::with(['fillingStations', 'fillingStations.fuels'])->get();
-
-//    Бензиностация Shell предлага горивата: дизел, пропан.
-//    Бензиностация Eco предлага горивата: пропан.
-//    Бензиностация OMV предлага горивата: бензин, биодизел, електрически.
-//    Бензиностация Petrol предлага горивата: биодизел, пропан.
-//    Бензиностация Lukoil предлага горивата: бензин, дизел, пропан.
-
-//    Бензиностация Shell предлага горивата: дизел, пропан.
-//    Бензиностация Eco предлага горивата: пропан.
-//    Бензиностация OMV предлага горивата: бензин, биодизел, електрически.
-//    Бензиностация Petrol предлага горивата: биодизел, пропан.
-//    Бензиностация Lukoil предлага горивата: бензин, дизел, пропан.
+        $allEdges = Edge::with(['from', 'to', 'roadType', 'fillingStations', 'fillingStations.fuels'])->get();
 
         $graph = Graph::create();
         $fullRouteInformation = null;
@@ -87,8 +73,7 @@ class RouteController extends Controller
 //                echo "<br>1 >> <br>".  $fillingStationInfo . " | " . $edge->from->name . " => ". $edge->to->name . " | <br><br>" ;
                     $key = ($edge->from->name . $edge->to->name);
 //                echo $key . '<br><br>';
-//                     todo: check the following concern
-//                     this may be a problem with multiple filling stations on this edge
+//                     todo: this is a problem with multiple filling stations on this edge
                     $allStationsOnAllEdges[$key] = $fillingStationInfo;
                 }
 
@@ -150,10 +135,10 @@ class RouteController extends Controller
             }
         }
 
-        $routes = Edge::with('to', 'from', 'type')->get();
+        $routes = Edge::with('to', 'from', 'roadType')->get();
         $towns = Node::all();
 
-//        return redirect('routes.index')->with(compact('routes', 'from', 'to', 'towns', 'message', 'fullRouteInformation'));
+//        return redirect()->route('routes.index')->with(compact('routes', 'from', 'to', 'towns', 'message', 'fullRouteInformation'));
         return view('routes.index', compact('routes', 'from', 'to', 'towns', 'message', 'fullRouteInformation'));
     }
 

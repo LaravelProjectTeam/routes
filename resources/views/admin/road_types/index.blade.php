@@ -12,6 +12,7 @@
                     <th>Тип път</th>
                     <th>Трудност</th>
                     <th>Създаден на</th>
+                    <th>Обновен на</th>
                     <th>Редактирай</th>
                     <th>Изтрий</th>
                 </tr>
@@ -23,6 +24,7 @@
                         <td>{{ $type->name }}</td>
                         <td>{{ $type->hardship_level }}</td>
                         <td>{{date('d-m-Y', strtotime($type->created_at))}}</td>
+                        <td>{{date('d-m-Y', strtotime($type->updated_at))}}</td>
                         <td>
                             <a href="{{ route('admin.road_types.edit', $type->id) }}">
                                 <button type="submit" class="button is-warning">Редактирай</button>

@@ -44,13 +44,15 @@ RUN a2enmod rewrite
 RUN a2ensite laravel.conf
 RUN a2dissite 000-default.conf
 
-# copy over the project files
 COPY . /var/www/html
 
-# change ownership of the files
 RUN chown -R www-data:www-data /var/www
 
-RUN cd /var/www/html && npm instal && composer install #&& php artisan storage:link
+RUN cd /var/www/html \
+    && npm install \
+    && composer install \
+    && cat .env.deployment > .env \
+    && php artisan storage:link
 
 #RUN chown -R www-data:www-data /var/www/html
 #RUN chgrp -R www-data storage bootstrap/cache
@@ -58,8 +60,6 @@ RUN cd /var/www/html && npm instal && composer install #&& php artisan storage:l
 
 #RUN groupadd apache-www-volume -g 1000
 #RUN useradd apache-www-volume -u 1000 -g 1000
-
-# sudo chmod o+w ./storage/ -R
 
 #CMD [ "/var/www/html/scripts/run-apache2.sh" ]
 CMD ["/var/www/html/scripts/start-apache.sh"]

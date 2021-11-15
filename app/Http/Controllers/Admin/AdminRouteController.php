@@ -21,10 +21,10 @@ class AdminRouteController extends Controller
      */
     public function index()
     {
-        $routes = Edge::with('to', 'from', 'type')->get();
+        $routes = Edge::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
         $towns = Node::all();
 
-        return view('admin.routes.index', compact('routes', 'towns'));
+        return  view('admin.routes.index', compact('routes', 'towns'));
     }
 
     /**
@@ -34,18 +34,50 @@ class AdminRouteController extends Controller
      */
     public function create()
     {
-        return view('admin.routes.create');
+        $routes = Edge::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
+        $towns = Node::all();
+
+        return view('admin.routes.create', compact('routes', 'towns'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        if ($request->get('from_node_id') > $request->get('to_node_id')) {
+            [$request['from_node_id'], $request['to_node_id']] = [$request['to_node_id'], $request['from_node_id']];
+            session(['swapped' => true]);
+        } else {
+            session(['swapped' => false]);
+        }
+
+        $validated = $request->validate([
+            'from_node_id' => 'required|unique_with:edges,to_node_id|not_in:'. $request['to_node_id'],
+            'to_node_id' => 'required|unique_with:edges,from_node_id|not_in:' . $request['from_node_id'],
+//            'from_node_id' => 'required|unique_with:edges,to_node_id',
+//            'to_node_id' => 'required|unique_with:edges,from_node_id',
+        ], [
+            'from_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
+            'to_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
+        ]);
+
+//         todo: add max speed, type id and distance in km in view /create/
+        Edge::create([
+            "from_node_id" => $validated['from_node_id'],
+            "to_node_id" => $validated['to_node_id'],
+            "distance_in_km" => 15,
+            "max_speed" => 13,
+            "type_id" => 2
+        ]);
+
+//        dd($edge);
+//        dd($request);
+
+        return redirect()->route('admin.routes.index');
     }
 
     /**
@@ -74,7 +106,7 @@ class AdminRouteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return Response
      */

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Type;
+use App\Models\RoadType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,7 +20,7 @@ class AdminTypeController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
+        $types = RoadType::all();
         return view('admin.road_types.index', compact('types'));
     }
 
@@ -55,7 +55,7 @@ class AdminTypeController extends Controller
             'hardship' => 'required',
         ]);
 
-        $type = new Type;
+        $type = new RoadType;
 
 //        $this->validate($request, [
 //            'type_name' => 'required|string',
@@ -70,10 +70,10 @@ class AdminTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Type $type
+     * @param RoadType $type
      * @return Response
      */
-    public function show(Type $type)
+    public function show(RoadType $type)
     {
         //
     }
@@ -86,8 +86,8 @@ class AdminTypeController extends Controller
      */
     public function edit(int $id)
     {
-        $type = Type::findOrFail($id);
-        return view('admin.road_types.edit', compact('type'));
+        $road_type = RoadType::findOrFail($id);
+        return view('admin.road_types.edit', compact('road_type'));
     }
 
     /**
@@ -104,7 +104,7 @@ class AdminTypeController extends Controller
             'hardship' => 'required',
         ]);
 
-        $type = Type::findOrFail($id);
+        $type = RoadType::findOrFail($id);
         $type->name=$request->type_name;
         $type->hardship_level=$request->hardship;
         $type->save();
@@ -120,7 +120,7 @@ class AdminTypeController extends Controller
      */
     public function destroy(int $id)
     {
-        Type::destroy($id);
+        RoadType::destroy($id);
         return redirect()->route('admin.road_types.index');
     }
 }

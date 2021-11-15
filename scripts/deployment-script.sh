@@ -1,6 +1,6 @@
 # example deployment script, modify to suit your needs
 
-#heroku container:login
+heroku container:login
 
 #docker build -t routes-bg . --no-cache
 docker build -t routes-bg .

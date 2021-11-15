@@ -34,7 +34,7 @@ class AdminFillingStationController extends Controller
      */
     public function create()
     {
-        $direct_routes = Edge::with('to', 'from', 'type', 'fillingStations.fuels')->get();
+        $direct_routes = Edge::with('to', 'from', 'roadType', 'fillingStations.fuels')->get();
         $fuels = Fuel::all();
         return view('admin.filling_stations.create', compact('direct_routes', 'fuels'));
     }

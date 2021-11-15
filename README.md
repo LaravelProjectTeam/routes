@@ -45,7 +45,7 @@ php artisan migrate
 
 ```bash
 php artisan migrate:refresh --force
-php artisan db:seed --class=TypeSeeder --force
+php artisan db:seed --class=RoadTypeSeeder --force
 ```
 
 ## SendGrid

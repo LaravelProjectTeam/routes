@@ -1,11 +1,7 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="/">
-            <img src="{{
-                env('APP_ENV') === 'local' ?
-                asset('/storage/images/route.svg') :
-                'https://routesbg.blob.core.windows.net/routesbg-container/route.svg'
-            }}" width="25" height="25" alt="route logo">
+            <img src="{{ asset('/storage/images/route.svg') }}" width="25" height="25" alt="route logo">
             <strong class="ml-3">Маршрути</strong>
         </a>
 
@@ -15,7 +11,6 @@
             <span aria-hidden="true"></span>
         </a>
     </div>
-
 
     <div id="nav-links" class="navbar-menu">
         <div class="navbar-start">

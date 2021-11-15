@@ -36,7 +36,7 @@
                                     и
                                     {{ $filling_station->edge->to->name }} -
                                     {{ $filling_station->edge->minutes_needed }} минути -
-                                    {{ $filling_station->edge->type->name }} път
+                                    {{ $filling_station->edge->roadType->name }} път
                                 </option>
 
                                 @if (!$filling_station->edge)

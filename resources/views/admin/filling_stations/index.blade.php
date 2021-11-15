@@ -28,7 +28,7 @@
                             {{
                                 $filling_station->fuels->count() ?
                                 join(', ', $filling_station->fuels->pluck('name')->toArray()) :
-                                'няма'
+                                'няма горива'
                             }}
                         </td>
                         <td>{{ $filling_station->edge->from->name }} - {{ $filling_station->edge->to->name }} </td>

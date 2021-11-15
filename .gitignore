@@ -24,3 +24,5 @@ run/var
 /db/
 /storage/debugbar/
 data
+composer.lock
+composer.lock
