@@ -8,6 +8,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreFuelRequest;
+use App\Http\Requests\UpdateFuelRequest;
 use Illuminate\Http\Response;
 
 class AdminFuelController extends Controller
@@ -39,7 +41,7 @@ class AdminFuelController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreFuelRequest $request)
     {
         $fuel = new Fuel;
         $fuel->create(['name' => $request->fuel_name]);
@@ -75,7 +77,7 @@ class AdminFuelController extends Controller
      * @param Fuel $fuel
      * @return Response
      */
-    public function update(Request $request, Fuel $fuel)
+    public function update(UpdateFuelRequest $request, Fuel $fuel)
     {
         $fuel->name=$request->fuel_name;
         $fuel->save();
