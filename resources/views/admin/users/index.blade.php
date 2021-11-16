@@ -14,6 +14,7 @@
                 <th>Емайл</th>
                 <th>Админ</th>
                 <th>Добави вид гориво</th>
+                <th>Добави тип път</th>
                 <th>Създаден на</th>
                 <th>Редактирай</th>
                 <th>Изтрий</th>
@@ -29,14 +30,20 @@
                         <td>{{ $user->admin == 0 ? 'Потребител' : 'Админ' }}</td>
                         <td>
                           <div class="buttons">
-                            <a href="{{route('fuels.create')}}"><button type="submit" class="button is-info">Добави</button></a>
-                            <a href="{{route('fuels.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
+                            <a href="{{route('admin.fuels.create')}}"><button type="submit" class="button is-info">Добави</button></a>
+                            <a href="{{route('admin.fuels.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="buttons">
+                            <a href="{{route('admin.road_types.create')}}"><button type="submit" class="button is-info">Добави</button></a>
+                            <a href="{{route('admin.road_types.index')}}"><button type="submit" class="button is-warning">Прегледай</button></a>
                           </div>
                         </td>
                         </td>
                         <td> {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                         <td>
-                            <form action="{{ route('users.update', $user->id) }}" method="post">
+                            <form action="{{ route('admin.users.update', $user->id) }}" method="post">
                                 @csrf
                                 @method('put')
                                 <div class="select">
@@ -51,7 +58,7 @@
                             </form>
                         </td>
                         <td>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
                                 <button type="submit" class="button is-danger"> Delete </button>
@@ -63,7 +70,7 @@
         </table>
         {{--        todo: move in admin panel, users should not CRUD towns, only admins--}}
         <div class="buttons">
-            <!-- <a class="button is-primary is-small ml-2" href="{{ route('towns.create') }}">Създай [ADMIN]</a> -->
+            <!-- <a class="button is-primary is-small ml-2" href="{{ route('admin.towns.create') }}">Създай [ADMIN]</a> -->
 {{--            <a class="button is-warning is-small">Редактирай [ADMIN]</a>--}}
 {{--            <a class="button is-danger is-small">Изтрий [ADMIN]</a>--}}
         </div>

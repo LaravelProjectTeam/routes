@@ -11,7 +11,7 @@ class FillingStation extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'edge_id'];
 
     public function edge()
     {

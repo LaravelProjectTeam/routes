@@ -1,29 +1,30 @@
 @extends('layouts.master')
 
-@section('title', 'Редактирай град')
+@section('title', 'Добави гориво')
 
 @section('content')
     <div class="container">
        <div class="columns is-mobile is-centered">
            <div class="column is-half">
-               <h1>Редактирай град</h1>
-               <form action="{{ route('towns.update', $town->id) }}" method="post">
+               <h1>Добави гориво</h1>
+
+               <form action="{{ route('admin.fuels.store') }}" method="post">
                    @csrf
-                   @method('put')
+                   @method('post')
 
                    <div class="form-group">
                        <label class="label" for="name">Име</label>
                        <input class="input is-primary is-small @error('name') is-danger @enderror"
-                              id="name" name="name" type="text" value="{{ $town->name }}">
+                              id="name" name="fuel_name" type="text"  >
                        @error('name')
                             <p class="help is-danger">{{ $message }}</p>
                        @enderror
                    </div>
 
                    <div class="buttons mt-2">
-                       <button class="button is-small is-success" type="submit">Запиши</button>
-{{--                               todo: move in admin panel, users should not CRUD towns, only admins--}}
-                       <a class="button is-link is-small" href="{{ route('towns.index') }}">Откажи</a>
+                       <button class="button is-small is-success" type="submit" >Запиши</button>
+                       {{--        todo: move in admin panel, users should not CRUD towns, only admins--}}
+                       <a class="button is-link is-small" href="{{ route('admin.users.index') }}">Откажи</a>
                    </div>
                </form>
            </div>

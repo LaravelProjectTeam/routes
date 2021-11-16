@@ -3,49 +3,54 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fuel;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-class FuelController extends Controller
+class AdminFuelController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
         $fuels = Fuel::all();
-        return view('fuels.index',compact('fuels'));
+        return view('admin.fuels.index',compact('fuels'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        return view('fuels.create');
+        return view('admin.fuels.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
         $fuel = new Fuel;
-        $fuel->create(['name'=>$request->fuel_name]);
-        return redirect()->route('fuels.index');
+        $fuel->create(['name' => $request->fuel_name]);
+        return redirect()->route('admin.fuels.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Fuel  $fuel
-     * @return \Illuminate\Http\Response
+     * @param Fuel $fuel
+     * @return Response
      */
     public function show(Fuel $fuel)
     {
@@ -55,37 +60,37 @@ class FuelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Fuel  $fuel
-     * @return \Illuminate\Http\Response
+     * @param Fuel $fuel
+     * @return Response
      */
     public function edit(Fuel $fuel)
     {
-        return view('fuels.edit',compact('fuel'));
+        return view('admin.fuels.edit',compact('fuel'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Fuel  $fuel
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Fuel $fuel
+     * @return Response
      */
     public function update(Request $request, Fuel $fuel)
     {
         $fuel->name=$request->fuel_name;
         $fuel->save();
-        return redirect()->route('fuels.index');
+        return redirect()->route('admin.fuels.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Fuel  $fuel
-     * @return \Illuminate\Http\Response
+     * @param Fuel $fuel
+     * @return Response
      */
     public function destroy(Fuel $fuel)
     {
         $fuel->delete();
-        return redirect()->route('fuels.index');
+        return redirect()->route('admin.fuels.index');
     }
 }

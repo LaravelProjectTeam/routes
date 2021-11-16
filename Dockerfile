@@ -61,8 +61,6 @@ RUN chown -R www-data:www-data /var/www
 
 RUN cd /var/www/html && npm instal && composer install
 
-#RUN cd /var/www/html && php artisan migrate:fresh --seed
-
 #RUN chown -R www-data:www-data /var/www/html
 #RUN chgrp -R www-data storage bootstrap/cache
 #RUN chmod -R ug+rwx storage bootstrap/cache
@@ -73,5 +71,5 @@ RUN cd /var/www/html && npm instal && composer install
 # sudo chmod o+w ./storage/ -R
 #RUN echo "Application Port is: " + "$PORT";
 
-CMD ["/var/www/html/scripts/start-apache.sh"]
 #CMD [ "/var/www/html/scripts/run-apache2.sh" ]
+CMD ["/var/www/html/scripts/start-apache.sh"]
