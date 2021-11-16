@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Edge;
 use App\Models\Node;
+use App\Models\RoadType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -24,7 +25,7 @@ class AdminRouteController extends Controller
         $routes = Edge::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
         $towns = Node::all();
 
-        return  view('admin.routes.index', compact('routes', 'towns'));
+        return view('admin.routes.index', compact('routes', 'towns'));
     }
 
     /**
@@ -36,8 +37,9 @@ class AdminRouteController extends Controller
     {
         $routes = Edge::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
         $towns = Node::all();
+        $road_types = RoadType::all();
 
-        return view('admin.routes.create', compact('routes', 'towns'));
+        return view('admin.routes.create', compact('routes', 'towns', 'road_types'));
     }
 
     /**
@@ -60,6 +62,9 @@ class AdminRouteController extends Controller
             'to_node_id' => 'required|unique_with:edges,from_node_id|not_in:' . $request['from_node_id'],
 //            'from_node_id' => 'required|unique_with:edges,to_node_id',
 //            'to_node_id' => 'required|unique_with:edges,from_node_id',
+            'max_speed' => 'required|integer|between:0,500',
+            'distance_in_km' => 'required|integer',
+            'road_type' => 'required|integer',
         ], [
             'from_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
             'to_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
@@ -69,9 +74,9 @@ class AdminRouteController extends Controller
         Edge::create([
             "from_node_id" => $validated['from_node_id'],
             "to_node_id" => $validated['to_node_id'],
-            "distance_in_km" => 15,
-            "max_speed" => 13,
-            "type_id" => 2
+            "distance_in_km" => $validated['distance_in_km'],
+            "max_speed" => $validated['max_speed'],
+            "type_id" => $validated['road_type']
         ]);
 
 //        dd($edge);
@@ -88,19 +93,26 @@ class AdminRouteController extends Controller
      */
     public function show(int $id)
     {
-        // todo: improve, show info about that route
         $route = Edge::findOrFail($id);
+
         return view('routes.view', compact('route'));
     }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        $route = Edge::where('id', '=', $id)->with([
+            'to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels'
+        ])->firstOrFail();
+
+        $towns = Node::all();
+        $road_types = RoadType::all();
+
+        return view('admin.routes.edit', compact('route', 'towns', 'road_types'));
     }
 
     /**
@@ -108,11 +120,40 @@ class AdminRouteController extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        //
+        if ($request->get('from_node_id') > $request->get('to_node_id')) {
+            [$request['from_node_id'], $request['to_node_id']] = [$request['to_node_id'], $request['from_node_id']];
+            session(['swapped' => true]);
+        } else {
+            session(['swapped' => false]);
+        }
+
+        $validated = $request->validate([
+            'from_node_id' => 'required|unique_with:edges,to_node_id|not_in:'. $request['to_node_id'],
+            'to_node_id' => 'required|unique_with:edges,from_node_id|not_in:' . $request['from_node_id'],
+//            'from_node_id' => 'required|unique_with:edges,to_node_id',
+//            'to_node_id' => 'required|unique_with:edges,from_node_id',
+            'max_speed' => 'required|integer|between:0,500',
+            'distance_in_km' => 'required|integer',
+            'road_type' => 'required|integer',
+        ], [
+            'from_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
+            'to_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
+        ]);
+
+//         todo: add max speed, type id and distance in km in view /create/
+        Edge::where('id', '=', $id)->update([
+            "from_node_id" => $validated['from_node_id'],
+            "to_node_id" => $validated['to_node_id'],
+            "distance_in_km" => $validated['distance_in_km'],
+            "max_speed" => $validated['max_speed'],
+            "type_id" => $validated['road_type']
+        ]);
+
+        return redirect()->route('admin.routes.index');
     }
 
     /**
@@ -121,9 +162,10 @@ class AdminRouteController extends Controller
      * @param  int  $id
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         Edge::destroy($id);
+
         return redirect()->route('admin.routes.index');
     }
 }

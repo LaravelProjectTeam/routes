@@ -27,6 +27,7 @@ class AdminTownController extends Controller
     {
         // todo: Rename Node to Town
         $towns = Node::all();
+
         return view('admin.towns.index', compact('towns'));
     }
 
@@ -52,13 +53,12 @@ class AdminTownController extends Controller
             'name' => 'required|unique:nodes|max:255',
         ]);
 
-//        todo: translate errors in bulgarian
-
         Node::create([
             'name' => $validated['name'],
         ]);
 
         $towns = Node::all();
+
         return view('admin.towns.index', compact('towns'));
     }
 
@@ -71,6 +71,7 @@ class AdminTownController extends Controller
     public function show($id)
     {
         $town = Node::findOrFail($id);
+
         return view('admin.towns.view', compact('town'));
     }
 
@@ -80,9 +81,10 @@ class AdminTownController extends Controller
      * @param  int  $id
      * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $town = Node::findOrFail($id);
+
         return view('admin.towns.edit', compact('town'));
     }
 
@@ -96,7 +98,7 @@ class AdminTownController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|unique:nodes|max:255',
         ]);
 
         Node::where('id', $id)->update([
@@ -104,6 +106,7 @@ class AdminTownController extends Controller
         ]);
 
         $towns = Node::all();
+
         return view('admin.towns.index', compact('towns'));
     }
 
@@ -117,6 +120,7 @@ class AdminTownController extends Controller
     {
         Node::destroy($id);
         $towns = Node::all();
+
         return view('admin.towns.index', compact('towns'));
     }
 }

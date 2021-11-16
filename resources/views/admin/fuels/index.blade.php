@@ -3,8 +3,8 @@
 @section('title', 'Всички горива')
 
 @section('content')
-    <div class="container">
-        <h1 class="ml-2">@yield('title')</h1>
+    <div class="container has-text-centered">
+        <h1>@yield('title')</h1>
 
         <table class="table">
             <thead>
@@ -20,7 +20,7 @@
             <tbody>
             @foreach($fuels as $fuel)
                 <tr>
-                    <td>{{ $fuel->id }}</td>
+                    <th>{{ $fuel->id }}</th>
                     <td>{{ $fuel->name }}</td>
                     <td>{{date('d-m-Y', strtotime($fuel->created_at))}}</td>
                     <td>{{date('d-m-Y', strtotime($fuel->updated_at))}}</td>
@@ -40,7 +40,7 @@
             @endforeach
             </tbody>
         </table>
-        <div class="buttons">
+        <div class="has-text-centered">
             <a class="button is-small is-success" href="{{route('admin.fuels.create')}}">Създай</a>
             <a class="button is-small is-info" href="{{route('admin.index')}}">Назад</a>
         </div>

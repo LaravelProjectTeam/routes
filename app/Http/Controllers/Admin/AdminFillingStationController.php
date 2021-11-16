@@ -66,6 +66,7 @@ class AdminFillingStationController extends Controller
         }
 
         $filling_stations = FillingStation::all();
+
         return view('admin.filling_stations.index', compact('filling_stations'));
     }
 
@@ -78,6 +79,7 @@ class AdminFillingStationController extends Controller
     public function show(int $id)
     {
         $filling_station = FillingStation::findOrFail($id);
+
         return view('admin.filling_stations.view', compact('filling_station'));
     }
 
@@ -91,6 +93,7 @@ class AdminFillingStationController extends Controller
     {
         $filling_station = FillingStation::findOrFail($id);
         $fuels = Fuel::all();
+
         return view('admin.filling_stations.edit', compact('filling_station', 'fuels'));
     }
 
@@ -121,6 +124,7 @@ class AdminFillingStationController extends Controller
         }
 
         $filling_stations = FillingStation::all();
+
         return view('admin.filling_stations.index', compact('filling_stations'));
     }
 
@@ -134,6 +138,7 @@ class AdminFillingStationController extends Controller
     {
         FillingStation::destroy($id);
         $filling_stations = FillingStation::all();
+
         return view('admin.filling_stations.index', compact('filling_stations'));
     }
 }

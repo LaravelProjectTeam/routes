@@ -3,7 +3,9 @@
 @section('title', $route->from->name . ' - ' . $route->to->name)
 
 @section('content')
-    <div class="container">
+    <div class="container has-text-centered">
+        <h1>@yield('title') 123</h1>
+        asdasas
         <table class="table">
             <thead>
                 <tr>
@@ -54,14 +56,14 @@
                     <td>
                         <form action="{{ route('routes.destroy', $route->id) }}" method="post">
                             @csrf
-                            @method('DELETE')
+                            @method('delete')
                             <button class="button is-danger is-small" type="submit">Изтрий</button>
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="buttons">
+        <div class="has-text-centered">
             <a class="button is-link is-small" href="{{ route('routes.index') }}">Начало</a>
         </div>
     </div>

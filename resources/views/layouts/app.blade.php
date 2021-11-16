@@ -22,7 +22,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container has-text-centered">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <!-- {{ config('app.name', 'routes') }} -->
                     <!-- <h2>Начало</h2> -->
@@ -34,9 +34,9 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+{{--                    <ul class="navbar-nav mr-auto">--}}
 
-                    </ul>
+{{--                    </ul>--}}
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

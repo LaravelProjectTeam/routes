@@ -3,7 +3,7 @@
 @section('title', 'Редактирай бензиностанция')
 
 @section('content')
-    <div class="container">
+    <div class="container has-text-centered">
         <div class="columns is-mobile is-centered">
             <div class="column is-half">
                 <h1>@stack('title')</h1>
@@ -28,8 +28,8 @@
                             <label for="edge_id">Път</label>
                         </h4>
 
-                        <div class="select is-small @error('edge_id') is-danger @enderror">
-                            <select id="edge_id" name="edge_id" class="is-disabled" {{'disabled'}}>
+                        <div class="select is-primary is-small @error('edge_id') is-danger @enderror">
+                            <select id="edge_id" name="edge_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
                                 <option value="{{ $filling_station->edge->id }}" {{ 'selected' }}>
                                     между
                                     {{ $filling_station->edge->from->name }}
@@ -53,8 +53,8 @@
                     <h4 class="mt-2 mb-3">
                         <label for="fuels">Горива</label>
                     </h4>
-                    <div class="select is-multiple">
-                        <select name="fuels[]" id="fuels" multiple size="8">
+                    <div class="select is-primary is-multiple">
+                        <select name="fuels[]" id="fuels" multiple size="8" class="has-text-centered">
                             @foreach($fuels as $fuel)
                                 <option value="{{ $fuel->id }}"
                                     {{
@@ -75,7 +75,7 @@
                         </select>
                     </div>
 
-                    <div class="buttons mt-3">
+                    <div class="has-text-centered mt-3">
                         <button class="button is-small is-success" type="submit" >Запиши</button>
                         <a class="button is-link is-small" href="{{ route('admin.filling_stations.index') }}">Откажи</a>
                     </div>

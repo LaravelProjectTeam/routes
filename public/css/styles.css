@@ -25,3 +25,12 @@
 .hero-background.is-transparent {
     opacity: 1;
 }
+
+.username {
+    color: #363636;
+}
+
+.username:hover {
+    cursor: auto;
+    text-decoration: none;
+}

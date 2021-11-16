@@ -26,15 +26,21 @@
             <a class="navbar-item" href="{{ route("contacts.create") }}">
                 Контакти
             </a>
-{{--            todo: only show if user is authenticated and is admin --}}
-
-            @if (Auth::user() && Auth::user()->admin == 1)
+            @if (Auth::user() && Auth::user()->admin)
                 <a class="navbar-item has-text-success" href="{{ route("admin.index") }}" >
                     Административен панел
                 </a>
             @endif
         </div>
         <div class="navbar-end">
+            <div class="navbar-item">
+                @auth
+                    <a class="username">
+                        {{ Auth::user()->name }}
+                    </a>
+                @endauth
+            </div>
+
             <div class="navbar-item">
                 <div class="buttons">
                     @auth

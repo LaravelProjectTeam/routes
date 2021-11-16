@@ -3,7 +3,8 @@
 @section('title', $route->from->name . ' - ' . $route->to->name)
 
 @section('content')
-    <div class="container">
+    <div class="container has-text-centered">
+        <h1>@yield('title')</h1>
         <table class="table">
             <thead>
                 <tr>
@@ -52,7 +53,7 @@
             </tbody>
         </table>
 
-        <div class="buttons">
+        <div class="has-text-centered">
             <a class="button is-link is-small" href="{{ route('routes.index') }}">Начало</a>
         </div>
     </div>

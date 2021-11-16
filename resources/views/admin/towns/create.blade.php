@@ -3,7 +3,7 @@
 @section('title', 'Добави град')
 
 @section('content')
-    <div class="container">
+    <div class="container has-text-centered">
        <div class="columns is-mobile is-centered">
            <div class="column is-half">
                <h1>@yield('title')</h1>
@@ -21,7 +21,7 @@
                        @enderror
                    </div>
 
-                   <div class="buttons mt-2">
+                   <div class="has-text-centered mt-2">
                        <button class="button is-small is-success" type="submit" >Запиши</button>
                        <a class="button is-link is-small" href="{{ route('admin.towns.index') }}">Откажи</a>
                    </div>

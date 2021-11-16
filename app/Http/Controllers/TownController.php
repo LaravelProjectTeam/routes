@@ -10,12 +10,14 @@ class TownController extends Controller
     {
         // todo: Rename Node to Town
         $towns = Node::all();
+
         return view('towns.index', compact('towns'));
     }
 
     public function show($id)
     {
         $town = Node::findOrFail($id);
+
         return view('towns.view', compact('town'));
     }
 }

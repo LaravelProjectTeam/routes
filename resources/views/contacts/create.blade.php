@@ -3,7 +3,7 @@
 @section('title', 'Контакти')
 
 @section('content')
-    <div class="container">
+    <div class="container has-text-centered">
         <div class="columns is-mobile is-centered">
             <div class="column is-half">
                 <h1 class="mt-3">Контакти</h1>
@@ -56,7 +56,7 @@
                         @enderror
                     </div>
 
-                    <div class="buttons mt-3">
+                    <div class="has-text-centered mt-3">
                         <button class="button is-small is-success" type="submit" >Изпрати</button>
                         <a class="button is-link is-small" href="{{ route('home.index') }}">Откажи</a>
                     </div>

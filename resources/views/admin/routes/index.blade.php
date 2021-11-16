@@ -3,8 +3,8 @@
 @section('title', 'Всички директни пътища')
 
 @section('content')
-    <div class="container">
-        <h1 class="ml-2">@yield('title')</h1>
+    <div class="container has-text-centered">
+        <h1 class="">@yield('title')</h1>
 
         <table class="table">
             <thead>
@@ -26,7 +26,7 @@
             <tbody>
                 @foreach($routes as $route)
                     <tr>
-                        <td><a href="{{ route('admin.routes.show', $route->id) }}">{{ $route->id }}</a></td>
+                        <th><a href="{{ route('admin.routes.show', $route->id) }}">{{ $route->id }}</a></th>
                         <td>#{{ $route->from->id  }} - {{ $route->from->name }}</td>
                         <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
                         <td>{{ $route->distance_in_km }}</td>
@@ -59,7 +59,7 @@
                         <td>
                             <form action="{{ route('admin.routes.destroy', $route->id) }}" method="post">
                                 @csrf
-                                @method('DELETE')
+                                @method('delete')
                                 <button class="button is-danger is-small" type="submit">Изтрий</button>
                             </form>
                         </td>
@@ -68,13 +68,13 @@
             </tbody>
         </table>
 
-        <div class="mt-3 ml-2">
+        <div class="mt-3 ">
             @foreach($full_route_information ?? [] as $full_direct_route_info)
                 <div class="mt-0">{{ $full_direct_route_infon ?? '' }}</div>
             @endforeach
         </div>
 
-        <div class="buttons mt-3">
+        <div class="has-text-centered mt-3">
                 <a class="button is-success is-small" href="{{ route('admin.routes.create') }}">Създай</a>
             <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
         </div>

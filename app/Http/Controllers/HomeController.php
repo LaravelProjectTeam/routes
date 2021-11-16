@@ -11,9 +11,6 @@ class HomeController extends Controller
 {
     public function index ()
     {
-//        echo __('bg.Routes');
-//        $response = new Response('Set Cookie');
-//        $response->withCookie(cookie('lang', 'es', 13));
         return view('home.index');
     }
 }

@@ -23,6 +23,7 @@ class AdminUserController extends Controller
         // return view('authentication.register');
 
         $users = User::all();
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -44,8 +45,12 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User;
-        $user->create(['name' => $request->username, 'email' => $request->email, 'password'=>$request->password]);
+        User::create([
+            'name' => $request->username,
+            'email' => $request->email,
+            'password'=>$request->password
+        ]);
+
         return redirect()->route('home.index');
     }
 
@@ -80,9 +85,12 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        User::where('id', '=', $user['id'])->update(['admin' => $request->get('admin')]);
+        User::where('id', '=', $user['id'])->update([
+            'admin' => $request->get('admin')
+        ]);
 
         $users = User::all();
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -95,6 +103,7 @@ class AdminUserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        
         return redirect()->route('admin.users.index');
     }
 }

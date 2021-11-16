@@ -3,7 +3,7 @@
 @section('title', $town->name)
 
 @section('content')
-    <div class="container">
+    <div class="container has-text-centered">
         <table class="table">
             <thead>
             <tr>
@@ -25,15 +25,15 @@
                     <td>
                         <form action="{{ route('admin.towns.destroy', $town->id) }}" method="post">
                             @csrf
-                            @method('DELETE')
+                            @method('delete')
                             <button class="button is-danger is-small" type="submit">Изтрий</button>
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="buttons">
-            <a class="button is-link is-small ml-2" href="{{ route('admin.towns.index') }}">Начало</a>
+        <div class="has-text-centered">
+            <a class="button is-link is-small " href="{{ route('admin.towns.index') }}">Начало</a>
         </div>
     </div>
 @endsection

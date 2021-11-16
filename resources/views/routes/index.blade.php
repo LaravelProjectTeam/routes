@@ -3,8 +3,8 @@
 @section('title', 'Всички пътища')
 
 @section('content')
-    <div class="container">
-        <h1 class="ml-2">Всички директни пътища</h1>
+    <div class="container has-text-centered">
+        <h1 class="has-text-centered">Всички директни пътища</h1>
 
         <table class="table">
             <thead>
@@ -56,18 +56,18 @@
             </tbody>
         </table>
 
-        <h1 class="ml-2">Намери най-краткият маршрут между два града</h1>
+        <h1 class="has-text-centered">Намери най-краткият маршрут между два града</h1>
         <form action="{{ route('routes.search') }}" method="post">
             <div class="columns">
                 @csrf
                 @method('post')
 
-                <div class="column is-one-third">
-                    <h4 class="ml-2">
+                <div class="column is-one-third has-text-centered">
+                    <h4 class="">
                         <label for="from">Начало</label>
                     </h4>
-                    <div class="select is-small ml-2">
-                        <select id="from" name="from" >
+                    <div class="select is-primary is-small">
+                        <select id="from" name="from" class="has-text-centered">
                             @foreach($towns as $town)
                                 <option value="{{ $town->name }}" {{ ($from ?? '') === $town->name ? 'selected' : '' }}>
                                     {{ $town->name }}
@@ -77,12 +77,12 @@
                     </div>
                 </div>
 
-                <div class="column is-one-third">
-                    <h4 class="ml-2">
+                <div class="column is-one-third has-text-centered">
+                    <h4>
                         <label for="to">Край</label>
                     </h4>
-                    <div class="select is-small ml-2">
-                        <select id="to" name="to">
+                    <div class="select is-primary is-small">
+                        <select id="to" name="to" class="has-text-centered">
                             @foreach($towns as $town)
                                 <option value="{{ $town->name }}" {{ ($to ?? '') === $town->name ? 'selected' : '' }}>
                                     {{ $town->name }}
@@ -92,17 +92,17 @@
                     </div>
                 </div>
 
-                <div class="column is-one-third ml-2">
+                <div class="column is-one-third has-text-centered">
                     <button class="button is-info is-small" type="submit">Търси</button>
                 </div>
             </div>
         </form>
 
-        <div class="mt-3 ml-2">
+        <div class="mt-3 has-text-centered">
             {{ $message ?? '' }}
         </div>
 
-        <div class="mt-3 ml-2">
+        <div class="mt-3 has-text-centered">
             @foreach($fullRouteInformation ?? [] as $directRouteGasStations)
                 @foreach($directRouteGasStations ?? [] as $gasStation)
                     <div class="mt-0">{{ $gasStation ?? '' }}</div>

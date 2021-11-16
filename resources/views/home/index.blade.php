@@ -3,7 +3,7 @@
 @section('title', 'Начало')
 
 @section('content')
-    <div class="container">
+    <div class="container has-text-centered">
         <section class="hero is-primary">
             <div class="hero-body">
                 <p class="title">
@@ -23,7 +23,6 @@
 {{--        <img src="https://i.redd.it/uoprbjfqqyp31.png" alt="splash-screen">--}}
         <img src="{{ asset('storage/images/splash-screen.png') }}" alt="splash-screen">
     </div>
-
 
 {{--    <div class="card-body">--}}
 {{--        @if (session('error'))--}}
@@ -48,25 +47,6 @@
 {{--        </div>--}}
 
 {{--    <img src="https://www.mapsinternational.co.uk/pub/media/catalog/product/x/w/o/world-wall-map-political-without-flags_wm00001_h.jpg" alt="">--}}
-
-{{-- todo --}}
-{{-- hero with image --}}
-{{--<div class="hero is-fullheight is-primary has-background">--}}
-{{--    <img alt="splash-screen"--}}
-{{--         class="hero-background is-transparent"--}}
-{{--         src="{{ asset('storage/images/splash-screen.png') }}"--}}
-{{--    />--}}
-{{--    <div class="hero-body">--}}
-{{--        <div class="container">--}}
-{{--            <h1 class="title">--}}
-{{--                Hero Image--}}
-{{--            </h1>--}}
-{{--            <h3 class="subtitle">--}}
-{{--                without CSS background-image--}}
-{{--            </h3>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
 
 @endsection
 

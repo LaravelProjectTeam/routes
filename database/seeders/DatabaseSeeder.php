@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             FuelSeeder::class,
             NodeSeeder::class,
             RoadTypeSeeder::class,
+            UserSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();

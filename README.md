@@ -72,6 +72,7 @@ The resources, frameworks and platforms used for creating/distributing/testing t
 - Heroku - https://heroku.com/
 - MySQL/MariaDB - local, PostgreSQL - production
 - Taniko/Dijkstra - https://github.com/taniko/dijkstra
+- See `composer.json`, `package.json` for full list of dependencies
 
 ##### Art
 - Splash Screen - https://www.reddit.com/r/mapmaking/comments/dbwlsi/region_map_oc_free_high_res_generic_region_map/
@@ -84,5 +85,6 @@ https://www.cloudsigma.com/deploying-laravel-nginx-and-mysql-with-docker-compose
 https://maruan.medium.com/how-to-install-and-set-up-laravel-8-with-docker-compose-on-ubuntu-20-04-58149fed3e2e
 https://shouts.dev/dockerize-a-laravel-app-with-apache-mariadb
 https://webomnizz.com/containerize-your-laravel-application-with-docker-compose/
+https://stackoverflow.com/questions/18584598/how-to-persist-a-graph-data-structure-in-a-relational-database/20304574
 
 ... and many others

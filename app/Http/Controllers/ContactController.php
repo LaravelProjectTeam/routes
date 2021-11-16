@@ -68,6 +68,7 @@ class ContactController extends Controller
             $from_name,
             $to_email,
             $from_name,
+            $validated['email'],
             $validated['subject'],
             $modified_message
         );

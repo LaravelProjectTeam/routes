@@ -1,37 +1,37 @@
 @extends('layouts.master')
 
-@section('title', 'Създай директен път между два града')
+@section('title', 'Редактирай директен път между два града')
 
 @section('content')
     <div class="container has-text-centered">
-        <h1 class="">Текущи директни пътища</h1>
+        <h1>@yield('title')</h1>
+
         <table class="table">
             <thead>
-            <tr>
-                <th>Номер</th>
-                <th>От град</th>
-                <th>До град</th>
-                <th>Разстояние (км)</th>
-                <th>Максимална скорост (км/ч)</th>
-                <th>Нужни минути</th>
-                <th>Бензиностанции</th>
-                <th>Вид</th>
-                <th>Създаден на</th>
-                <th>Обновен на</th>
-                <th>Редактирай</th>
-                <th>Изтрий</th>
-            </tr>
+                <tr>
+                    <th>Номер</th>
+                    <th>От град</th>
+                    <th>До град</th>
+                    <th>Разстояние (км)</th>
+                    <th>Максимална скорост (км/ч)</th>
+                    <th>Нужни минути</th>
+                    <th>Бензиностанции</th>
+                    <th>Вид</th>
+                    <th>Създаден на</th>
+                    <th>Обновен на</th>
+                    <th>Редактирай</th>
+                    <th>Изтрий</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach($routes as $route)
                 <tr>
                     <td><a href="{{ route('admin.routes.show', $route->id) }}">{{ $route->id }}</a></td>
                     <td>#{{ $route->from->id  }} - {{ $route->from->name }}</td>
                     <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
                     <td>{{ $route->distance_in_km }}</td>
                     <td>{{ $route->max_speed }}</td>
-                    {{--                        <td>{{ dd($route->filling_stations) }}</td>--}}
-                    {{--                        <td>{{ $route->minutes_needed }}</td>--}}
+{{--                    <td>{{ dd($route->filling_stations) }}</td>--}}
+{{--                    <td>{{ $route->minutes_needed }}</td>--}}
                     <td>{{ round($route->minutes_needed) }}</td>
                     <td>
                         @foreach($route->fillingStations ?? [] as $filling_station)
@@ -39,13 +39,13 @@
                                 <span>{{ $filling_station->name }}</span>
                                 -
                                 <span>
-                                        горива:
-                                        {{
-                                            $filling_station->fuels->count() ?
-                                            join(', ', $filling_station->fuels->pluck('name')->toArray()) :
-                                            'няма горива'
-                                        }}
-                                    </span>
+                                    горива:
+                                    {{
+                                        $filling_station->fuels->count() ?
+                                        join(', ', $filling_station->fuels->pluck('name')->toArray()) :
+                                        'няма горива'
+                                    }}
+                                </span>
                             </div>
                         @endforeach
                         {{ $route->fillingStations->count() === 0 ? 'няма' : '' }}
@@ -58,11 +58,11 @@
                         <form action="{{ route('admin.routes.destroy', $route->id) }}" method="post">
                             @csrf
                             @method('delete')
+
                             <button class="button is-danger is-small" type="submit">Изтрий</button>
                         </form>
                     </td>
                 </tr>
-            @endforeach
             </tbody>
         </table>
 
@@ -89,8 +89,8 @@
                                             value="{{ $town->id }}"
                                             {{ (
                                                 session('swapped') ?
-                                                old('to_node_id') :
-                                                old('from_node_id')
+                                                old('to_node_id') ?? $route->to->id :
+                                                old('from_node_id') ??  $route->from->id
                                                ) == $town->id ? 'selected' : ''
                                             }}>
                                             {{ $town->name }}
@@ -114,8 +114,8 @@
                                             value="{{ $town->id }}"
                                             {{ (
                                                 session('swapped') ?
-                                                old('from_node_id') :
-                                                old('to_node_id')
+                                                old('from_node_id') ?? $route->from->id :
+                                                old('to_node_id') ?? $route->to->id
                                                ) == $town->id ? 'selected' : ''
                                             }}>
                                             {{ $town->name }}
@@ -138,8 +138,8 @@
                     <div class="form-group mt-2">
                         <label class="label" for="max_speed">Максимална скорост (км/ч)</label>
                         <input class="input is-primary is-small @error('max_speed') is-danger @enderror"
-                               id="max_speed" name="max_speed" type="number"
-                               value="{{ old('max_speed') }}" >
+                               id="max_speed" name="max_speed"
+                               value="{{ old('max_speed') ?? $route->max_speed }}" >
                         @error('max_speed')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
@@ -148,8 +148,8 @@
                     <div class="form-group mt-2">
                         <label class="label" for="distance_in_km">Разстояние (км)</label>
                         <input class="input is-primary is-small @error('distance_in_km') is-danger @enderror"
-                               id="distance_in_km" name="distance_in_km" type="number"
-                               value="{{ old('distance_in_km') }}" >
+                               id="distance_in_km" name="distance_in_km"
+                               value="{{ old('distance_in_km') ?? $route->distance_in_km }}" >
                         @error('distance_in_km')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
@@ -164,7 +164,7 @@
                                 @foreach($road_types ?? [] as $road_type)
                                     <option
                                         value="{{ $road_type->id }}"
-                                        {{ old('road_type') == $road_type->id ? 'selected' : ''}}
+                                        {{ (old('road_type') ?? $route->roadType->id) == $road_type->id ? 'selected' : '' }}
                                     >
                                         {{ $road_type->name }} - трудност: {{ $road_type->hardship_level }}
                                     </option>

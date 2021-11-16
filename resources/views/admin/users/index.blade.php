@@ -3,8 +3,8 @@
 @section('title', 'Всички потребители')
 
 @section('content')
-    <div class="container">
-        <h1 class="ml-2">@yield('title')</h1>
+    <div class="container has-text-centered">
+        <h1 class="">@yield('title')</h1>
 
         <table class="table">
             <thead>
@@ -25,18 +25,18 @@
             <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
+                        <th>{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->admin == 0 ? 'Потребител' : 'Администратор' }}</td>
 {{--                        <td>--}}
-{{--                          <div class="buttons">--}}
+{{--                          <div class="has-text-centered">--}}
 {{--                            <a href="{{route('admin.fuels.create')}}"><button type="submit" class="button is-info is-small">Добави</button></a>--}}
 {{--                            <a href="{{route('admin.fuels.index')}}"><button type="submit" class="button is-warning is-small">Прегледай</button></a>--}}
 {{--                          </div>--}}
 {{--                        </td>--}}
 {{--                        <td>--}}
-{{--                          <div class="buttons">--}}
+{{--                          <div class="has-text-centered">--}}
 {{--                            <a href="{{route('admin.road_types.create')}}"><button type="submit" class="button is-info is-small">Добави</button></a>--}}
 {{--                            <a href="{{route('admin.road_types.index')}}"><button type="submit" class="button is-warning is-small">Прегледай</button></a>--}}
 {{--                          </div>--}}
@@ -47,30 +47,32 @@
                             <form action="{{ route('admin.users.update', $user->id) }}" method="post">
                                 @csrf
                                 @method('put')
-                                <div class="select">
+
+                                <div class="select is-primary is-small m-1">
                                     <label for="admin">
-                                        <select id="admin" name="admin">
+                                        <select id="admin" name="admin" class="has-text-centered">
                                             <option value="1" {{ $user->admin ? 'selected' : '' }}>Администратор</option>
                                             <option value="0" {{ !$user->admin ? 'selected' : '' }}>Потребител</option>
                                         </select>
                                     </label>
                                 </div>
 
-                                <button type="submit" class="button is-success is-small mt-2 mb-2">Запази</button>
+                                <button type="submit" class="button is-success is-small m-1">Запази</button>
                             </form>
                         </td>
                         <td>
                             <form action="{{ route('admin.users.destroy', $user->id) }}" method="post">
                                 @csrf
-                                <input type="hidden" name="_method" value="delete">
-                                <button type="submit" class="button is-danger is-small mt-2 mb-2">Изтрий</button>
+                                @method('delete')
+
+                                <button type="submit" class="button is-danger is-small m-1">Изтрий</button>
                             </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <div class="buttons">
+        <div class="has-text-centered">
             <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
 {{--            <a class="button is-warning is-small">Редактирай [ADMIN]</a>--}}
 {{--            <a class="button is-danger is-small">Изтрий [ADMIN]</a>--}}

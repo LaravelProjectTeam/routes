@@ -21,6 +21,7 @@ class AdminTypeController extends Controller
     public function index()
     {
         $types = RoadType::all();
+
         return view('admin.road_types.index', compact('types'));
     }
 
@@ -51,8 +52,8 @@ class AdminTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type_name' => 'required|max:255',
-            'hardship' => 'required',
+            'type_name' => 'required|unique:road_types,name|max:255',
+            'hardship' => 'required|integer|between:1,10',
         ]);
 
         $type = new RoadType;
@@ -62,9 +63,12 @@ class AdminTypeController extends Controller
 //            'hardship_level' => 'required|integer'
 //        ]);
 
-        $type->create(['name' => $request->type_name, 'hardship_level' => $request->hardship]);
-        return redirect()->route('admin.road_types.index');
+        $type->create([
+            'name' => $request->type_name,
+            'hardship_level' => $request->hardship
+        ]);
 
+        return redirect()->route('admin.road_types.index');
     }
 
     /**
@@ -87,6 +91,7 @@ class AdminTypeController extends Controller
     public function edit(int $id)
     {
         $road_type = RoadType::findOrFail($id);
+
         return view('admin.road_types.edit', compact('road_type'));
     }
 
@@ -100,13 +105,13 @@ class AdminTypeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'type_name' => 'required|max:255',
-            'hardship' => 'required',
+            'type_name' => 'required|unique:road_types,name|max:255',
+            'hardship' => 'required|integer|between:1,10',
         ]);
 
         $type = RoadType::findOrFail($id);
-        $type->name=$request->type_name;
-        $type->hardship_level=$request->hardship;
+        $type->name = $request->type_name;
+        $type->hardship_level = $request->hardship;
         $type->save();
 
         return redirect()->route('admin.road_types.index');
@@ -121,6 +126,7 @@ class AdminTypeController extends Controller
     public function destroy(int $id)
     {
         RoadType::destroy($id);
+
         return redirect()->route('admin.road_types.index');
     }
 }
