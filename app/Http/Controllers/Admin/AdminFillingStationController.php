@@ -22,7 +22,7 @@ class AdminFillingStationController extends Controller
     public function index()
     {
         // todo: Rename Node to Town
-        $filling_stations = FillingStation::all();
+        $filling_stations = FillingStation::paginate(5);
         return view('admin.filling_stations.index', compact('filling_stations'));
     }
 

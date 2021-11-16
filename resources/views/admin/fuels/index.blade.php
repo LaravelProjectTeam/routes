@@ -37,6 +37,6 @@
                 @endforeach
             </tbody>
 </table>
-<a href="{{route('admin.fuels.create')}}"><button type="submit" class="button is-small is-success">Създай</button></a>
-<a href="{{route('admin.index')}}"><button type="submit" class="button is-small is-info">Назад</button></a>
+<a href="{{route('admin.fuels.create')}}"><button type="submit" class="button is-success">Създай</button></a>
+<a href="{{route('admin.index')}}"><button type="submit" class="button is-info">Назад</button></a>
 @endsection

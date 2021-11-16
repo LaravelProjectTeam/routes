@@ -26,7 +26,7 @@ class AdminTownController extends Controller
     public function index()
     {
         // todo: Rename Node to Town
-        $towns = Node::all();
+        $towns = Node::paginate(3);
         return view('admin.towns.index', compact('towns'));
     }
 
