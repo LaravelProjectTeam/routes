@@ -23,3 +23,5 @@ notes.txt
 run/var
 /db/
 /storage/debugbar/
+composer.lock
+package-lock.json
