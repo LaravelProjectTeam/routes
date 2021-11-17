@@ -3,25 +3,25 @@ FROM php:8-apache
 WORKDIR /var/www/html
 
 RUN apt-get update -y && apt-get install -y \
-    curl \
-    nano \
-    npm \
-    g++ \
-    git \
-    zip \
-    vim \
-    sudo \
-    unzip \
-    nodejs \
-    libpq-dev \
-    libicu-dev \
-    libbz2-dev \
-    libzip-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libmcrypt-dev \
-    libreadline-dev \
-    libfreetype6-dev &&  \
+        curl \
+        nano \
+        npm \
+        g++ \
+        git \
+        zip \
+        vim \
+        sudo \
+        unzip \
+        nodejs \
+        libpq-dev \
+        libicu-dev \
+        libbz2-dev \
+        libzip-dev \
+        libpng-dev \
+        libjpeg-dev \
+        libmcrypt-dev \
+        libreadline-dev \
+        libfreetype6-dev && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install \
         zip \

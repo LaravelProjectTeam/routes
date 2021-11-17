@@ -26,7 +26,7 @@ class AddUniqueConstraintOnFromNodeIdToNodeIdInEdgesTable extends Migration
     public function down()
     {
         Schema::table('edges', function (Blueprint $table) {
-            $table->dropUnique(array('from_node_id', 'to_node_id'));
+//            $table->dropUnique(array('from_node_id', 'to_node_id'));
         });
     }
 }

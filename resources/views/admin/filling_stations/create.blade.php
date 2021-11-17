@@ -31,7 +31,6 @@
                        <div class="select is-primary is-small @error('edge_id') is-danger @enderror">
                            <select id="edge_id" name="edge_id" class="has-text-centered">
                                @foreach($direct_routes as $route)
-{{--                                   <option value="{{ $route->id }}"{{ ($to ?? '') === $route->id ? 'selected' : '' }}>--}}
                                    <option value="{{ $route->id }}">
                                        между
                                        {{ $route->from->name }}

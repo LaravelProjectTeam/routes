@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class UserSeeder extends Seeder/home/k/
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
