@@ -70,9 +70,9 @@
             <div class="column is-half">
                 <h1 class="">@yield('title')</h1>
 
-                <form action="{{ route('admin.routes.store') }}" method="post">
+                <form action="{{ route('admin.routes.update', $route->id) }}" method="post">
                     @csrf
-                    @method('post')
+                    @method('put')
 
                     <div class="columns">
                         <div class="column is-one-half has-text-centered">
@@ -83,19 +83,10 @@
                                  @error('to_node_id') is-danger @enderror
                                  @error('from_node_id') is-danger @enderror"
                             >
-                                <select class="has-text-centered" id="from_node_id" name="from_node_id" >
-                                    @foreach($towns ?? [] as $town)
-                                        <option
-                                            value="{{ $town->id }}"
-                                            {{ (
-                                                session('swapped') ?
-                                                old('to_node_id') ?? $route->to->id :
-                                                old('from_node_id') ??  $route->from->id
-                                               ) == $town->id ? 'selected' : ''
-                                            }}>
-                                            {{ $town->name }}
-                                        </option>
-                                    @endforeach
+                                <select id="from_node_id" name="from_node_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
+                                    <option value="{{ $route->from->id }}" {{ 'selected' }}>
+                                        {{ $route->from->name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -108,23 +99,15 @@
                                  @error('to_node_id') is-danger @enderror
                                  @error('from_node_id') is-danger @enderror"
                             >
-                                <select class="has-text-centered" id="to_node_id" name="to_node_id">
-                                    @foreach($towns ?? [] as $town)
-                                        <option
-                                            value="{{ $town->id }}"
-                                            {{ (
-                                                session('swapped') ?
-                                                old('from_node_id') ?? $route->from->id :
-                                                old('to_node_id') ?? $route->to->id
-                                               ) == $town->id ? 'selected' : ''
-                                            }}>
-                                            {{ $town->name }}
-                                        </option>
-                                    @endforeach
+                                <select id="to_node_id" name="to_node_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
+                                    <option value="{{ $route->to->id }}" {{ 'selected' }}>
+                                        {{ $route->to->name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
                     </div>
+
                     @if ($errors->get('to_node_id') )
                         <p class="help is-danger">
                            {{ $errors->toArray()['to_node_id'][0] }}

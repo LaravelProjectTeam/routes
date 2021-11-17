@@ -24,7 +24,13 @@ class Edge extends Model
         // formula: #2 + hardship_level / 10
 
         $road_type = RoadType::findOrFail($this->type_id);
-        return (($this->distance_in_km / $this->max_speed) + $road_type->hardship_level / 10) * 60;
+
+        //(1 to 5) * 2; 5 to 10 * 1.75
+        $hardship_modifier = $road_type->hardship_level <= 5 ?
+            ($road_type->hardship_level * 2) :
+            ($road_type->hardship_level * 1.75);
+
+        return ($this->distance_in_km / $this->max_speed) * 60 + $hardship_modifier;
     }
 
     public function fillingStations()

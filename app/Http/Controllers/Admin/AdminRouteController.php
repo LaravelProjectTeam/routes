@@ -124,30 +124,15 @@ class AdminRouteController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        if ($request->get('from_node_id') > $request->get('to_node_id')) {
-            [$request['from_node_id'], $request['to_node_id']] = [$request['to_node_id'], $request['from_node_id']];
-            session(['swapped' => true]);
-        } else {
-            session(['swapped' => false]);
-        }
+//        dd($request, $id);
 
         $validated = $request->validate([
-            'from_node_id' => 'required|unique_with:edges,to_node_id|not_in:'. $request['to_node_id'],
-            'to_node_id' => 'required|unique_with:edges,from_node_id|not_in:' . $request['from_node_id'],
-//            'from_node_id' => 'required|unique_with:edges,to_node_id',
-//            'to_node_id' => 'required|unique_with:edges,from_node_id',
             'max_speed' => 'required|integer|between:0,500',
             'distance_in_km' => 'required|integer',
             'road_type' => 'required|integer',
-        ], [
-            'from_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
-            'to_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
         ]);
 
-//         todo: add max speed, type id and distance in km in view /create/
         Edge::where('id', '=', $id)->update([
-            "from_node_id" => $validated['from_node_id'],
-            "to_node_id" => $validated['to_node_id'],
             "distance_in_km" => $validated['distance_in_km'],
             "max_speed" => $validated['max_speed'],
             "type_id" => $validated['road_type']
