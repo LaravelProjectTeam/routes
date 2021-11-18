@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Влез')
+@section('title', 'Вход')
 
 @section('content')
     <div class="container has-text-centered">
@@ -43,13 +43,13 @@
                     </div>
 
                     <div class="has-text-centered mt-3">
-                        <button class="button is-small is-success" type="submit" >Вход</button>
+                        <button class="button is-small is-success" type="submit">Влез</button>
                         <a class="button is-link is-small" href="{{ route('home.index') }}">Откажи</a>
                     </div>
 
                     @if (Route::has('password.request'))
                         <a class="button is-outlined is-small mt-1" href="{{ route('password.request') }}">
-                            {{ ('Забравена парола?') }}
+                            Забравена парола?
                         </a>
                     @endif
                 </form>
