@@ -3,7 +3,7 @@ body {
 	background: #344a71;
 	font-family: 'Roboto', sans-serif;
 }
-.form-control {		
+.form-control {
 	min-height: 41px;
 	box-shadow: none;
 	border-color: #e1e4e5;
@@ -11,7 +11,7 @@ body {
 .form-control:focus {
 	border-color: #49c1a2;
 }
-.form-control, .btn {        
+.form-control, .btn {
 	border-radius: 3px;
 }
 .signup-form {
@@ -34,8 +34,8 @@ body {
 }
 .signup-form hr {
 	margin: 0 -30px 20px;
-}    
-.signup-form .form-group {
+}
+.signup-form .field {
 	margin-bottom: 20px;
 }
 .signup-form label {
@@ -62,7 +62,7 @@ body {
 .signup-form form a {
 	color: #49c1a2;
 	text-decoration: none;
-}	
+}
 .signup-form form a:hover {
 	text-decoration: underline;
 }

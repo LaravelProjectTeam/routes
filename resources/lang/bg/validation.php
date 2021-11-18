@@ -142,5 +142,6 @@ return [
         'edge_id' => 'път',
         'max_speed' => 'максимална скорост',
         'distance_in_km' => 'разстояние',
+        'password' => 'парола',
     ]
 ];

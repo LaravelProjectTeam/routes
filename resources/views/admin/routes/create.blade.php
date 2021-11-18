@@ -135,7 +135,7 @@
                         </p>
                     @endif
 
-                    <div class="form-group mt-2">
+                    <div class="field mt-2">
                         <label class="label" for="max_speed">Максимална скорост (км/ч)</label>
                         <input class="input is-primary is-small @error('max_speed') is-danger @enderror"
                                id="max_speed" name="max_speed" type="number"
@@ -145,7 +145,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mt-2">
+                    <div class="field mt-2">
                         <label class="label" for="distance_in_km">Разстояние (км)</label>
                         <input class="input is-primary is-small @error('distance_in_km') is-danger @enderror"
                                id="distance_in_km" name="distance_in_km" type="number"
@@ -155,7 +155,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mt-2 has-text-centered">
+                    <div class="field mt-2 has-text-centered">
                         <h6 class="mb-2">
                             <label for="road_type">Тип на пътя</label>
                         </h6>

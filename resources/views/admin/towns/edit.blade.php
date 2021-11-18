@@ -12,7 +12,7 @@
                    @csrf
                    @method('put')
 
-                   <div class="form-group">
+                   <div class="field">
                        <label class="label" for="name">Име</label>
                        <input class="input is-primary is-small @error('name') is-danger @enderror"
                               id="name" name="name" type="text" value="{{ $town->name }}">

@@ -2,42 +2,47 @@ FROM php:8-apache
 
 WORKDIR /var/www/html
 
+# optional packages:
+#        g++ \
+#        git \
+#        vim \
+#        sudo \
+#        libjpeg-dev \
+#        libmcrypt-dev \
+#        libreadline-dev \
+#        libfreetype6-dev && \
+
 RUN apt-get update -y && apt-get install -y \
+        zip \
+        npm \
         curl \
         nano \
-        npm \
-        g++ \
-        git \
-        zip \
-        vim \
-        sudo \
         unzip \
         nodejs \
         libpq-dev \
         libicu-dev \
         libbz2-dev \
         libzip-dev \
-        libpng-dev \
-        libjpeg-dev \
-        libmcrypt-dev \
-        libreadline-dev \
-        libfreetype6-dev && \
+        libpng-dev && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install \
-        zip \
-        bz2 \
-        pdo \
-        pdo_pgsql \
-        pgsql \
         intl \
-        iconv \
-        bcmath \
-        opcache \
-        calendar \
+        zip \
+        pdo \
+        pgsql \
         mysqli \
+        pdo_pgsql \
         pdo_mysql && \
     docker-php-ext-enable mysqli && \
     apt-get clean -y
+
+# optional packages:
+#bz2 \
+#iconv \
+#bcmath \
+#opcache \
+#calendar \
+#libzip-dev && \
 
 COPY /server/apache/vhost.conf /etc/apache2/sites-available/laravel.conf
 

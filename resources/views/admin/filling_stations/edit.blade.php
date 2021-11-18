@@ -12,7 +12,7 @@
                     @csrf
                     @method('put')
 
-                    <div class="form-group">
+                    <div class="field">
                         <h4 class="mt-2 mb-3">
                             <label class="label" for="name">Име</label>
                         </h4>
@@ -23,7 +23,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="field">
                         <h4 class="mt-2 mb-3">
                             <label for="edge_id">Път</label>
                         </h4>

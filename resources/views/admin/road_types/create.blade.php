@@ -12,7 +12,7 @@
                    @csrf
                    @method('post')
 
-                   <div class="form-group">
+                   <div class="field">
                        <label class="label" for="type_name">Име</label>
                        <input class="input is-primary is-small @error('type_name') is-danger @enderror"
                               id="type_name" name="type_name" type="text" value="{{ old('type_name') }}">
@@ -21,7 +21,7 @@
                        @enderror
                    </div>
 
-                   <div class="form-group mt-2">
+                   <div class="field mt-2">
                        <label class="label" for="hardship">Трудност</label>
                        <input class="input is-primary is-small @error('hardship') is-danger @enderror"
                               id="hardship" name="hardship" type="number" value="{{ old('hardship') }}">

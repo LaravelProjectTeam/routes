@@ -25,23 +25,23 @@
 		<h2>Sign Up</h2>
 		<p>It's free and only takes a minute.</p>
 		<hr>
-        <div class="form-group">
+        <div class="field">
 			<label>Username</label>
         	<input type="text" class="form-control" name="username" required="required">
         </div>
-        <div class="form-group">
+        <div class="field">
 			<label>Email Address</label>
         	<input type="email" class="form-control" name="email" required="required">
         </div>
-		<div class="form-group">
+		<div class="field">
 			<label>Password</label>
             <input type="password" class="form-control" name="password" required="required">
         </div>
-		<div class="form-group">
+		<div class="field">
 			<label>Confirm Password</label>
             <input type="password" class="form-control" name="confirm_password" required="required">
         </div>
-		<div class="form-group">
+		<div class="field">
             <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
         </div>
 		<p class="small text-center">By clicking the Sign Up button, you agree to our <br><a href="#">Terms &amp; Conditions</a>, and <a href="#">Privacy Policy</a></p>

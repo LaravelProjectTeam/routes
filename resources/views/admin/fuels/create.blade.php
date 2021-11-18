@@ -12,7 +12,7 @@
                     @csrf
                     @method('post')
 
-                    <div class="form-group">
+                    <div class="field">
                         <label class="label" for="fuel_name">Име</label>
                         <input class="input is-primary is-small @error('fuel_name') is-danger @enderror"
                                id="fuel_name" name="fuel_name" type="text" value="{{ old('fuel_name') }}" >

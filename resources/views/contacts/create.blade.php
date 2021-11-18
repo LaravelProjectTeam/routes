@@ -14,12 +14,11 @@
                          да направите предложение!'
                     }}
                 </p>
-{{--                todo: improve error displaying --}}
                 <form action="{{ route('contacts.store') }}" method="post">
                     @csrf
                     @method('post')
 
-                    <div class="form-group mt-2">
+                    <div class="field mt-2">
                         <label class="label" for="name">Име</label>
                         <input class="input is-primary is-small @error('name') is-danger @enderror"
                                id="name" name="name" type="text" value="{{ old('name') }}" >
@@ -28,17 +27,16 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mt-2">
+                    <div class="field mt-2">
                         <label class="label" for="email">Имейл</label>
-{{--                        todo: type=email--}}
                         <input class="input is-primary is-small @error('email') is-danger @enderror"
-                               id="email" name="email" type="text" value="{{ old('email') }}" >
+                               id="email" name="email" type="email" value="{{ old('email') }}" >
                         @error('email')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="form-group mt-2">
+                    <div class="field mt-2">
                         <label class="label" for="subject">Тема</label>
                         <input class="input is-primary is-small @error('subject') is-danger @enderror"
                                id="subject" name="subject" type="text" value="{{ old('subject') }}" >
@@ -47,7 +45,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mt-2">
+                    <div class="field mt-2">
                         <label class="label" for="message">Съобщение</label>
                         <textarea class="textarea is-primary is-small @error('message') is-danger @enderror"
                                   id="message" name="message" placeholder="Textarea">{{ old('message') }}</textarea>
