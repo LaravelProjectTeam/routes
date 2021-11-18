@@ -40,6 +40,7 @@
                                 @endif
                             </div>
                         </div>
+                        >> confirm.blade.php
                     </form>
                 </div>
             </div>
