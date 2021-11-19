@@ -9,6 +9,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreFuelRequest;
+use App\Http\Requests\UpdateFuelRequest;
 use Illuminate\Http\Response;
 
 class AdminFuelController extends Controller
@@ -38,15 +40,11 @@ class AdminFuelController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreFuelRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreFuelRequest $request)
     {
-        $request->validate([
-            'fuel_name' => 'required|unique:fuels,name|max:255',
-        ]);
-
         Fuel::create([
             'name' => $request->get('fuel_name')
         ]);
@@ -79,16 +77,12 @@ class AdminFuelController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateFuelRequest $request
      * @param Fuel $fuel
      * @return RedirectResponse
      */
-    public function update(Request $request, Fuel $fuel)
+    public function update(UpdateFuelRequest $request, Fuel $fuel)
     {
-        $request->validate([
-            'fuel_name' => 'required|unique:fuels,name|max:255',
-        ]);
-
         $fuel->update([
             'name' => $request->get('fuel_name'),
         ]);

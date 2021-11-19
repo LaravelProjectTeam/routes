@@ -17,6 +17,8 @@
                         <input class="input is-primary is-small @error('fuel_name') is-danger @enderror"
                                id="fuel_name" name="fuel_name" type="text" value="{{ old('fuel_name') }}" >
                         @error('fuel_name')
+{{--                       <input class="input is-primary is-small (@error('fuel_name')) ? 'name': 'style='border-color:blue' @enderror"--}}
+
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>
