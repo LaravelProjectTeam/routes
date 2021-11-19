@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToFillingStationsTable extends Migration
+class AddRoadTypeIdForeignKey extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class AddForeignKeysToFillingStationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('filling_stations', function (Blueprint $table) {
-            $table->unsignedBigInteger('road_id');
-            $table->foreign('road_id')
+        Schema::table('roads', function (Blueprint $table) {
+            $table->foreign('road_type_id')
                 ->references('id')
-                ->on('edges')
+                ->on('road_types')
                 ->onDelete('cascade');
         });
     }
@@ -29,9 +28,9 @@ class AddForeignKeysToFillingStationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('filling_stations', function (Blueprint $table) {
-            $table->dropForeign('filling_stations_road_id_foreign');
-            $table->dropColumn('road_id');
+        Schema::table('roads', function (Blueprint $table) {
+            $table->dropForeign('roads_road_type_id_foreign');
+            $table->dropIndex('roads_road_type_id_foreign');
         });
     }
 }

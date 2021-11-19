@@ -25,34 +25,37 @@
 
                     <div class="field">
                         <h4 class="mt-2 mb-3">
-                            <label for="edge_id">Път</label>
+                            <label for="road_id">Път</label>
                         </h4>
 
-                        <div class="select is-primary is-small @error('edge_id') is-danger @enderror">
-                            <select id="edge_id" name="edge_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
-                                <option value="{{ $filling_station->edge->id }}" {{ 'selected' }}>
+                        <div class="select is-primary is-small @error('road_id') is-danger @enderror">
+                            <select id="road_id" name="road_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
+                                <option value="{{ $filling_station->road->id }}" {{ 'selected' }}>
                                     между
-                                    {{ $filling_station->edge->from->name }}
+                                    {{ $filling_station->road->from->name }}
                                     и
-                                    {{ $filling_station->edge->to->name }} -
-                                    {{ $filling_station->edge->minutes_needed }} минути -
-                                    {{ $filling_station->edge->roadType->name }} път
+                                    {{ $filling_station->road->to->name }} |
+                                    {{ $filling_station->road->minutes_needed }} минути |
+                                    {{ $filling_station->road->roadType->name }} път
                                 </option>
 
-                                @if (!$filling_station->edge)
+                                @if (!$filling_station->road)
                                     <option>
                                         Няма нито наличен път!
                                     </option>
                                 @endif
                             </select>
                         </div>
-                        @error('edge_id')
+
+                        @error('road_id')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>
+
                     <h4 class="mt-2 mb-3">
                         <label for="fuels">Горива</label>
                     </h4>
+
                     <div class="select is-primary is-multiple">
                         <select name="fuels[]" id="fuels" multiple size="8" class="has-text-centered">
                             @foreach($fuels as $fuel)

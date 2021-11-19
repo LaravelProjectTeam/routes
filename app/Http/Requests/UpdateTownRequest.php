@@ -24,7 +24,7 @@ class UpdateTownRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:nodes|max:255',
+            'name' => 'required|max:255|unique:towns,name,' . request()->town,
         ];
     }
 }

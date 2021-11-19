@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTownRequest extends FormRequest
+class UpdateFillingStationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,10 @@ class StoreTownRequest extends FormRequest
      */
     public function rules()
     {
+//        todo: add unique except to others
         return [
-            'name' => 'required|unique:towns|max:255',
+            'name' => 'required|max:255|unique:filling_stations,name,' . request()->filling_station,
+            'fuels' => 'array'
         ];
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Edge;
-use App\Models\Node;
+use App\Models\Road;
+use App\Models\Town;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -24,12 +24,9 @@ class RouteController extends Controller
      */
     public function index()
     {
-//        $routes = Edge::all();
-//        $towns = Node::all();
-
         // eager loading data models using less queries
-        $routes = Edge::with('to', 'from', 'roadType')->get();
-        $towns = Node::all();
+        $routes = Road::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
+        $towns = Town::all();
 
         return view('routes.index', compact('routes', 'towns'));
     }
@@ -44,7 +41,7 @@ class RouteController extends Controller
         $from = $request->get('from');
         $to = $request->get('to');
 
-        $allEdges = Edge::with(['from', 'to', 'roadType', 'fillingStations', 'fillingStations.fuels'])->get();
+        $allEdges = Road::with(['from', 'to', 'roadType', 'fillingStations', 'fillingStations.fuels'])->get();
 
         $graph = Graph::create();
         $fullRouteInformation = null;
@@ -125,8 +122,8 @@ class RouteController extends Controller
             }
         }
 
-        $routes = Edge::with('to', 'from', 'roadType')->get();
-        $towns = Node::all();
+        $routes = Road::with('to', 'from', 'roadType')->get();
+        $towns = Town::all();
 
 //        return redirect()->route('routes.index')->with(compact('routes', 'from', 'to', 'towns', 'message', 'fullRouteInformation'));
         return view('routes.index', compact('routes', 'from', 'to', 'towns', 'message', 'fullRouteInformation'));
@@ -140,7 +137,7 @@ class RouteController extends Controller
      */
     public function show(int $id)
     {
-        $route = Edge::findOrFail($id);
+        $route = Road::findOrFail($id);
         return view('routes.view', compact('route'));
     }
 }

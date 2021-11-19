@@ -15,7 +15,8 @@
                     <div class="field">
                         <label class="label" for="fuel_name">Име</label>
                         <input class="input is-primary is-small @error('fuel_name') is-danger @enderror"
-                              id="fuel_name" name="fuel_name" type="text" value="{{ $fuel->name }}">
+                              id="fuel_name" name="fuel_name" type="text"
+                               value="{{ old('fuel_name') ?? $fuel->name }}">
                         @error('fuel_name')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror

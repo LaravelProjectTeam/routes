@@ -25,30 +25,30 @@
 
                    <div class="field">
                        <h4 class="mt-2 mb-3">
-                           <label for="edge_id">Път</label>
+                           <label for="road_id">Път</label>
                        </h4>
 
-                       <div class="select is-primary is-small @error('edge_id') is-danger @enderror">
-                           <select id="edge_id" name="edge_id" class="has-text-centered">
-                               @foreach($direct_routes as $route)
-                                   <option value="{{ $route->id }}">
+                       <div class="select is-primary is-small @error('road_id') is-danger @enderror">
+                           <select id="road_id" name="road_id" class="has-text-centered">
+                               @foreach($roads as $road)
+                                   <option value="{{ $road->id }}">
                                        между
-                                       {{ $route->from->name }}
+                                       {{ $road->from->name }}
                                        и
-                                       {{ $route->to->name }} -
-                                       {{ $route->minutes_needed }} минути -
-                                       {{ $route->roadType->name }} път
+                                       {{ $road->to->name }} |
+                                       {{ $road->minutes_needed }} минути |
+                                       {{ $road->roadType->name }} път
                                    </option>
                                @endforeach
 
-                               @if ($direct_routes->isEmpty())
+                               @if ($roads->isEmpty())
                                    <option>
                                        Няма нито един път между два града!
                                    </option>
                                @endif
                            </select>
                        </div>
-                       @error('edge_id')
+                       @error('road_id')
                             <p class="help is-danger">{{ $message }}</p>
                        @enderror
                    </div>

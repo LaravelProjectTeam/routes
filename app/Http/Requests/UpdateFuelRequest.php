@@ -24,7 +24,7 @@ class UpdateFuelRequest extends FormRequest
     public function rules()
     {
         return [
-            'fuel_name' => 'required|unique:fuels,name|max:255',
+            'fuel_name' => 'required|max:255|unique:fuels,name,' . request()->fuel->id,
         ];
     }
 

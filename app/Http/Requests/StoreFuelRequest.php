@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Fuel;
 
 class StoreFuelRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class StoreFuelRequest extends FormRequest
     public function rules()
     {
         return [
-            'fuel_name'=>'required|unique:App\Models\Fuel,name|max:255',
+            'fuel_name'=>'required|max:255|unique:fuels,name',
         ];
     }
 

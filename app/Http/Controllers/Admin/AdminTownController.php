@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTownRequest;
 use App\Http\Requests\UpdateTownRequest;
-use App\Models\Edge;
-use App\Models\Node;
+use App\Models\Road;
+use App\Models\Town;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -27,9 +27,9 @@ class AdminTownController extends Controller
      */
     public function index()
     {
-        // todo: Rename Node to Town
+        // todo: Rename Town to Town
 
-        $towns = Node::paginate(5);
+        $towns = Town::paginate(5);
 
         return view('admin.towns.index', compact('towns'));
     }
@@ -52,7 +52,7 @@ class AdminTownController extends Controller
      */
     public function store(StoreTownRequest $request)
     {
-        Node::create([
+        Town::create([
             'name' => $request->get('name'),
         ]);
 
@@ -67,7 +67,7 @@ class AdminTownController extends Controller
      */
     public function show(int $id)
     {
-        $town = Node::findOrFail($id);
+        $town = Town::findOrFail($id);
 
         return view('admin.towns.view', compact('town'));
     }
@@ -80,7 +80,7 @@ class AdminTownController extends Controller
      */
     public function edit(int $id)
     {
-        $town = Node::findOrFail($id);
+        $town = Town::findOrFail($id);
 
         return view('admin.towns.edit', compact('town'));
     }
@@ -94,7 +94,7 @@ class AdminTownController extends Controller
      */
     public function update(UpdateTownRequest $request, int $id)
     {
-        Node::where('id', $id)->update([
+        Town::where('id', $id)->update([
             'name' => $request->get('name'),
         ]);
 
@@ -109,7 +109,7 @@ class AdminTownController extends Controller
      */
     public function destroy(int $id)
     {
-        Node::destroy($id);
+        Town::destroy($id);
 
         return redirect()->route('admin.towns.index');
     }

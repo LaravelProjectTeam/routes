@@ -24,16 +24,19 @@
                     <th>{{ $filling_station->id }}</th>
                     <td>{{ $filling_station->name }}</td>
                     <td>
-{{--                        @foreach($filling_station->fuels as $fuel)--}}
-{{--                            <div>{{ $fuel->name }}</div>--}}
-{{--                        @endforeach--}}
                         {{
                             $filling_station->fuels->count() ?
                             join(', ', $filling_station->fuels->pluck('name')->toArray()) :
                             'няма'
                         }}
                     </td>
-                    <td>{{ $filling_station->edge->from->name }} - {{ $filling_station->edge->to->name }} </td>
+                    <td>
+                        {{ $filling_station->road->from->name }}
+                        -
+                        {{ $filling_station->road->to->name }} |
+                        {{ $filling_station->road->minutes_needed }} минути |
+                        {{ $filling_station->road->roadType->name }} път
+                    </td>
                     <td>{{ isset($filling_station->created_at) ? $filling_station->created_at->format('d.m.Y, H:i') : 'Няма информация.' }}</td>
                     <td>{{ isset($filling_station->created_at) ? $filling_station->updated_at->format('d.m.Y, H:i') : 'Няма информация.'}}</td>
                     <td><a class="button is-warning is-small" href="{{ route('admin.filling_stations.edit', $filling_station->id) }}">Редактирай</a></td>

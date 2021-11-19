@@ -139,7 +139,7 @@ return [
         'fuel_name' => 'име на горивото',
         'hardship' => 'трудност',
         'type_name' => 'име на типа',
-        'edge_id' => 'път',
+        'road_id' => 'път',
         'max_speed' => 'максимална скорост',
         'distance_in_km' => 'разстояние',
         'password' => 'парола',

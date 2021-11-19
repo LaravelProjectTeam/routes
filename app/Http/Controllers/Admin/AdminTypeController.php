@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTypeRequest;
-use App\Http\Requests\UpdateTypeRequest;
+use App\Http\Requests\UpdateRoadTypeRequest;
 use App\Models\RoadType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -80,11 +80,11 @@ class AdminTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateTypeRequest $request
+     * @param UpdateRoadTypeRequest $request
      * @param $id
      * @return RedirectResponse
      */
-    public function update(UpdateTypeRequest $request, $id)
+    public function update(UpdateRoadTypeRequest $request, $id)
     {
         RoadType::findOrFail($id)->update([
             'name' => $request->get('type_name'),

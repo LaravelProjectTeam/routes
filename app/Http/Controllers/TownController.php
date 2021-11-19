@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Node;
+use App\Models\Town;
 
 class TownController extends Controller
 {
     public function index()
     {
-        // todo: Rename Node to Town
-//        $towns = Node::all();
-        $towns = Node::paginate(5);
+        // todo: Rename Town to Town
+//        $towns = Town::all();
+        $towns = Town::paginate(5);
 
         return view('towns.index', compact('towns'));
     }
 
     public function show($id)
     {
-        $town = Node::findOrFail($id);
+        $town = Town::findOrFail($id);
 
         return view('towns.view', compact('town'));
     }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\RoadType;
 
-class UpdateTypeRequest extends FormRequest
+class UpdateRoadTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class UpdateTypeRequest extends FormRequest
     public function rules()
     {
         return [
-//            'type_name' => 'required|unique:road_types,name|max:255', , - Problem, todo: allow same name
-            'type_name' => 'required|max:255',
+            'type_name' => 'required|max:255|unique:road_types,name,' . request()->road_type,
             'hardship' => 'required|integer|min:1|max:100',
         ];
     }

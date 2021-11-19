@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateRouteRequest;
-use App\Models\Edge;
-use App\Models\Node;
+use App\Models\Road;
+use App\Models\Town;
 use App\Models\RoadType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -23,8 +23,8 @@ class AdminRouteController extends Controller
      */
     public function index()
     {
-        $routes = Edge::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
-        $towns = Node::all();
+        $routes = Road::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
+        $towns = Town::all();
 
         return view('admin.routes.index', compact('routes', 'towns'));
     }
@@ -36,8 +36,8 @@ class AdminRouteController extends Controller
      */
     public function create()
     {
-        $routes = Edge::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
-        $towns = Node::all();
+        $routes = Road::with('to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels')->get();
+        $towns = Town::all();
         $road_types = RoadType::all();
 
         return view('admin.routes.create', compact('routes', 'towns', 'road_types'));
@@ -71,7 +71,7 @@ class AdminRouteController extends Controller
         ]);
 
 //         todo: add max speed, type id and distance in km in view /create/
-        Edge::create([
+        Road::create([
             "from_node_id" => $validated['from_node_id'],
             "to_node_id" => $validated['to_node_id'],
             "distance_in_km" => $validated['distance_in_km'],
@@ -91,7 +91,7 @@ class AdminRouteController extends Controller
      */
     public function show(int $id)
     {
-        $route = Edge::findOrFail($id);
+        $route = Road::findOrFail($id);
 
         return view('routes.view', compact('route'));
     }
@@ -103,11 +103,11 @@ class AdminRouteController extends Controller
      */
     public function edit(int $id)
     {
-        $route = Edge::where('id', '=', $id)->with([
+        $route = Road::where('id', '=', $id)->with([
             'to', 'from', 'roadType', 'fillingStations', 'fillingStations.fuels'
         ])->firstOrFail();
 
-        $towns = Node::all();
+        $towns = Town::all();
         $road_types = RoadType::all();
 
         return view('admin.routes.edit', compact('route', 'towns', 'road_types'));
@@ -123,7 +123,7 @@ class AdminRouteController extends Controller
     public function update(UpdateRouteRequest $request, int $id)
     {
 //        dd($request, $id);
-        Edge::where('id', '=', $id)->update([
+        Road::where('id', '=', $id)->update([
             "distance_in_km" => $request->get('distance_in_km'),
             "max_speed" => $request->get('max_speed'),
             "type_id" => $request->get('road_type'),
@@ -140,7 +140,7 @@ class AdminRouteController extends Controller
      */
     public function destroy(int $id)
     {
-        Edge::destroy($id);
+        Road::destroy($id);
 
         return redirect()->route('admin.routes.index');
     }

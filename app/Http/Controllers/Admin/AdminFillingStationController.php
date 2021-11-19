@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateFillingStationRequest;
-use App\Models\Edge;
+use App\Http\Requests\UpdateFillingStationRequest;
+use App\Models\Road;
+use App\Models\RoadType;
 use App\Models\FillingStation;
 use App\Models\Fuel;
-use App\Models\Node;
+use App\Models\Town;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -24,8 +26,7 @@ class AdminFillingStationController extends Controller
      */
     public function index()
     {
-        // todo: Rename Node to Town
-        $filling_stations = FillingStation::with('edge')->paginate(5);
+        $filling_stations = FillingStation::with('road')->paginate(5);
 
         return view('admin.filling_stations.index', compact('filling_stations'));
     }
@@ -37,10 +38,10 @@ class AdminFillingStationController extends Controller
      */
     public function create()
     {
-        $direct_routes = Edge::with('to', 'from', 'roadType', 'fillingStations.fuels')->get();
+        $roads = Road::with('to', 'from', 'roadType', 'fillingStations.fuels')->get();
         $fuels = Fuel::all();
 
-        return view('admin.filling_stations.create', compact('direct_routes', 'fuels'));
+        return view('admin.filling_stations.create', compact('roads', 'fuels'));
     }
 
     /**
@@ -53,7 +54,7 @@ class AdminFillingStationController extends Controller
     {
         $filling_station = FillingStation::create([
             'name' => $request->get('name'),
-            'edge_id' => $request->get('edge_id'),
+            'road_id' => $request->get('road_id'),
         ]);
 
         if ($request->get('fuels')) {
@@ -86,6 +87,7 @@ class AdminFillingStationController extends Controller
      */
     public function edit(int $id)
     {
+//        $filling_station = FillingStation::where('id', '=', $id)->with(['road', 'road.roadType'])->get();
         $filling_station = FillingStation::findOrFail($id);
         $fuels = Fuel::all();
 
@@ -95,26 +97,20 @@ class AdminFillingStationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateFillingStationRequest $request
      * @param int $id
      * @return RedirectResponse
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateFillingStationRequest $request, int $id)
     {
-        // todo: check shortest path algo when fuels null
-        $validated = $request->validate([
-            'name' => 'required|unique:nodes|max:255',
-            'fuels' => 'array'
-        ]);
-
         $filling_station = FillingStation::findOrFail($id);
         $filling_station->update([
-            'name' => $validated['name'],
+            'name' => $request['name'],
         ]);
 
-        if ($validated['fuels'] ?? false) {
+        if ($request['fuels'] ?? false) {
             $filling_station->fuels()->sync(
-                $validated['fuels']
+                $request['fuels']
             );
         }
 

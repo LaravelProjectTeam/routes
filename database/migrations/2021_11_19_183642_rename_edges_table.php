@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUniqueConstraintOnFromNodeIdToNodeIdInEdgesTable extends Migration
+class RenameEdgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,11 @@ class AddUniqueConstraintOnFromNodeIdToNodeIdInEdgesTable extends Migration
     public function up()
     {
         Schema::table('edges', function (Blueprint $table) {
-            $table->unique(array('from_node_id', 'to_node_id'));
+            $table->renameColumn('from_node_id', 'from_town_id');
+            $table->renameColumn('to_node_id', 'to_town_id');
         });
+
+        Schema::rename('edges', 'roads');
     }
 
     /**
@@ -25,8 +28,11 @@ class AddUniqueConstraintOnFromNodeIdToNodeIdInEdgesTable extends Migration
      */
     public function down()
     {
-        Schema::table('edges', function (Blueprint $table) {
-            $table->dropUnique(array('from_node_id', 'to_node_id'));
+        Schema::table('roads', function (Blueprint $table) {
+            $table->renameColumn('from_town_id', 'from_node_id');
+            $table->renameColumn('to_town_id', 'to_node_id');
         });
+
+        Schema::rename('roads', 'edges');
     }
 }

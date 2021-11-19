@@ -16,8 +16,8 @@ class RoadType extends Model
         'hardship_level'
     ];
 
-    public function edge()
+    public function road()
     {
-        return $this->belongsToMany(Edge::class);
+        return $this->belongsToMany(Road::class);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Node extends Model
+class Town extends Model
 {
     use HasFactory;
 
@@ -15,8 +15,8 @@ class Node extends Model
         'name',
     ];
 
-    public function edge()
+    public function road()
     {
-        return $this->hasOne(Edge::class, 'edge_id');
+        return $this->hasOne(Road::class, 'road_id');
     }
 }

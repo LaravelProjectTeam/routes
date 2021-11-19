@@ -24,8 +24,8 @@ class CreateFillingStationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:nodes|max:255',
-            'edge_id' => 'required|numeric',
+            'name' => 'required|max:255|unique:filling_stations',
+            'road_id' => 'required|numeric',
             'fuels' => 'array'
         ];
     }
