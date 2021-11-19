@@ -48,14 +48,14 @@
                     <div class="field mt-2">
                         <label class="label" for="message">Съобщение</label>
                         <textarea class="textarea is-primary is-small @error('message') is-danger @enderror"
-                                  id="message" name="message" placeholder="Textarea">{{ old('message') }}</textarea>
+                                  id="message" name="message">{{ old('message') }}</textarea>
                         @error('message')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="has-text-centered mt-3">
-                        <button class="button is-small is-success" type="submit" >Изпрати</button>
+                        <button class="button is-small is-success" type="submit">Изпрати</button>
                         <a class="button is-link is-small" href="{{ route('home.index') }}">Откажи</a>
                     </div>
                 </form>

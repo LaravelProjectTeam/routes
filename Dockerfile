@@ -36,7 +36,7 @@ RUN apt-get update -y && apt-get install -y \
     docker-php-ext-enable mysqli && \
     apt-get clean -y
 
-# optional packages:
+# optional packages to install:
 #bz2 \
 #iconv \
 #bcmath \
@@ -58,7 +58,7 @@ COPY . /var/www/html
 RUN chown -R www-data:www-data /var/www && \
     cd /var/www/html && \
     npm install && \
-    composer install && \
+    composer install --no-dev --no-ansi --optimize-autoloader && \
     cat .env.deployment > .env && \
     php artisan storage:link && \
     apt-get clean -y

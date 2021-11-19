@@ -53,8 +53,8 @@
                     </div>
 
                     <div class="has-text-centered mt-3">
-                        <button class="button is-small is-success" type="submit">Регистрирай се</button>
-                        <a class="button is-link is-small" href="{{ route('home.index') }}">Откажи</a>
+                        <button class="button is-small is-success mt-1" type="submit">Регистрирай се</button>
+                        <a class="button is-link is-small mt-1" href="{{ route('home.index') }}">Откажи</a>
                     </div>
                 </form>
             </div>
