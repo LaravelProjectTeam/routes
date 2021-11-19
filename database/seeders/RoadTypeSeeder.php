@@ -16,20 +16,20 @@ class RoadTypeSeeder extends Seeder
     public function run()
     {
         DB::table('road_types')->insert([
-            'name' => 'селски',
-            'hardship_level' => 4,
+            'name' => 'магистрален',
+            'hardship_level' => 20,
             'updated_at' => Carbon::now(),
             'created_at' => Carbon::now(),
         ]);
         DB::table('road_types')->insert([
-            'name' => 'магистрален',
-            'hardship_level' => 2,
+            'name' => 'селски',
+            'hardship_level' => 40,
             'updated_at' => Carbon::now(),
             'created_at' => Carbon::now(),
         ]);
         DB::table('road_types')->insert([
             'name' => 'планински',
-            'hardship_level' => 6,
+            'hardship_level' => 60,
             'updated_at' => Carbon::now(),
             'created_at' => Carbon::now(),
         ]);

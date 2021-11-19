@@ -62,8 +62,6 @@ class AdminRouteController extends Controller
         $validated = $request->validate([
             'from_node_id' => 'required|unique_with:edges,to_node_id|not_in:'. $request['to_node_id'],
             'to_node_id' => 'required|unique_with:edges,from_node_id|not_in:' . $request['from_node_id'],
-//            'from_node_id' => 'required|unique_with:edges,to_node_id',
-//            'to_node_id' => 'required|unique_with:edges,from_node_id',
             'max_speed' => 'required|integer|between:0,500',
             'distance_in_km' => 'required|integer',
             'road_type' => 'required|integer',

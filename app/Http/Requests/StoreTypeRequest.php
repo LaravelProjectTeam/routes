@@ -26,7 +26,7 @@ class StoreTypeRequest extends FormRequest
     {
         return [
             'type_name'=>'required|unique:road_types,name|max:255',
-            'hardship'=>'required|integer|min:1|max:10'
+            'hardship'=>'required|integer|min:1|max:100'
         ];
     }
 
@@ -37,7 +37,7 @@ class StoreTypeRequest extends FormRequest
             'type_name.unique' => 'Този тип вече съществува.',
             'hardship.required' => 'Моля въведете трудност!',
             'hardship.min' => 'Трудността трябва да бъде минимум 1.',
-            'hardship.max' => 'Трудността трябва да бъде максимум 10.'
+            'hardship.max' => 'Трудността трябва да бъде максимум 100.'
         ];
     }
 }
