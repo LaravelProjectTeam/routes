@@ -23,8 +23,8 @@ class DropIndexesAndForeignKeysInRoadsTable extends Migration
             $table->unique(array('from_town_id', 'to_town_id'));
             $table->dropUnique('edges_from_node_id_to_node_id_unique');
 
-            $table->dropForeign('edges_type_id_foreign');
-            $table->dropIndex('edges_type_id_foreign');
+//            $table->dropForeign('edges_type_id_foreign');
+//            $table->dropIndex('edges_type_id_foreign');
 
 //            $table->renameIndex('edges_type_id_foreign', 'towns_type_id_foreign');
         });

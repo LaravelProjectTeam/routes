@@ -14,7 +14,7 @@ class RenameEdgeIdColumnInFillingStations extends Migration
     public function up()
     {
         Schema::table('filling_stations', function (Blueprint $table) {
-            $table->renameColumn('road_id', 'road_id');
+//            $table->renameColumn('road_id', 'road_id');
         });
     }
 
@@ -26,7 +26,7 @@ class RenameEdgeIdColumnInFillingStations extends Migration
     public function down()
     {
         Schema::table('filling_stations', function (Blueprint $table) {
-            $table->renameColumn('road_id', 'road_id');
+//            $table->renameColumn('road_id', 'road_id');
         });
     }
 }
