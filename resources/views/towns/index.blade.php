@@ -26,5 +26,16 @@
                 @endforeach
             </tbody>
         </table>
+        <span>
+            <div class="d-flex justify-content-center">
+                {{ $towns->links() }}
+            </div>
+        </span>
+{{--        todo: move to css file--}}
+        <style type="text/css">
+            .w-5{
+                display: none;
+            }
+        </style>
     </div>
 @endsection

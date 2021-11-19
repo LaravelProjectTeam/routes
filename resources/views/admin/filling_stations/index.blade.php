@@ -8,16 +8,16 @@
 
         <table class="table">
             <thead>
-            <tr>
-                <th>Номер</th>
-                <th>Име</th>
-                <th>Горива</th>
-                <th>Път</th>
-                <th>Създаден на</th>
-                <th>Обновен на</th>
-                <th>Редактирай</th>
-                <th>Изтрий</th>
-            </tr>
+                <tr>
+                    <th>Номер</th>
+                    <th>Име</th>
+                    <th>Горива</th>
+                    <th>Път</th>
+                    <th>Създаден на</th>
+                    <th>Обновен на</th>
+                    <th>Редактирай</th>
+                    <th>Изтрий</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach($filling_stations as $filling_station)
@@ -51,5 +51,18 @@
             <a class="button is-primary is-small " href="{{ route('admin.filling_stations.create') }}">Създай</a>
             <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
         </div>
+
+        <span>
+            <div class="d-flex justify-content-center">
+                {{ $filling_stations->links() }}
+            </div>
+        </span>
+
+{{--        todo: move to css file--}}
+        <style type="text/css">
+            .w-5{
+                display: none;
+            }
+        </style>
     </div>
 @endsection

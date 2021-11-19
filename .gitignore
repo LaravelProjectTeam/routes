@@ -18,10 +18,13 @@ server/archive/
 server/confs/
 server/php/
 db/
+/db/
+
 notes.txt
 
 run/var
-/db/
 /storage/debugbar/
+
 data
 composer.lock
+package-lock.json

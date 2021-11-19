@@ -23,7 +23,9 @@ class AdminFillingStationController extends Controller
     public function index()
     {
         // todo: Rename Node to Town
-        $filling_stations = FillingStation::with('edge')->get();
+//        $filling_stations = FillingStation::with('edge')->get();
+        $filling_stations = FillingStation::with('edge')->paginate(5);
+
         return view('admin.filling_stations.index', compact('filling_stations'));
     }
 

@@ -48,22 +48,22 @@ class AdminFuelController extends Controller
         ]);
 
         Fuel::create([
-            'name' => $request->fuel_name
+            'name' => $request->get('fuel_name')
         ]);
 
         return redirect()->route('admin.fuels.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Fuel $fuel
-     * @return Response
-     */
-    public function show(Fuel $fuel)
-    {
-        //
-    }
+//    /**
+//     * Display the specified resource.
+//     *
+//     * @param Fuel $fuel
+//     * @return Response
+//     */
+//    public function show(Fuel $fuel)
+//    {
+//        //
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -89,7 +89,7 @@ class AdminFuelController extends Controller
             'fuel_name' => 'required|unique:fuels,name|max:255',
         ]);
 
-        $fuel->name = $request->fuel_name;
+        $fuel->name = $request->get('fuel_name');
         $fuel->save();
 
         return redirect()->route('admin.fuels.index');

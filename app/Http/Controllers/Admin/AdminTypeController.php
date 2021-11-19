@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTypeRequest;
+use App\Http\Requests\UpdateTypeRequest;
 use App\Models\RoadType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -38,49 +40,34 @@ class AdminTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreTypeRequest $request
      * @return RedirectResponse
      */
-
-    // protected function validator(array $data)
-    // {
-    //     return Validator::make($data, [
-    //         'hardship' => ['required', 'integer|min:0|max:10', 'unique:road_types'],
-    //     ]);
-    // }
-
-    public function store(Request $request)
+    public function store(StoreTypeRequest $request)
     {
-        $request->validate([
-            'type_name' => 'required|unique:road_types,name|max:255',
-            'hardship' => 'required|integer|between:1,10',
-        ]);
-
-        $type = new RoadType;
-
-//        $this->validate($request, [
-//            'type_name' => 'required|string',
-//            'hardship_level' => 'required|integer'
+//        $request->validate([
+//            'type_name' => 'required|unique:road_types,name|max:255',
+//            'hardship' => 'required|integer|between:1,10',
 //        ]);
 
-        $type->create([
-            'name' => $request->type_name,
-            'hardship_level' => $request->hardship
+        RoadType::create([
+            'name' => $request->get('type_name'),
+            'hardship_level' => $request->get('hardship'),
         ]);
 
         return redirect()->route('admin.road_types.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param RoadType $type
-     * @return Response
-     */
-    public function show(RoadType $type)
-    {
-        //
-    }
+//    /**
+//     * Display the specified resource.
+//     *
+//     * @param RoadType $type
+//     * @return Response
+//     */
+//    public function show(RoadType $type)
+//    {
+//        //
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -98,20 +85,20 @@ class AdminTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateTypeRequest $request
      * @param $id
      * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTypeRequest $request, $id)
     {
-        $request->validate([
-            'type_name' => 'required|unique:road_types,name|max:255',
-            'hardship' => 'required|integer|between:1,10',
-        ]);
+//        $request->validate([
+//            'type_name' => 'required|unique:road_types,name|max:255',
+//            'hardship' => 'required|integer|between:1,10',
+//        ]);
 
         $type = RoadType::findOrFail($id);
-        $type->name = $request->type_name;
-        $type->hardship_level = $request->hardship;
+        $type->name = $request->get('type_name');
+        $type->hardship_level = $request->get('hardship');
         $type->save();
 
         return redirect()->route('admin.road_types.index');
