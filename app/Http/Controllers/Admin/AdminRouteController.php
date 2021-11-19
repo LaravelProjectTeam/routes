@@ -82,7 +82,6 @@ class AdminRouteController extends Controller
         ]);
 
 //        dd($edge, $request);
-
         return redirect()->route('admin.routes.index');
     }
 

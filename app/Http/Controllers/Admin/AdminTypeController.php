@@ -53,16 +53,16 @@ class AdminTypeController extends Controller
         return redirect()->route('admin.road_types.index');
     }
 
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param RoadType $type
-//     * @return Response
-//     */
-//    public function show(RoadType $type)
-//    {
-//        //
-//    }
+    /**
+     * Display the specified resource.
+     *
+     * @param RoadType $type
+     * @return Response
+     */
+    public function show(RoadType $type)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.

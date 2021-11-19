@@ -29,7 +29,6 @@ class AdminTownController extends Controller
     {
         // todo: Rename Node to Town
 
-//        $towns = Node::all();
         $towns = Node::paginate(5);
 
         return view('admin.towns.index', compact('towns'));
@@ -49,7 +48,7 @@ class AdminTownController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreTownRequest $request
-     * @return Application|Factory|View
+     * @return RedirectResponse
      */
     public function store(StoreTownRequest $request)
     {
@@ -57,9 +56,7 @@ class AdminTownController extends Controller
             'name' => $request->get('name'),
         ]);
 
-        $towns = Node::all();
-
-        return view('admin.towns.index', compact('towns'));
+        return redirect()->route('admin.towns.index');
     }
 
     /**
@@ -93,7 +90,7 @@ class AdminTownController extends Controller
      *
      * @param UpdateTownRequest $request
      * @param int $id
-     * @return Application|Factory|View
+     * @return RedirectResponse
      */
     public function update(UpdateTownRequest $request, int $id)
     {
@@ -101,22 +98,19 @@ class AdminTownController extends Controller
             'name' => $request->get('name'),
         ]);
 
-        $towns = Node::all();
-
-        return view('admin.towns.index', compact('towns'));
+        return redirect()->route('admin.towns.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Application|Factory|View
+     * @return RedirectResponse
      */
     public function destroy(int $id)
     {
         Node::destroy($id);
-        $towns = Node::all();
 
-        return view('admin.towns.index', compact('towns'));
+        return redirect()->route('admin.towns.index');
     }
 }

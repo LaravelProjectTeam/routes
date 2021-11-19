@@ -55,16 +55,16 @@ class AdminUserController extends Controller
         return redirect()->route('home.index');
     }
 
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param User $user
-//     * @return Response
-//     */
-//    public function show(User $user)
-//    {
-//        //
-//    }
+    /**
+     * Display the specified resource.
+     *
+     * @param User $user
+     * @return Response
+     */
+    public function show(User $user)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
