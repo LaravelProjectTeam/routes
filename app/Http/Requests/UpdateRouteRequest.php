@@ -24,9 +24,9 @@ class UpdateRouteRequest extends FormRequest
     public function rules()
     {
         return [
-            'max_speed' => 'required|integer|between:0,500',
+            'max_speed_in_km_per_hour' => 'required|integer|between:0,500',
             'distance_in_km' => 'required|integer',
-            'road_type' => 'required|integer',
+            'road_type_id' => 'required|integer',
         ];
     }
 }

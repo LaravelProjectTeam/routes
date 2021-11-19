@@ -26,7 +26,7 @@
                     <td>#{{ $route->from->id  }} - {{ $route->from->name }}</td>
                     <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
                     <td>{{ $route->distance_in_km }}</td>
-                    <td>{{ $route->max_speed }}</td>
+                    <td>{{ $route->max_speed_in_km_per_hour }}</td>
                     <td>{{ round($route->minutes_needed) }}</td>
                     <td>
                         @foreach($route->fillingStations ?? [] as $filling_station)

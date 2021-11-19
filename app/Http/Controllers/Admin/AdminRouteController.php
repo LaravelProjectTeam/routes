@@ -51,32 +51,30 @@ class AdminRouteController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->get('from_node_id') > $request->get('to_node_id')) {
-            [$request['from_node_id'], $request['to_node_id']] = [$request['to_node_id'], $request['from_node_id']];
+        if ($request->get('from_town_id') > $request->get('to_town_id')) {
+            [$request['from_town_id'], $request['to_town_id']] = [$request['to_town_id'], $request['from_town_id']];
             session(['swapped' => true]);
         } else {
             session(['swapped' => false]);
         }
 
-//        todo: use custom request validation
         $validated = $request->validate([
-            'from_node_id' => 'required|unique_with:edges,to_node_id|not_in:'. $request['to_node_id'],
-            'to_node_id' => 'required|unique_with:edges,from_node_id|not_in:' . $request['from_node_id'],
-            'max_speed' => 'required|integer|between:0,500',
+            'from_town_id' => 'required|unique_with:roads,to_town_id|not_in:'. $request['to_town_id'],
+            'to_town_id' => 'required|unique_with:roads,from_town_id|not_in:' . $request['from_town_id'],
+            'max_speed_in_km_per_hour' => 'required|integer|between:0,500',
             'distance_in_km' => 'required|integer',
             'road_type' => 'required|integer',
         ], [
-            'from_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
-            'to_node_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
+            'from_town_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
+            'to_town_id.not_in' => 'Началната и крайната дестинация не могат да съвпадат.',
         ]);
 
-//         todo: add max speed, type id and distance in km in view /create/
         Road::create([
-            "from_node_id" => $validated['from_node_id'],
-            "to_node_id" => $validated['to_node_id'],
+            "from_town_id" => $validated['from_town_id'],
+            "to_town_id" => $validated['to_town_id'],
             "distance_in_km" => $validated['distance_in_km'],
-            "max_speed" => $validated['max_speed'],
-            "type_id" => $validated['road_type']
+            "max_speed_in_km_per_hour" => $validated['max_speed_in_km_per_hour'],
+            "road_type_id" => $validated['road_type']
         ]);
 
 //        dd($edge, $request);
@@ -125,8 +123,8 @@ class AdminRouteController extends Controller
 //        dd($request, $id);
         Road::where('id', '=', $id)->update([
             "distance_in_km" => $request->get('distance_in_km'),
-            "max_speed" => $request->get('max_speed'),
-            "type_id" => $request->get('road_type'),
+            "max_speed_in_km_per_hour" => $request->get('max_speed_in_km_per_hour'),
+            "road_type_id" => $request->get('road_type_id'),
         ]);
 
         return redirect()->route('admin.routes.index');

@@ -141,6 +141,7 @@ return [
         'type_name' => 'име на типа',
         'road_id' => 'път',
         'max_speed' => 'максимална скорост',
+        'max_speed_in_km_per_hour' => 'максимална скорост (км/ч)',
         'distance_in_km' => 'разстояние',
         'password' => 'парола',
     ]

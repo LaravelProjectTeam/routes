@@ -1,6 +1,6 @@
 <?php
 
-// todo: translate if you are having trouble .. in email
+// todo: 'translate if you are having trouble clicking the...' in email
 
 return [
     'Hello!' => 'Здравейте!',

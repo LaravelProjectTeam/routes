@@ -15,7 +15,7 @@ class Road extends Model
         'from_town_id',
         'to_town_id',
         'road_type_id',
-        'max_speed_in_km',
+        'max_speed_in_km_per_hour',
         'distance_in_km'
     ];
 
@@ -23,7 +23,7 @@ class Road extends Model
     {
         $road_type = RoadType::findOrFail($this->road_type_id);
 
-        $base_minutes_needed = ($this->distance_in_km / $this->max_speed_in_km) * 60;
+        $base_minutes_needed = ($this->distance_in_km / $this->max_speed_in_km_per_hour) * 60;
 
         return ($base_minutes_needed * $road_type->hardship_level) / 50 + $base_minutes_needed;
     }

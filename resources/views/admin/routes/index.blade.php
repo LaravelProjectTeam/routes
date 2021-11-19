@@ -30,7 +30,7 @@
                         <td>#{{ $route->from->id  }} - {{ $route->from->name }}</td>
                         <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
                         <td>{{ $route->distance_in_km }}</td>
-                        <td>{{ $route->max_speed }}</td>
+                        <td>{{ $route->max_speed_in_km_per_hour }}</td>
 {{--                        <td>{{ dd($route->filling_stations) }}</td>--}}
 {{--                        <td>{{ $route->minutes_needed }}</td>--}}
                         <td>{{ round($route->minutes_needed) }}</td>

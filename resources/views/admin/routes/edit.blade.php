@@ -29,7 +29,7 @@
                     <td>#{{ $route->from->id  }} - {{ $route->from->name }}</td>
                     <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
                     <td>{{ $route->distance_in_km }}</td>
-                    <td>{{ $route->max_speed }}</td>
+                    <td>{{ $route->max_speed_in_km_per_hour }}</td>
 {{--                    <td>{{ dd($route->filling_stations) }}</td>--}}
 {{--                    <td>{{ $route->minutes_needed }}</td>--}}
                     <td>{{ round($route->minutes_needed) }}</td>
@@ -77,13 +77,13 @@
                     <div class="columns">
                         <div class="column is-one-half has-text-centered">
                             <h4 class="mt-3">
-                                <label for="from_node_id">Начало</label>
+                                <label for="from_town_id">Начало</label>
                             </h4>
                             <div class="select is-primary is-small
-                                 @error('to_node_id') is-danger @enderror
-                                 @error('from_node_id') is-danger @enderror"
+                                 @error('to_town_id') is-danger @enderror
+                                 @error('from_town_id') is-danger @enderror"
                             >
-                                <select id="from_node_id" name="from_node_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
+                                <select id="from_town_id" name="from_town_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
                                     <option value="{{ $route->from->id }}" {{ 'selected' }}>
                                         {{ $route->from->name }}
                                     </option>
@@ -93,13 +93,13 @@
 
                         <div class="column is-one-half has-text-centered">
                             <h4 class="mt-3">
-                                <label for="to_node_id">Край</label>
+                                <label for="to_town_id">Край</label>
                             </h4>
                             <div class="select is-primary is-small
-                                 @error('to_node_id') is-danger @enderror
-                                 @error('from_node_id') is-danger @enderror"
+                                 @error('to_town_id') is-danger @enderror
+                                 @error('from_town_id') is-danger @enderror"
                             >
-                                <select id="to_node_id" name="to_node_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
+                                <select id="to_town_id" name="to_town_id" class="is-disabled has-text-centered" {{ 'disabled' }}>
                                     <option value="{{ $route->to->id }}" {{ 'selected' }}>
                                         {{ $route->to->name }}
                                     </option>
@@ -108,22 +108,22 @@
                         </div>
                     </div>
 
-                    @if ($errors->get('to_node_id') )
+                    @if ($errors->get('to_town_id') )
                         <p class="help is-danger">
-                           {{ $errors->toArray()['to_node_id'][0] }}
+                           {{ $errors->toArray()['to_town_id'][0] }}
                         </p>
-                    @elseif ($errors->get('from_node_id'))
+                    @elseif ($errors->get('from_town_id'))
                         <p class="help is-danger">
-                           {{ $errors->toArray()['from_node_id'][0] }}
+                           {{ $errors->toArray()['from_town_id'][0] }}
                         </p>
                     @endif
 
                     <div class="field mt-2">
-                        <label class="label" for="max_speed">Максимална скорост (км/ч)</label>
-                        <input class="input is-primary is-small @error('max_speed') is-danger @enderror"
-                               id="max_speed" name="max_speed"
-                               value="{{ old('max_speed') ?? $route->max_speed }}" >
-                        @error('max_speed')
+                        <label class="label" for="max_speed_in_km_per_hour">Максимална скорост (км/ч)</label>
+                        <input class="input is-primary is-small @error('max_speed_in_km_per_hour') is-danger @enderror"
+                               id="max_speed_in_km_per_hour" name="max_speed_in_km_per_hour"
+                               value="{{ old('max_speed_in_km_per_hour') ?? $route->max_speed_in_km_per_hour }}" >
+                        @error('max_speed_in_km_per_hour')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -140,10 +140,10 @@
 
                     <div class="field mt-2 has-text-centered">
                         <h6 class="mb-2">
-                            <label for="road_type">Тип на пътя</label>
+                            <label for="road_type_id">Тип на пътя</label>
                         </h6>
                         <div class="select is-primary is-small">
-                            <select id="road_type" name="road_type" class="has-text-centered">
+                            <select id="road_type_id" name="road_type_id" class="has-text-centered">
                                 @foreach($road_types ?? [] as $road_type)
                                     <option
                                         value="{{ $road_type->id }}"
