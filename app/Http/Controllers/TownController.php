@@ -10,7 +10,7 @@ class TownController extends Controller
     {
         // todo: Rename Node to Town
 //        $towns = Node::all();
-        $towns = Node::paginate(4);
+        $towns = Node::paginate(5);
 
         return view('towns.index', compact('towns'));
     }

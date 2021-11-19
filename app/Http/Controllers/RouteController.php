@@ -140,7 +140,6 @@ class RouteController extends Controller
      */
     public function show(int $id)
     {
-        // todo: improve, show info about that route
         $route = Edge::findOrFail($id);
         return view('routes.view', compact('route'));
     }

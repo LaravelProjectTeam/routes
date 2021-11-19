@@ -45,11 +45,6 @@ class AdminTypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
-//        $request->validate([
-//            'type_name' => 'required|unique:road_types,name|max:255',
-//            'hardship' => 'required|integer|between:1,10',
-//        ]);
-
         RoadType::create([
             'name' => $request->get('type_name'),
             'hardship_level' => $request->get('hardship'),
@@ -91,15 +86,10 @@ class AdminTypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, $id)
     {
-//        $request->validate([
-//            'type_name' => 'required|unique:road_types,name|max:255',
-//            'hardship' => 'required|integer|between:1,10',
-//        ]);
-
-        $type = RoadType::findOrFail($id);
-        $type->name = $request->get('type_name');
-        $type->hardship_level = $request->get('hardship');
-        $type->save();
+        RoadType::findOrFail($id)->update([
+            'name' => $request->get('type_name'),
+            'hardship_level' => $request->get('hardship')
+        ]);
 
         return redirect()->route('admin.road_types.index');
     }

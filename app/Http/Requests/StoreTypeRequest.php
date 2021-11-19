@@ -26,7 +26,7 @@ class StoreTypeRequest extends FormRequest
     {
         return [
             'type_name'=>'required|unique:road_types,name|max:255',
-            'hardship'=>'required|integer|between:1,10'
+            'hardship'=>'required|integer|min:1|max:10'
         ];
     }
 

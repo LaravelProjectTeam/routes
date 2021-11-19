@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTownRequest;
+use App\Http\Requests\UpdateTownRequest;
 use App\Models\Edge;
 use App\Models\Node;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,7 +30,7 @@ class AdminTownController extends Controller
         // todo: Rename Node to Town
 
 //        $towns = Node::all();
-        $towns = Node::paginate(3);
+        $towns = Node::paginate(5);
 
         return view('admin.towns.index', compact('towns'));
     }
@@ -46,17 +48,13 @@ class AdminTownController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreTownRequest $request
      * @return Application|Factory|View
      */
-    public function store(Request $request)
+    public function store(StoreTownRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:nodes|max:255',
-        ]);
-
         Node::create([
-            'name' => $validated['name'],
+            'name' => $request->get('name'),
         ]);
 
         $towns = Node::all();
@@ -70,7 +68,7 @@ class AdminTownController extends Controller
      * @param  int  $id
      * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id)
     {
         $town = Node::findOrFail($id);
 
@@ -93,18 +91,14 @@ class AdminTownController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
+     * @param UpdateTownRequest $request
+     * @param int $id
      * @return Application|Factory|View
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTownRequest $request, int $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:nodes|max:255',
-        ]);
-
         Node::where('id', $id)->update([
-            'name' => $validated['name'],
+            'name' => $request->get('name'),
         ]);
 
         $towns = Node::all();

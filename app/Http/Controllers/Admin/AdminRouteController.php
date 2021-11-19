@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateRouteRequest;
 use App\Models\Edge;
 use App\Models\Node;
 use App\Models\RoadType;
@@ -57,6 +58,7 @@ class AdminRouteController extends Controller
             session(['swapped' => false]);
         }
 
+//        todo: use custom request validation
         $validated = $request->validate([
             'from_node_id' => 'required|unique_with:edges,to_node_id|not_in:'. $request['to_node_id'],
             'to_node_id' => 'required|unique_with:edges,from_node_id|not_in:' . $request['from_node_id'],
@@ -79,8 +81,7 @@ class AdminRouteController extends Controller
             "type_id" => $validated['road_type']
         ]);
 
-//        dd($edge);
-//        dd($request);
+//        dd($edge, $request);
 
         return redirect()->route('admin.routes.index');
     }
@@ -118,24 +119,17 @@ class AdminRouteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateRouteRequest $request
      * @param  int  $id
      * @return RedirectResponse
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateRouteRequest $request, int $id)
     {
 //        dd($request, $id);
-
-        $validated = $request->validate([
-            'max_speed' => 'required|integer|between:0,500',
-            'distance_in_km' => 'required|integer',
-            'road_type' => 'required|integer',
-        ]);
-
         Edge::where('id', '=', $id)->update([
-            "distance_in_km" => $validated['distance_in_km'],
-            "max_speed" => $validated['max_speed'],
-            "type_id" => $validated['road_type']
+            "distance_in_km" => $request->get('distance_in_km'),
+            "max_speed" => $request->get('max_speed'),
+            "type_id" => $request->get('road_type'),
         ]);
 
         return redirect()->route('admin.routes.index');

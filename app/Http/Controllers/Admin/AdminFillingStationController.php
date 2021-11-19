@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateFillingStationRequest;
 use App\Models\Edge;
 use App\Models\FillingStation;
 use App\Models\Fuel;
@@ -10,6 +11,7 @@ use App\Models\Node;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -23,7 +25,6 @@ class AdminFillingStationController extends Controller
     public function index()
     {
         // todo: Rename Node to Town
-//        $filling_stations = FillingStation::with('edge')->get();
         $filling_stations = FillingStation::with('edge')->paginate(5);
 
         return view('admin.filling_stations.index', compact('filling_stations'));
@@ -38,38 +39,30 @@ class AdminFillingStationController extends Controller
     {
         $direct_routes = Edge::with('to', 'from', 'roadType', 'fillingStations.fuels')->get();
         $fuels = Fuel::all();
+
         return view('admin.filling_stations.create', compact('direct_routes', 'fuels'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Application|Factory|View
+     * @param CreateFillingStationRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateFillingStationRequest $request)
     {
-        // todo: check shortest path algo when fuels null
-        $validated = $request->validate([
-            'name' => 'required|unique:nodes|max:255',
-            'edge_id' => 'required|numeric',
-            'fuels' => 'array'
-        ]);
-
         $filling_station = FillingStation::create([
-            'name' => $validated['name'],
-            'edge_id' => $validated['edge_id'],
+            'name' => $request->get('name'),
+            'edge_id' => $request->get('edge_id'),
         ]);
 
-        if ($validated['fuels'] ?? false) {
+        if ($request->get('fuels')) {
             $filling_station->fuels()->sync(
-                $validated['fuels']
+                $request->get('fuels')
             );
         }
 
-        $filling_stations = FillingStation::all();
-
-        return view('admin.filling_stations.index', compact('filling_stations'));
+        return redirect()->route('admin.filling_stations.index');
     }
 
     /**
@@ -104,7 +97,7 @@ class AdminFillingStationController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Application|Factory|View
+     * @return RedirectResponse
      */
     public function update(Request $request, int $id)
     {
@@ -125,22 +118,19 @@ class AdminFillingStationController extends Controller
             );
         }
 
-        $filling_stations = FillingStation::all();
-
-        return view('admin.filling_stations.index', compact('filling_stations'));
+        return redirect()->route('admin.filling_stations.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Application|Factory|View
+     * @return RedirectResponse
      */
     public function destroy(int $id)
     {
         FillingStation::destroy($id);
-        $filling_stations = FillingStation::all();
 
-        return view('admin.filling_stations.index', compact('filling_stations'));
+        return redirect()->route('admin.filling_stations.index');
     }
 }

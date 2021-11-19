@@ -12,26 +12,11 @@ class AdminDashboardController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'admin']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
     public function index()
     {
         return view('admin.index');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return Renderable
-     */
-    public function adminView()
-    {
-        return view('admin-view');
     }
 }

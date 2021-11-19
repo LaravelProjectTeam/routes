@@ -22,7 +22,7 @@ class AdminFuelController extends Controller
     {
         $fuels = Fuel::all();
 
-        return view('admin.fuels.index',compact('fuels'));
+        return view('admin.fuels.index', compact('fuels'));
     }
 
     /**
@@ -89,8 +89,9 @@ class AdminFuelController extends Controller
             'fuel_name' => 'required|unique:fuels,name|max:255',
         ]);
 
-        $fuel->name = $request->get('fuel_name');
-        $fuel->save();
+        $fuel->update([
+            'name' => $request->get('fuel_name'),
+        ]);
 
         return redirect()->route('admin.fuels.index');
     }

@@ -22,12 +22,12 @@ class UpdateTypeRequest extends FormRequest
      *
      * @return array
      */
- public function rules()
+    public function rules()
     {
         return [
-            'type_name' => 'required|unique:road_types,name|max:255',
-            'hardship' => 'required|integer|between:1,10',
-            // 'type_name'=>'required|unique:App\Models\Type,name'.$this->name->id, - Problem
+//            'type_name' => 'required|unique:road_types,name|max:255', , - Problem, todo: allow same name
+            'type_name' => 'required|max:255',
+            'hardship' => 'required|integer|min:1|max:10',
         ];
     }
 
