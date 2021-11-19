@@ -26,11 +26,11 @@
                 @endforeach
             </tbody>
         </table>
-        <span>
-            <div class="d-flex justify-content-center">
-                {{ $towns->links() }}
-            </div>
-        </span>
+
+        <div class="mb-5">
+            {{ $towns->links() }}
+        </div>
+
 {{--        todo: move to css file--}}
         <style type="text/css">
             .w-5{

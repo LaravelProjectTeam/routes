@@ -36,20 +36,20 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="mb-5">
+            {{ $towns->links() }}
+        </div>
+
         <div class="has-text-centered">
             <a class="button is-primary is-small" href="{{ route('admin.towns.create') }}">Създай</a>
             <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
         </div>
-        <span>
-            <div class="d-flex justify-content-center">
-                {{ $towns->links() }}
-            </div>
-        </span>
 {{--        todo: move in css file--}}
-        <style type="text/css">
-            .w-5{
-                display: none;
-            }
-        </style>
+{{--        <style type="text/css">--}}
+{{--            .w-5{--}}
+{{--                display: none;--}}
+{{--            }--}}
+{{--        </style>--}}
     </div>
 @endsection

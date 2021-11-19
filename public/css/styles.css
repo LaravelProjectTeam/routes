@@ -34,3 +34,8 @@
     cursor: auto;
     text-decoration: none;
 }
+
+.custom-list {
+    margin-left: 0em !important;
+    margin-top: 0em !important;
+}

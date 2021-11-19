@@ -57,14 +57,14 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="mb-5">
+            {{ $users->links() }}
+        </div>
+
         <div class="has-text-centered">
             <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
         </div>
-        <span>
-            <div class="d-flex justify-content-center">
-                {{ $users->links() }}
-            </div>
-        </span>
 
 {{--        todo: move in css--}}
         <style type="text/css">

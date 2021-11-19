@@ -47,16 +47,15 @@
             </tbody>
         </table>
 
+        <div class="mb-5">
+            {{ $filling_stations->links() }}
+        </div>
+
         <div class="has-text-centered">
             <a class="button is-primary is-small " href="{{ route('admin.filling_stations.create') }}">Създай</a>
             <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
         </div>
 
-        <span>
-            <div class="d-flex justify-content-center">
-                {{ $filling_stations->links() }}
-            </div>
-        </span>
 
 {{--        todo: move to css file--}}
         <style type="text/css">
