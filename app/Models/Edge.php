@@ -19,18 +19,13 @@ class Edge extends Model
         'distance_in_km'
     ];
 
-    public function getMinutesNeededAttribute() {
-        // 1# s = v.t => 2# t = s/v
-        // formula: #2 + hardship_level / 10
-
+    public function getMinutesNeededAttribute()
+    {
         $road_type = RoadType::findOrFail($this->type_id);
 
-        //(1 to 5) * 2; 5 to 10 * 1.75
-        $hardship_modifier = $road_type->hardship_level <= 5 ?
-            ($road_type->hardship_level * 2) :
-            ($road_type->hardship_level * 1.75);
+        $base_minutes_needed = ($this->distance_in_km / $this->max_speed) * 60;
 
-        return ($this->distance_in_km / $this->max_speed) * 60 + $hardship_modifier;
+        return ($base_minutes_needed * $road_type->hardship_level) / 50 + $base_minutes_needed;
     }
 
     public function fillingStations()
