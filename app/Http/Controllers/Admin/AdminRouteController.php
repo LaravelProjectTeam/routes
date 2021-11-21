@@ -120,7 +120,6 @@ class AdminRouteController extends Controller
      */
     public function update(UpdateRouteRequest $request, int $id)
     {
-//        dd($request, $id);
         Road::where('id', '=', $id)->update([
             "distance_in_km" => $request->get('distance_in_km'),
             "max_speed_in_km_per_hour" => $request->get('max_speed_in_km_per_hour'),

@@ -69,7 +69,7 @@
                     <div class="select is-primary is-small">
                         <select id="from" name="from" class="has-text-centered">
                             @foreach($towns as $town)
-                                <option value="{{ $town->name }}" {{ ($from ?? '') === $town->name ? 'selected' : '' }}>
+                                <option value="{{ $town->name }}" {{ (session('from') ?? '') === $town->name ? 'selected' : '' }}>
                                     {{ $town->name }}
                                 </option>
                             @endforeach
@@ -84,7 +84,7 @@
                     <div class="select is-primary is-small">
                         <select id="to" name="to" class="has-text-centered">
                             @foreach($towns as $town)
-                                <option value="{{ $town->name }}" {{ ($to ?? '') === $town->name ? 'selected' : '' }}>
+                                <option value="{{ $town->name }}" {{ (session('to') ?? '') === $town->name ? 'selected' : '' }}>
                                     {{ $town->name }}
                                 </option>
                             @endforeach
@@ -98,16 +98,23 @@
             </div>
         </form>
 
-        <div class="mt-3 has-text-centered">
-            {{ $message ?? '' }}
+        <div class="mt-5 has-text-centered">
+            <hr>
+
+            {{ session('message') ?? '' }}
         </div>
 
-        <div class="mt-3 has-text-centered">
-            @foreach($fullRouteInformation ?? [] as $directRouteGasStations)
-                @foreach($directRouteGasStations ?? [] as $gasStation)
-                    <div class="mt-0">{{ $gasStation ?? '' }}</div>
+        @if(session('fullRouteInformation'))
+            <div class="mt-3 has-text-centered">
+                <hr>
+
+                @foreach(session('fullRouteInformation') as $directRouteGasStations)
+                    @foreach($directRouteGasStations ?? [] as $gasStation)
+                        <div class="mt-0">{{ $gasStation ?? '' }}</div>
+                    @endforeach
                 @endforeach
-            @endforeach
-        </div>
+            </div>
+        @endif
+
     </div>
 @endsection
