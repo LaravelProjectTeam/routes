@@ -26,5 +26,11 @@ storage/logs/*
 
 bootstrap/cache/services.php
 
+scripts/deployment-script.sh
 Dockerfile
 docker-compose.yml
+
+db
+data
+.github/
+server/archive/
