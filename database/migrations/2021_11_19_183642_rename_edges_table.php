@@ -15,6 +15,9 @@ class RenameEdgesTable extends Migration
     {
         Schema::table('edges', function (Blueprint $table) {
             $table->renameColumn('from_node_id', 'from_town_id');
+        });
+
+        Schema::table('edges', function (Blueprint $table) {
             $table->renameColumn('to_node_id', 'to_town_id');
         });
 

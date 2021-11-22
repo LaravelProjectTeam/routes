@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Support\Collection;
-use SendGrid;
-use SendGrid\Mail\Mail;
 use Taniko\Dijkstra\Graph;
 use UnexpectedValueException;
 
@@ -13,16 +11,22 @@ class RouteService
     private $allStationsOnAllRoads;
     private $fullRouteInformation;
     private $message;
+    private $graph;
+    private $total_cost;
 
     public function __construct()
     {
         $this->allStationsOnAllRoads = [];
         $this->fullRouteInformation = null;
         $this->message = null;
+        $this->graph = null;
+        $this->total_cost = 0;
     }
 
     public function getShortestPath(string $from, string $to, Collection $roads, Graph $graph): array
     {
+        $this->graph = $graph;
+
         $this->message = 'За да стигнете от ' . $from . ' до ' . $to;
         if ($from === $to) {
             $this->message .= ' са нужни ' . '0 минути.';
@@ -46,12 +50,12 @@ class RouteService
                 $this->allStationsOnAllRoads[$key][] = $fillingStationInfo;
             }
 
-            $graph->add($road->from->name, $road->to->name, $road->minutes_needed);
+            $this->graph->add($road->from->name, $road->to->name, $road->minutes_needed);
         }
 
         try {
             // get the shortest path from and to
-            $route = $graph->search($from, $to);
+            $route = $this->graph->search($from, $to);
 
             // generate valid paths in the formats:
             // fromto
@@ -74,14 +78,24 @@ class RouteService
 
             $this->fullRouteInformation = array_intersect_key($this->allStationsOnAllRoads, $paths);
 
-            $cost = $graph->cost($route);
-            $this->message .= ' са нужни '. $cost . ' минути.' . PHP_EOL . 'Най-краткият маршрут е ' . join(', ', $route) . '.';
+            $this->total_cost = $this->graph->cost($route);
+            $this->message .= ' са нужни '. $this->total_cost . ' минути.' . PHP_EOL . 'Най-краткият маршрут е ' . join(', ', $route) . '.';
         } catch (UnexpectedValueException $e) {
 //                $message = $e->getMessage();
             $this->message = 'Няма наличен път между ' . $from . ' и ' . $to . '.';
         }
 
         return [$this->message, $this->fullRouteInformation];
+    }
+
+    public function getGraph()
+    {
+        return $this->graph;
+    }
+
+    public function getTotalCost()
+    {
+        return $this->total_cost;
     }
 
     private function buildFuelsMessage(array $fuels): string
