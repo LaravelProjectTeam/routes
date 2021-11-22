@@ -28,8 +28,8 @@
                         <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
                         <td>{{ $route->minutes_needed }}</td>
                         <td>{{ $route->type->name }}</td>
-                        <td>{{ $route->created_at }}</td>
-                        <td>{{ $route->updated_at }}</td>
+                        <td>{{ isset($route->created_at) ? $route->created_at->format('d.m.Y, H:i') : 'Няма информация.' }}</td>
+                        <td>{{ isset($route->updated_at) ? $route->updated_at->format('d.m.Y, H:i') : 'Няма информация.' }}</td>
 {{--                        <td><a class="button is-warning is-small" href="{{ route('routes.edit', $route->id) }}">Редактирай [ADMIN]</a></td>--}}
 {{--                        <td>--}}
 {{--                            <form action="{{ route('routes.destroy', $route->id) }}" method="post">--}}
@@ -85,8 +85,13 @@
             </div>
         </form>
 
-        <div class="mt-2 ml-2">
+        <div class="mt-3 ml-2">
             {{ $message ?? '' }}
+        </div>
+        <div class="mt-3 ml-2">
+            @foreach($fullRouteInformation ?? [] as $fullDirectRouteInfo)
+                <div class="mt-0">{{ $fullDirectRouteInfo ?? '' }}</div>
+            @endforeach
         </div>
     </div>
 @endsection

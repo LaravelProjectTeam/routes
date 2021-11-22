@@ -14,7 +14,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('authentication.register');
+        // return view('authentication.register');
+
+        $users = User::all();
+        return view('administration.index', compact('users'));
     }
 
     /**
@@ -24,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('authentication.register');    
+        return view('authentication.register');
     }
 
     /**
@@ -35,8 +38,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $users = User::all();
-        return view('home.index', compact('users'));
+        $user = new User;
+        $user->create(['name' => $request->username, 'email' => $request->email, 'password'=>$request->password]);
+        return redirect()->route('home.index');
     }
 
     /**
@@ -58,7 +62,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('administration.edit');
     }
 
     /**
@@ -70,7 +74,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        User::where('id', '=', $user['id'])->update(['admin' => $request->get('admin')]);
+
+        $users = User::all();
+        return view('administration.index', compact('users'));
     }
 
     /**
@@ -81,6 +88,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }

@@ -11,10 +11,12 @@
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.3",
         "sendgrid/sendgrid": "^7.10",
         "taniko/dijkstra": "^1.1"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
@@ -35,6 +37,10 @@
         }
     },
     "scripts": {
+        "post-install-cmd": [
+            "php artisan clear-compiled",
+            "chmod -R 777 public/"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
