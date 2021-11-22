@@ -176,7 +176,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ContactServiceProvider::class,
 
-        Felixkiss\UniqueWithValidator\ServiceProvider::class,
     ],
 
     /*

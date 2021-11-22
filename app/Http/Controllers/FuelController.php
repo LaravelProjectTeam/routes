@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fuel;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class FuelController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -26,7 +21,7 @@ class FuelController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -36,8 +31,8 @@ class FuelController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return RedirectResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -49,8 +44,8 @@ class FuelController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Fuel $fuel
-     * @return void
+     * @param  \App\Models\Fuel  $fuel
+     * @return \Illuminate\Http\Response
      */
     public function show(Fuel $fuel)
     {
@@ -60,8 +55,8 @@ class FuelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Fuel $fuel
-     * @return Application|Factory|View
+     * @param  \App\Models\Fuel  $fuel
+     * @return \Illuminate\Http\Response
      */
     public function edit(Fuel $fuel)
     {
@@ -71,9 +66,9 @@ class FuelController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Fuel $fuel
-     * @return RedirectResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Fuel  $fuel
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Fuel $fuel)
     {
@@ -85,8 +80,8 @@ class FuelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Fuel $fuel
-     * @return RedirectResponse
+     * @param  \App\Models\Fuel  $fuel
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Fuel $fuel)
     {

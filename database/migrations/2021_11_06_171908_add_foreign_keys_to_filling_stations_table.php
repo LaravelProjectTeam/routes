@@ -14,8 +14,8 @@ class AddForeignKeysToFillingStationsTable extends Migration
     public function up()
     {
         Schema::table('filling_stations', function (Blueprint $table) {
-            $table->unsignedBigInteger('road_id');
-            $table->foreign('road_id')
+            $table->unsignedBigInteger('edge_id');
+            $table->foreign('edge_id')
                 ->references('id')
                 ->on('edges')
                 ->onDelete('cascade');
@@ -30,8 +30,8 @@ class AddForeignKeysToFillingStationsTable extends Migration
     public function down()
     {
         Schema::table('filling_stations', function (Blueprint $table) {
-            $table->dropForeign('filling_stations_road_id_foreign');
-            $table->dropColumn('road_id');
+            $table->dropForeign('filling_stations_edge_id_foreign');
+            $table->dropColumn('edge_id');
         });
     }
 }

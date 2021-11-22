@@ -17,28 +17,18 @@ class FuelSeeder extends Seeder
     {
         DB::table('fuels')->insert([
             'name' => "бензин",
-            'updated_at' => Carbon::now(),
-            'created_at' => Carbon::now(),
         ]);
         DB::table('fuels')->insert([
             'name' => "дизел",
-            'updated_at' => Carbon::now(),
-            'created_at' => Carbon::now(),
         ]);
         DB::table('fuels')->insert([
             'name' => "биодизел",
-            'updated_at' => Carbon::now(),
-            'created_at' => Carbon::now(),
         ]);
         DB::table('fuels')->insert([
             'name' => "пропан",
-            'updated_at' => Carbon::now(),
-            'created_at' => Carbon::now(),
         ]);
         DB::table('fuels')->insert([
             'name' => "електрически",
-            'updated_at' => Carbon::now(),
-            'created_at' => Carbon::now(),
         ]);
     }
 }

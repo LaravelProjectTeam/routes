@@ -11,9 +11,7 @@ class Fuel extends Model
 
     public $timestamps = true;
 
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = ['name'];
 
     public function fillingStations()
     {

@@ -11,14 +11,11 @@ class FillingStation extends Model
 
     public $timestamps = true;
 
-    protected $fillable = [
-        'name',
-        'road_id'
-    ];
+    protected $fillable = ['name'];
 
-    public function road()
+    public function edge()
     {
-        return $this->belongsTo(Road::class, 'road_id');
+        return $this->belongsTo(Edge::class, 'edge_id');
     }
 
     public function fuels()

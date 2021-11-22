@@ -13,7 +13,7 @@ class CreateTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('road_types', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->unsignedInteger('hardship_level');
@@ -28,6 +28,6 @@ class CreateTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('road_types');
+        Schema::dropIfExists('types');
     }
 }

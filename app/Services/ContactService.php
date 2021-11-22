@@ -16,11 +16,10 @@ class ContactService
         $this->mail = $mail;
     }
 
-    public function sendEmail($from_email, $from_name, $to_email, $to_name, $reply_to, $subject, $message)
+    public function sendEmail($from_email, $from_name, $to_email, $to_name, $subject, $message)
     {
         $this->mail->setFrom($from_email, $from_name);
         $this->mail->setSubject($subject);
-        $this->mail->setReplyTo($reply_to);
         $this->mail->addTo($to_email, $to_name);
         $this->mail->addContent("text/plain", $message);
 
