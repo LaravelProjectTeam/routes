@@ -7,17 +7,24 @@
        <div class="columns is-mobile is-centered">
            <div class="column is-half">
                <h1>Редактирай град</h1>
+
+               @if ($errors->any())
+                   <div class="alert alert-danger">
+                       <ul>
+                           @foreach ($errors->all() as $error)
+                               <li>{{ $error }}</li>
+                           @endforeach
+                       </ul>
+                   </div>
+               @endif
+
                <form action="{{ route('towns.update', $town->id) }}" method="post">
                    @csrf
                    @method('put')
 
                    <div class="form-group">
                        <label class="label" for="name">Име</label>
-                       <input class="input is-primary is-small @error('name') is-danger @enderror"
-                              id="name" name="name" type="text" value="{{ $town->name }}">
-                       @error('name')
-                            <p class="help is-danger">{{ $message }}</p>
-                       @enderror
+                       <input class="input is-primary is-small" id="name" name="name" type="text" value="{{ $town->name }}">
                    </div>
 
                    <div class="buttons mt-2">

@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Str;
 
+// Use MySQL locally, and PostgreSQL everywhere else
+$db_connection = env('APP_ENV') === 'local' ? 'mysql' : 'pgsql';
+
 return [
 
     /*
@@ -15,7 +18,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', $db_connection),
 
     /*
     |--------------------------------------------------------------------------
@@ -48,8 +51,8 @@ return [
 //            'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge-mysql'),
-            'username' => env('DB_USERNAME', 'forge-mysql'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
@@ -77,8 +80,8 @@ return [
 //            'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'forge-sqlsrv'),
-            'username' => env('DB_USERNAME', 'forge-sqlsrv'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',

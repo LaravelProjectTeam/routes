@@ -27,8 +27,8 @@
                     <td>#{{ $route->to->id }} - {{ $route->to->name }}</td>
                     <td>{{ $route->minutes_needed }}</td>
                     <td>{{ $route->type->name }}</td>
-                    <td>{{ $route->created_at->format('d.m.Y, H:i') }}</td>
-                    <td>{{ $route->updated_at->format('d.m.Y, H:i') }}</td>
+                    <td>{{ $route->created_at }}</td>
+                    <td>{{ $route->updated_at }}</td>
                     <td><a class="button is-warning is-small" href="{{ route('routes.edit', $route->id) }}">Редактирай [ADMIN]</a></td>
                     <td>
                         <form action="{{ route('routes.destroy', $route->id) }}" method="post">

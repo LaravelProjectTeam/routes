@@ -11,7 +11,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -48,12 +47,18 @@ class TownController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|unique:nodes|max:255',
         ]);
 
 //        todo: translate errors in bulgarian
+        if ($validator->fails()) {
+            return redirect('towns/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
+        $validated = $validator->validated();
         Node::create([
             'name' => $validated['name'],
         ]);
@@ -95,10 +100,18 @@ class TownController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:nodes|max:255',
         ]);
 
+//        todo: translate errors in bulgarian
+        if ($validator->fails()) {
+            return redirect('towns/' . $id .'/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validated = $validator->validated();
         Node::where('id', $id)->update([
             'name' => $validated['name'],
         ]);

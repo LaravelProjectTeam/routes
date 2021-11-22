@@ -1,77 +1,82 @@
-FROM php:8-apache
+FROM php:8-fpm as build-stage
 
-WORKDIR /var/www/html
+#ARG PORT
 
-# install the necessary packages
-RUN apt-get update -y && apt-get install -y \
-    curl \
-    nano \
-    npm \
-    g++ \
-    git \
-    zip \
-    vim \
-    sudo \
-    unzip \
-    nodejs \
-    libpq-dev \
-    libicu-dev \
-    libbz2-dev \
+# Copy composer.lock and composer.json
+COPY composer.lock composer.json /var/www/
+
+# Set working directory
+WORKDIR /var/www
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
     libzip-dev \
+    libpq-dev \
     libpng-dev \
-    libjpeg-dev \
-    libmcrypt-dev \
-    libreadline-dev \
+    libonig-dev \
+    libjpeg62-turbo-dev \
     libfreetype6-dev \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql \
-    && docker-php-ext-install mysqli pdo_mysql \
-    && docker-php-ext-enable mysqli
-
-RUN docker-php-ext-install \
+    locales \
     zip \
-    bz2 \
-    intl \
-    iconv \
-    bcmath \
-    opcache \
-    calendar
+    nginx \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl \
+    sudo
 
-# copy the config file over
-#COPY /server/apache/ports.conf /etc/apache2/ports.conf
-COPY /server/apache/vhost.conf /etc/apache2/sites-available/laravel.conf
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
-#COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+# Install extensions
+#RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-install mbstring zip exif pcntl
 
-# install composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
 
-# use custom configuration and disable built-in one
-#RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-RUN a2enmod rewrite
-RUN a2ensite laravel.conf
-RUN a2dissite 000-default.conf
+# temp disabled
+RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
+RUN docker-php-ext-install gd
 
-# copy over the project files
-COPY . /var/www/html
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# change ownership of the files
+# install pdo, pgsql
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo_pgsql pgsql
+
+# Add user for laravel application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
+
+# Copy existing application directory contents
+COPY . /var/www
+
+# Copy existing application directory permissions
+COPY --chown=www:www . /var/www
 RUN chown -R www-data:www-data /var/www
 
-RUN cd /var/www/html && npm instal && composer install
+#RUN useradd -m www && echo "www:www" | chpasswd && adduser www sudo
+RUN adduser www sudo
 
-#RUN cd /var/www/html && php artisan migrate:fresh --seed
+# Change current user to www
+USER www
 
-#RUN chown -R www-data:www-data /var/www/html
-#RUN chgrp -R www-data storage bootstrap/cache
-#RUN chmod -R ug+rwx storage bootstrap/cache
+# Expose port 9000 and start php-fpm server
+#EXPOSE 9000
+ENV PORT=$PORT
 
-#RUN groupadd apache-www-volume -g 1000
-#RUN useradd apache-www-volume -u 1000 -g 1000
+#FROM nginx:alpine
+#COPY --from=build-stage /usr/src/app/_site/ /usr/share/nginx/html
 
-# sudo chmod o+w ./storage/ -R
-#RUN echo "Application Port is: " + "$PORT";
+# 1
+COPY deploy/nginx/conf.d/app.conf /etc/nginx/conf.d/default.conf
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
 
-CMD ["/var/www/html/scripts/start-apache.sh"]
-#CMD [ "/var/www/html/scripts/run-apache2.sh" ]
+# 2
+#CMD ["php-fpm"]
+
+# 3
+#CMD ["nginx", "-g", "daemon off;"]

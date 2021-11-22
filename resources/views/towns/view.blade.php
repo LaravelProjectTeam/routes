@@ -19,8 +19,8 @@
                 <tr>
                     <th>{{ $town->id }}</th>
                     <td>{{ $town->name }}</td>
-                    <td>{{ $town->created_at->format('d.m.Y, H:i') }}</td>
-                    <td>{{ $town->updated_at->format('d.m.Y, H:i') }}</td>
+                    <td>{{ $town->created_at }}</td>
+                    <td>{{ $town->updated_at }}</td>
                     <td><a class="button is-warning is-small" href="{{ route('towns.edit', $town->id) }}">Редактирай [ADMIN]</a></td>
                     <td>
                         <form action="{{ route('towns.destroy', $town->id) }}" method="post">

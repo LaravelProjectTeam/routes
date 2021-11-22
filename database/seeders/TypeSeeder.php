@@ -18,14 +18,17 @@ class TypeSeeder extends Seeder
         DB::table('types')->insert([
             'name' => 'селски',
             'hardship_level' => 4,
+            'created_at' => Carbon::now(),
         ]);
         DB::table('types')->insert([
             'name' => 'магистрален',
             'hardship_level' => 2,
+            'created_at' => Carbon::now(),
         ]);
         DB::table('types')->insert([
             'name' => 'планински',
             'hardship_level' => 6,
+            'created_at' => Carbon::now(),
         ]);
     }
 }
