@@ -20,10 +20,11 @@ class RouteServiceTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         // todo: find an improved technique to refresh the database
         // https://laracasts.com/discuss/channels/testing/refreshdatabase-trait-doesnt-refresh-database?page=1&replyId=507744
         RefreshDatabaseState::$migrated = false;
-        parent::setUp();
     }
 
     public function test_should_calculate_long_route_correctly()
