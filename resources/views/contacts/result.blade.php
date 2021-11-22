@@ -3,7 +3,7 @@
 @section('title', 'Контакти')
 
 @section('content')
-    <div class="container">
+    <div class="container has-text-centered">
         <div class="columns is-mobile is-centered">
             <div class="column is-half">
                 <h1 class="mt-3">Контакти</h1>

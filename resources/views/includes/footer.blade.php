@@ -3,7 +3,7 @@
     <div class="content has-text-centered">
         <p>
             2021. Маршрути.
-            <a href="https://github.com/LaravelProjectTeam/routes/">Open Source System</a>.
+            <a href="https://github.com/LaravelProjectTeam/routes/">Система с отворен код</a>.
         </p>
     </div>
 </footer>

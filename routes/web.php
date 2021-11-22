@@ -1,15 +1,20 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminFillingStationController;
+use App\Http\Controllers\Admin\AdminFuelController;
+use App\Http\Controllers\Admin\AdminRouteController;
+use App\Http\Controllers\Admin\AdminTownController;
+
+use App\Http\Controllers\Admin\AdminTypeController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RouteController;
 use App\Http\Controllers\TownController;
+use App\Http\Controllers\RouteController;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdministrationController;
-use App\Http\Controllers\FuelController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -23,19 +28,28 @@ use App\Http\Controllers\FuelController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::resource('towns', TownController::class);
-Route::resource('routes', RouteController::class);
-Route::resource('contacts', ContactController::class);
-Route::resource('fuels', FuelController::class);
 
-//Route::middleware(['auth'])->prefix('admin')->group(function () {
-Route::prefix('admin')->group(function () {
-    Route::resource('users', UserController::class);
-//Route::resource('admins', AdministrationController::class);
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+
+Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
+Route::post('/contacts/create', [ContactController::class, 'store'])->name('contacts.store');
+
+Route::get('/towns', [TownController::class, 'index'])->name('towns.index');
+Route::get('/towns/{id}/show', [TownController::class, 'show'])->name('towns.show');
+
+Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
+Route::get('/routes/{id}/show', [RouteController::class, 'show'])->name('routes.show');
+Route::post('/routes/search', [RouteController::class, 'search'])->name('routes.search');
+
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
+    Route::get('/index', [AdminDashboardController::class, 'index']);
+    Route::resource('/towns', AdminTownController::class);
+    Route::resource('/fuels', AdminFuelController::class);
+    Route::resource('/road_types', AdminTypeController::class);
+    Route::resource('/routes', AdminRouteController::class);
+    Route::resource('/filling_stations', AdminFillingStationController::class);
+    Route::resource('/users', AdminUserController::class);
 });
 
-Route::post('routes/search', [RouteController::class, 'search'])->name('routes.search');
-
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

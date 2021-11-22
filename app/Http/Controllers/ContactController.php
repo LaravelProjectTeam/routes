@@ -27,16 +27,6 @@ class ContactController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
-    public function index()
-    {
-        return view('contacts.create');
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
@@ -64,6 +54,7 @@ class ContactController extends Controller
 //        todo: translate errors in bulgarian
         $from_name = getenv('SENDGRID_NAME');
         $from_email = getenv('SENDGRID_EMAIL');
+        $to_email = getenv('SENDGRID_EMAIL_RECEIVER');
 
         $modified_message = $this->contactService->buildMessageContactUs(
             $validated['name'],
@@ -75,8 +66,9 @@ class ContactController extends Controller
         $status_code = $this->contactService->sendEmail(
             $from_email,
             $from_name,
-            $from_email,
+            $to_email,
             $from_name,
+            $validated['email'],
             $validated['subject'],
             $modified_message
         );

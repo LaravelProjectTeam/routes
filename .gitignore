@@ -14,16 +14,17 @@ yarn-error.log
 /.idea
 /.vscode
 
-archive/notes.txt
-
 server/archive/
 server/confs/
 server/php/
 db/
+/db/
+
 notes.txt
 
 run/var
-/db/
 /storage/debugbar/
-/server/archive/
 
+data
+composer.lock
+package-lock.json

@@ -13,7 +13,7 @@ RUN apt-get update -y && apt-get install -y \
     sudo \
     unzip \
     nodejs \
-       libonig-dev \
+    libonig-dev \
     libpq-dev \
     libicu-dev \
     libbz2-dev \
