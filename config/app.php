@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'bg',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +174,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ContactServiceProvider::class,
 
+        Felixkiss\UniqueWithValidator\ServiceProvider::class,
     ],
 
     /*

@@ -1,82 +1,74 @@
-FROM php:8-fpm as build-stage
+FROM php:8-apache
 
-#ARG PORT
+WORKDIR /var/www/html
 
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/
+# optional packages:
+#        g++ \
+#        git \
+#        vim \
+#        sudo \
+#        libjpeg-dev \
+#        libmcrypt-dev \
+#        libreadline-dev \
+#        libfreetype6-dev && \
 
-# Set working directory
-WORKDIR /var/www
+RUN apt-get update -y && apt-get install -y \
+        zip \
+        npm \
+        curl \
+        nano \
+        unzip \
+        nodejs \
+        libpq-dev \
+        libicu-dev \
+        libbz2-dev \
+        libzip-dev \
+        libpng-dev && \
+    docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
+    docker-php-ext-install \
+        intl \
+        zip \
+        pdo \
+        pgsql \
+        mysqli \
+        pdo_pgsql \
+        pdo_mysql && \
+    docker-php-ext-enable mysqli && \
+    apt-get clean -y
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libzip-dev \
-    libpq-dev \
-    libpng-dev \
-    libonig-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    nginx \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl \
-    sudo
+# optional packages to install:
+#bz2 \
+#iconv \
+#bcmath \
+#opcache \
+#calendar \
+#libzip-dev && \
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+COPY /server/apache/vhost.conf /etc/apache2/sites-available/laravel.conf
 
-# Install extensions
-#RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-install mbstring zip exif pcntl
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+RUN a2enmod rewrite && \
+    a2ensite laravel.conf && \
+    a2dissite 000-default.conf && \
+    apt-get clean -y
 
-# temp disabled
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
-RUN docker-php-ext-install gd
+COPY . /var/www/html
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN chown -R www-data:www-data /var/www && \
+    cd /var/www/html && \
+    npm install && \
+    composer install --no-dev --no-ansi --optimize-autoloader && \
+    cat .env.deployment > .env && \
+    php artisan storage:link && \
+    apt-get clean -y
 
-# install pdo, pgsql
-RUN docker-php-ext-install pdo
-RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo_pgsql pgsql
+#RUN chown -R www-data:www-data /var/www/html
+#RUN chgrp -R www-data storage bootstrap/cache
+#RUN chmod -R ug+rwx storage bootstrap/cache
 
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+#RUN groupadd apache-www-volume -g 1000
+#RUN useradd apache-www-volume -u 1000 -g 1000
 
-# Copy existing application directory contents
-COPY . /var/www
-
-# Copy existing application directory permissions
-COPY --chown=www:www . /var/www
-RUN chown -R www-data:www-data /var/www
-
-#RUN useradd -m www && echo "www:www" | chpasswd && adduser www sudo
-RUN adduser www sudo
-
-# Change current user to www
-USER www
-
-# Expose port 9000 and start php-fpm server
-#EXPOSE 9000
-ENV PORT=$PORT
-
-#FROM nginx:alpine
-#COPY --from=build-stage /usr/src/app/_site/ /usr/share/nginx/html
-
-# 1
-COPY deploy/nginx/conf.d/app.conf /etc/nginx/conf.d/default.conf
-CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
-
-# 2
-#CMD ["php-fpm"]
-
-# 3
-#CMD ["nginx", "-g", "daemon off;"]
+#CMD [ "/var/www/html/scripts/run-apache2.sh" ]
+CMD ["/var/www/html/scripts/start-apache.sh"]
