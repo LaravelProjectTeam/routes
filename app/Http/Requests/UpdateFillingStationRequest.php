@@ -23,7 +23,6 @@ class UpdateFillingStationRequest extends FormRequest
      */
     public function rules()
     {
-//        todo: add unique except to others
         return [
             'name' => 'required|max:255|unique:filling_stations,name,' . request()->filling_station,
             'fuels' => 'array'

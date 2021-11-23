@@ -4,7 +4,7 @@
         <ul class="pagination-list custom-list">
 
             {{-- Previous Page Link --}}
-{{--            todo: find how to use withoud the need for mt-1--}}
+{{--            todo: find how to use without the need for the mt-1 class --}}
             @if ($paginator->onFirstPage())
                 <li class="mt-1">
                     <a class="button is-small pagination-link" disabled>

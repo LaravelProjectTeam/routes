@@ -45,11 +45,5 @@
             <a class="button is-primary is-small" href="{{ route('admin.towns.create') }}">Създай</a>
             <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
         </div>
-{{--        todo: move in css file--}}
-{{--        <style type="text/css">--}}
-{{--            .w-5{--}}
-{{--                display: none;--}}
-{{--            }--}}
-{{--        </style>--}}
     </div>
 @endsection

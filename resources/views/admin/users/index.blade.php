@@ -65,12 +65,5 @@
         <div class="has-text-centered">
             <a class="button is-info is-small" href="{{ route('admin.index') }}">Назад</a>
         </div>
-
-{{--        todo: move in css--}}
-        <style type="text/css">
-            .w-5{
-                display: none;
-            }
-        </style>
     </div>
 @endsection

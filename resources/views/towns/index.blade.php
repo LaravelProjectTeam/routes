@@ -31,11 +31,5 @@
             {{ $towns->links() }}
         </div>
 
-{{--        todo: move to css file--}}
-        <style type="text/css">
-            .w-5{
-                display: none;
-            }
-        </style>
     </div>
 @endsection

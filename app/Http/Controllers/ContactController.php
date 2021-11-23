@@ -51,7 +51,6 @@ class ContactController extends Controller
             'message' => 'required|max:1000',
         ]);
 
-//        todo: translate errors in bulgarian
         $from_name = getenv('SENDGRID_NAME');
         $from_email = getenv('SENDGRID_EMAIL');
         $to_email = getenv('SENDGRID_EMAIL_RECEIVER');

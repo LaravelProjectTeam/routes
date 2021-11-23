@@ -35,7 +35,12 @@
     text-decoration: none;
 }
 
+.w-5 {
+    display: none;
+}
+
 .custom-list {
     margin-left: 0em !important;
     margin-top: 0em !important;
 }
+

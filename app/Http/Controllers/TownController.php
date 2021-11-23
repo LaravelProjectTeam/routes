@@ -8,8 +8,6 @@ class TownController extends Controller
 {
     public function index()
     {
-        // todo: Rename Town to Town
-//        $towns = Town::all();
         $towns = Town::paginate(5);
 
         return view('towns.index', compact('towns'));
