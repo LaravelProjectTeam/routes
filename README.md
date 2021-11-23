@@ -5,48 +5,20 @@ Project, which by given two endpoints, A and B, returns the shortest path betwee
 See the Laravel Readme in /docs/README.md
 
 ## Requirements
-- XAMPP or PHP version 8, MariaDB - 10.4.x, Apache - 2.4.x, composer 2.1.x
+- XAMPP - PHP version 8, MariaDB - 10.4.x, Apache - 2.4.x, composer 2.1.x
 
-## Docker
-Quickly run the application using Docker.
+## How To Run
+- Clone the project and `cd` into its directory.
+- From `.env.example` create `.env`.
+- Start MySQL/MariaDB server and create the `routes-database` (should be with the same name as the `DB_DATABASE` environment variable - in `.env`)
+- Run the following commands `php artisan key:generate`, `composer install`, `npm install`
+- Migrate the database `php artisan migrate` with and seed with `php artisan db:seed`
+- Start the application with `php artisan serve`
 
-Make sure that the ```DB_HOST``` environment variable is equal to ```db``` in the ```.env``` configuration file.
+## Deployment Strategy
+Deployment is done with Docker and Heroku.
 
-Build the services, start them up and log the output:
-
-```bash
-docker-compose build && docker-compose up -d && docker-compose logs -f 
-```
-
-The application should be available at http://0.0.0.0:8000/ or http://localhost:8000/.
-
-Get access to the container:
-```bash
-docker exec -it laravel-app bash -c "sudo -u root /bin/bash"
-```
-
-Generate application key:
-```bash
-php artisan key:generate
-```
-
-Install dependencies:
-```bash
-composer install
-npm install
-```
-
-Migrate the database:
-```bash
-php artisan migrate
-```
-
-...or migrate with the refresh option and then seed... 
-
-```bash
-php artisan migrate:refresh --force
-php artisan db:seed --force
-```
+The `Dockerfile` in project root and `/scripts/deployment-script.sh` are used for that matter.
 
 ## SendGrid
 The application has email sending functionality (in the Contact Us page - `/contacts/create`).
