@@ -59,7 +59,7 @@ RUN chown -R www-data:www-data /var/www && \
     cd /var/www/html && \
     npm install && \
     composer install --no-dev --no-ansi --optimize-autoloader && \
-    cat .env.deployment > .env && \
+    cat .env.production > .env && \
     php artisan storage:link && \
     apt-get clean -y
 
