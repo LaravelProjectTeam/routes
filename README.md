@@ -10,10 +10,10 @@ See the Laravel Readme in /docs/README.md
 ## How To Run
 - Clone the project and `cd` into its directory.
 - From `.env.example` create `.env`.
-- Start MySQL/MariaDB server and create the `routes-database` (should be with the same name as the `DB_DATABASE` environment variable - in `.env`)
-- Run the following commands `php artisan key:generate`, `composer install`, `npm install`
+- Start MySQL/MariaDB server and create the `routes-database` (should be with the same name as the `DB_DATABASE` environment variable - in `.env`).
+- Run the following commands `php artisan key:generate`, `composer install`, `npm install`.
 - Migrate the database `php artisan migrate` with and seed with `php artisan db:seed`
-- Start the application with `php artisan serve`
+- Start the application with `php artisan serve`.
 
 ## Deployment Strategy
 Deployment is done with Docker and Heroku.
