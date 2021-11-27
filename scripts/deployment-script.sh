@@ -12,4 +12,3 @@ heroku container:release web --app routes-bg
 
 heroku run php artisan migrate --force --app routes-bg
 #heroku run php artisan migrate:fresh --seed --force --app routes-bg
-h
