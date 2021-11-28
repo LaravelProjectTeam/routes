@@ -36,3 +36,6 @@ data
 server/archive/
 
 database/database.sqlite
+
+.env
+.env.example
