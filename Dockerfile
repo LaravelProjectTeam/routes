@@ -56,10 +56,11 @@ RUN a2enmod rewrite && \
 COPY . /var/www/html
 
 RUN chown -R www-data:www-data /var/www && \
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
+    sed -i -e "s/expose_php = On/expose_php = Off/" "$PHP_INI_DIR/php.ini" && \
     cd /var/www/html && \
     npm install && \
     composer install --no-dev --no-ansi --optimize-autoloader && \
-    cat .env.production > .env && \
     php artisan storage:link && \
     apt-get clean -y
 
@@ -67,8 +68,4 @@ RUN chown -R www-data:www-data /var/www && \
 #RUN chgrp -R www-data storage bootstrap/cache
 #RUN chmod -R ug+rwx storage bootstrap/cache
 
-#RUN groupadd apache-www-volume -g 1000
-#RUN useradd apache-www-volume -u 1000 -g 1000
-
-#CMD [ "/var/www/html/scripts/run-apache2.sh" ]
 CMD ["/var/www/html/scripts/start-apache.sh"]
