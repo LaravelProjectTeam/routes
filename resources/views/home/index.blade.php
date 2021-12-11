@@ -20,8 +20,8 @@
         </section>
 
 {{--        'https://routesbg.blob.core.windows.net/routesbg-container/splash-screen.png'--}}
-{{--        <img src="https://i.redd.it/uoprbjfqqyp31.png" alt="splash-screen">--}}
-        <img src="{{ asset('storage/images/splash-screen.png') }}" alt="splash-screen">
+{{--        <img src="{{ asset('storage/images/splash-screen.png') }}" alt="splash-screen">--}}
+        <img src="{{ asset('storage/images/splash-screen.jpg') }}" alt="splash-screen">
     </div>
 @endsection
 
