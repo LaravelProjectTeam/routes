@@ -16,7 +16,7 @@
         "laravel/ui": "^3.3",
         "nesbot/carbon": "^2.54",
         "pelmered/fake-car": "^1.7",
-        "sendgrid/sendgrid": "^7.10",
+        "sendgrid/sendgrid": "^8.1",
         "taniko/dijkstra": "^1.1"
     },
     "require-dev": {
